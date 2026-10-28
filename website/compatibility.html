@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Media &amp; Receiver Compatibility — AirPlayr</title>
+  <link rel="icon" type="image/png" href="assets/brand-mark.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="navbar-wrapper">
+    <header class="navbar navbar-two-row" id="main-navbar">
+      <div class="navbar-primary">
+        <a class="brand" href="index.html" aria-label="AirPlayr home">
+          <img src="assets/brand-mark.png" alt="AirPlayr icon" />
+          <span>AirPlay<span class="brand-accent">r</span></span>
+          <span class="version-pill">v1.6.0</span>
+        </a>
+        <div class="nav-cta">
+          <a class="btn btn-sm btn-subtle" href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a class="btn btn-sm btn-primary platform-download-btn" href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span class="platform-download-text">Download for Mac</span>
+          </a>
+          <button class="nav-toggle-btn" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>More</span>
+          </button>
+        </div>
+
+        <!-- Hamburger Dropdown Menu -->
+        <div class="nav-menu-dropdown" id="nav-menu-dropdown" role="menu">
+          <div class="nav-menu-header">Applications &amp; Documentation</div>
+          <a class="nav-menu-item" href="web-player.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Web Player</strong>
+              <span>Client-side browser player</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="compatibility.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Docs &amp; Compatibility</strong>
+              <span>Supported codecs &amp; network matrix</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="changelog.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Changelog</strong>
+              <span>Release notes v1.3.0 → v1.6.0</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="security.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Privacy &amp; Security</strong>
+              <span>100% offline &amp; sandbox protection</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="build.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Build Guide</strong>
+              <span>Compiling &amp; FFmpeg tooling</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="license.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>MIT License</strong>
+              <span>Open-source attribution</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="navbar-secondary" id="navbar-secondary">
+        <nav class="nav-links" aria-label="Page Sections">
+          <a href="index.html#performance">Instant Play</a>
+          <a href="index.html#features">Features</a>
+          <a href="index.html#compatibility">Compatibility</a>
+          <a href="index.html#platforms">Platforms</a>
+          <a href="index.html#preview">Interface</a>
+          <a href="index.html#download">Downloads</a>
+        </nav>
+      </div>
+    </header>
+  </div>
+
+  <main class="container">
+    <section class="page-hero">
+      <div class="breadcrumb"><a href="index.html">← Back to AirPlayr</a> / <span>Compatibility</span></div>
+      <h1>Media, Codec, Platform &amp; Receiver Compatibility</h1>
+      <p>AirPlayr v1.6.0 supports macOS, Windows, Linux, iOS/iPadOS, Android, and Web—combining hardware decoders with zero-re-encode 1080p/4K fMP4 HLS passthrough and a sandboxed LGPL FFmpeg 9.0.2 remux bridge.</p>
+    </section>
+
+    <div class="doc-section">
+      <h2>Supported Video Containers &amp; Codecs</h2>
+      <div class="table-wrapper">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Container</th>
+              <th class="highlight-col">H.264 (AVC)</th>
+              <th class="highlight-col">HEVC (H.265)</th>
+              <th class="highlight-col">AV1</th>
+              <th>Delivery Pipeline</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>MP4 (<code>.mp4</code>)</strong></td>
+              <td class="highlight-col"><span class="check">✓</span> Supported</td>
+              <td class="highlight-col"><span class="check">✓</span> Supported</td>
+              <td class="highlight-col"><span class="check">✓</span> Hardware Decode</td>
+              <td>Direct playback or Zero-Re-Encode 1080p/4K VOD HLS (including <code>hev1</code> → <code>hvc1</code> tag normalization)</td>
+            </tr>
+            <tr>
+              <td><strong>Matroska (<code>.mkv</code>)</strong></td>
+              <td class="highlight-col"><span class="check">✓</span> Supported</td>
+              <td class="highlight-col"><span class="check">✓</span> Supported</td>
+              <td class="highlight-col"><span class="check">✓</span> Hardware Decode</td>
+              <td>On-demand 6-second section remux via bundled FFmpeg + Zero-Re-Encode fMP4 HLS or VideoToolbox</td>
+            </tr>
+            <tr>
+              <td><strong>QuickTime (<code>.mov</code>)</strong></td>
+              <td class="highlight-col"><span class="check">✓</span> Supported</td>
+              <td class="highlight-col"><span class="check">✓</span> Supported</td>
+              <td class="highlight-col"><span class="check">✓</span> Hardware Decode</td>
+              <td>Direct playback or Zero-Re-Encode 1080p/4K VOD HLS</td>
+            </tr>
+            <tr>
+              <td><strong>iTunes Video (<code>.m4v</code>)</strong></td>
+              <td class="highlight-col"><span class="check">✓</span> Supported</td>
+              <td class="highlight-col"><span class="check">✓</span> Supported</td>
+              <td class="highlight-col"><span class="check">✓</span> Hardware Decode</td>
+              <td>Direct playback or Zero-Re-Encode 1080p/4K VOD HLS</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="doc-section">
+      <h2>Wireless Receivers &amp; Protocols</h2>
+      <div class="steps-grid">
+        <div class="doc-panel" style="margin-bottom: 0;">
+          <h3>Apple AirPlay &amp; AirPlay 2</h3>
+          <p style="color: var(--text-secondary); font-size: 0.94rem;">Uses Apple’s native <code>AVRoutePickerView</code> for Apple TV, HomePod, and AirPlay 2 smart TVs. Automatically switches to a full-duration Zero-Re-Encode 1080p/4K VOD HLS stream when a receiver rejects the source container or codec tag.</p>
+        </div>
+        <div class="doc-panel" style="margin-bottom: 0;">
+          <h3>Google Chromecast</h3>
+          <p style="color: var(--text-secondary); font-size: 0.94rem;">Discovers Chromecast receivers on your LAN via Bonjour (<code>_googlecast._tcp</code>) and controls playback over CastV2 TLS/Protobuf on port <code>8009</code> (<code>LAUNCH</code>, <code>LOAD</code>, <code>PLAY</code>, <code>PAUSE</code>, <code>SEEK</code>, <code>STOP</code>).</p>
+        </div>
+        <div class="doc-panel" style="margin-bottom: 0;">
+          <h3>Miracast / DLNA Renderers</h3>
+          <p style="color: var(--text-secondary); font-size: 0.94rem;">Automatic UDP SSDP multicast discovery (<code>239.255.255.250:1900</code>) + UPnP <code>AVTransport:1</code> XML parsing and SOAP control, manual IP/port connection, and one-click Wireless Display shortcut.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-section">
+      <h2>Audio, Subtitles &amp; Multi-Platform Support</h2>
+      <div class="doc-panel">
+        <ul class="doc-list">
+          <li><strong>Standalone Audio Formats:</strong> Native playback and wireless audio routing for <code>WAV</code>, <code>AAC</code>, <code>M4A</code>, <code>MP3</code>, <code>AIFF</code>, <code>CAF</code>, and <code>FLAC</code> with embedded cover artwork display.</li>
+          <li><strong>Multi-Language Audio Tracks:</strong> Switch between embedded audio tracks (<code>AAC</code>, <code>AC3</code>, <code>EAC3</code>, <code>MP3</code>, <code>FLAC</code>, <code>Opus</code>, <code>Vorbis</code>, <code>ALAC</code>, <code>PCM</code>) with persisted preferred audio language in <code>UserDefaults</code>.</li>
+          <li><strong>Subtitles &amp; Captions:</strong> Auto-loads matching <code>&lt;movie&gt;.srt</code> / <code>.ass</code> / <code>.ssa</code> files, extracts embedded MKV/MP4 subtitle tracks, supports live <code>±0.25s</code> sync offset, and offers opt-in OpenSubtitles search.</li>
+          <li><strong>Apple Ecosystem Focus:</strong> Built natively for macOS and iOS/iPadOS, plus client-side in-browser streaming via the <a href="web-player.html">Web Player</a> (experimental Windows/Linux/Android builds are hosted on the <code>alpha</code> branch).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-section">
+      <h2>Wireless Streaming Standards: AirPlay, Chromecast &amp; Miracast / DLNA</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 18px;">
+        AirPlayr implements native, zero-cloud wireless protocols for all three primary living room receiver standards across every client platform:
+      </p>
+      <div class="table-wrapper" style="margin-bottom: 28px;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th class="highlight-col">AirPlay (Apple TV &amp; TVs)</th>
+              <th>Chromecast (Google TV)</th>
+              <th>Miracast &amp; DLNA (Smart TVs)</th>
+              <th>Hardware Acceleration &amp; Sleep Guard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>macOS</strong></td>
+              <td class="highlight-col"><span class="check">✓</span> Native AirPlay 2 (4K/1080p fMP4 HLS)</td>
+              <td><span class="check">✓</span> CastV2 TLS :8009 with live subtitles</td>
+              <td><span class="check">✓</span> Auto-SSDP UDP Multicast + UPnP SOAP</td>
+              <td>VideoToolbox hardware decode + macOS Sleep Guard</td>
+            </tr>
+            <tr>
+              <td><strong>iOS &amp; iPadOS</strong></td>
+              <td class="highlight-col"><span class="check">✓</span> Native AVRoutePickerView (AirPlay 2)</td>
+              <td><span class="check">✓</span> Cast network stream forwarder</td>
+              <td><span class="check">✓</span> UPnP / DLNA local TV discovery</td>
+              <td>Hardware VideoToolbox + idleTimerDisabled guard</td>
+            </tr>
+            <tr>
+              <td><strong>Web Player</strong></td>
+              <td class="highlight-col"><span class="check">✓</span> Safari WebKit AirPlay picker</td>
+              <td><span class="check">✓</span> Chrome &amp; Edge Remote Playback API</td>
+              <td><span class="check">✓</span> Network stream receiver bridge</td>
+              <td>Hardware-accelerated MSE + HTML5 Screen Wake Lock</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="doc-section" id="request-for-testing">
+      <h2>Request for Community Device &amp; TV Testing (Input Clients &amp; Output Receivers)</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 18px;">
+        Because wireless streaming spans dozens of OS configurations and smart TV firmware stacks, we actively welcome community test reports! Submit your setup using our structured GitHub Issue Form.
+      </p>
+      <div style="margin-bottom: 24px;">
+        <a class="btn btn-primary" href="https://github.com/sarthak7gupta/AirPlayr/issues/new?template=device_testing_report.yml" target="_blank" rel="noopener">
+          Submit a Device / TV Test Report on GitHub →
+        </a>
+      </div>
+
+      <h3 style="margin-bottom: 12px;">1. Input Devices — AirPlayr Client Platforms</h3>
+      <div class="table-wrapper" style="margin-bottom: 28px;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Target Hardware / Form Factor</th>
+              <th>Automated Suite Status</th>
+              <th>Real-Device / Community Testing Needed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>macOS</strong></td>
+              <td>Apple Silicon (M1–M5) &amp; Intel Macs</td>
+              <td class="highlight-col"><span class="check">✓</span> 67/67 Tests Passing</td>
+              <td>Multi-NIC Wi-Fi + Ethernet routing, hardware AV1 on M3/M4/M5, AirPods spatial/remote handoff</td>
+            </tr>
+            <tr>
+              <td><strong>Windows 10 / 11</strong></td>
+              <td>x64 &amp; ARM64 PCs</td>
+              <td class="highlight-col"><span class="check">✓</span> 10/10 Unit Tests Passing</td>
+              <td>Windows Defender Firewall LAN prompts, <code>Win+K</code> Miracast sink pairing, HiDPI scaling</td>
+            </tr>
+            <tr>
+              <td><strong>Linux</strong></td>
+              <td>Ubuntu, Fedora, Arch, Steam Deck</td>
+              <td class="highlight-col"><span class="check">✓</span> 10/10 Unit Tests Passing</td>
+              <td>PipeWire / PulseAudio device handoff, Wayland vs. X11 fullscreen, <code>ufw</code> multicast SSDP rules</td>
+            </tr>
+            <tr>
+              <td><strong>iOS &amp; iPadOS</strong></td>
+              <td>iPhone, iPad &amp; Stage Manager</td>
+              <td class="highlight-col"><span class="check">✓</span> 6/6 Simulator Tests Passing</td>
+              <td>Physical AirPlay 2 route picker, background audio continuity, USB-C external display stage</td>
+            </tr>
+            <tr>
+              <td><strong>Android</strong></td>
+              <td>Phones &amp; Tablets (API 28+)</td>
+              <td class="highlight-col"><span class="check">✓</span> 6/6 JVM Tests Passing</td>
+              <td>Background playback continuity, LAN SSDP multicast lock, device battery optimizations</td>
+            </tr>
+            <tr>
+              <td><strong>Web Player</strong></td>
+              <td>Safari, Chrome, Edge, Firefox (<code>web-player.html</code>)</td>
+              <td class="highlight-col"><span class="check">✓</span> Verified in Browser</td>
+              <td><code>RemotePlayback</code> API prompt behavior across desktop/mobile browsers &amp; HEVC/AV1 MSE support</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-bottom: 12px;">2. Output Devices — Wireless TVs, Dongles &amp; Audio Receivers</h3>
+      <div class="table-wrapper">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Protocol</th>
+              <th>Receiver Brand / Device Family</th>
+              <th>What to Test &amp; Report</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>AirPlay 2 (Video)</strong></td>
+              <td>Apple TV 4K / HD, LG webOS, Samsung Tizen, Sony Bravia, Vizio, Roku</td>
+              <td>Zero-re-encode 1080p/4K fMP4 HLS passthrough, <code>hev1</code> → <code>hvc1</code> tag normalization, WebVTT caption track switching, rapid timeline scrubbing</td>
+            </tr>
+            <tr>
+              <td><strong>AirPlay 2 (Audio)</strong></td>
+              <td>HomePod / HomePod mini, Sonos, Denon / Marantz, Bose</td>
+              <td>Lossless FLAC / ALAC / WAV streaming, metadata &amp; cover artwork display, multi-room sync</td>
+            </tr>
+            <tr>
+              <td><strong>Google Cast (CastV2)</strong></td>
+              <td>Chromecast with Google TV (4K/HD), Chromecast Ultra/Gen 3, Sony/TCL/Hisense Android TV, Nvidia Shield</td>
+              <td><code>_googlecast._tcp</code> mDNS discovery, TLS port <code>8009</code> <code>LAUNCH</code> / <code>LOAD</code>, subtitle burn-in toggle, <code>SEEK</code> accuracy</td>
+            </tr>
+            <tr>
+              <td><strong>DLNA / UPnP (<code>AVTransport</code>)</strong></td>
+              <td>LG webOS, Samsung Smart TV, Panasonic Viera, Philips, Xbox Media Player, Kodi / Jellyfin</td>
+              <td>Automatic UDP SSDP multicast discovery (<code>239.255.255.250:1900</code>), XML <code>controlURL</code> extraction, <code>SetAVTransportURI</code> + <code>Play</code> / <code>Seek</code> SOAP actions</td>
+            </tr>
+            <tr>
+              <td><strong>Miracast / Wireless Display</strong></td>
+              <td>Windows Wireless Display Adapter, Roku, Fire TV, Smart TVs</td>
+              <td>OS display extension handoff + hardware-decoded playback performance</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div><strong>AirPlayr v1.7.0</strong> · Released under the <a href="license.html">MIT License</a>.</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="compatibility.html">Compatibility</a>
+        <a href="security.html">Security</a>
+        <a href="build.html">Build &amp; FFmpeg</a>
+        <a href="license.html">License</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

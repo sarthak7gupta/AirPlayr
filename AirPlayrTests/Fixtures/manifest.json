@@ -1,0 +1,576 @@
+{
+  "fixtures": [
+    {
+      "file": "Audio/Tone.aac",
+      "bytes": 27322,
+      "sha256": "57fe29d3fac504e543a8ccfc9d9d6129ab2771d676d3680af38ca599d9f37b0b",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "codec_tag_string": "[0][0][0][0]",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "format_name": "aac",
+          "duration": "2.989114"
+        }
+      }
+    },
+    {
+      "file": "Audio/Tone.aiff",
+      "bytes": 288054,
+      "sha256": "1988679aec752b1792b4aefb60e4695d49b3504db5b4b64f0a8292671f527e99",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "pcm_s16be",
+            "codec_type": "audio",
+            "codec_tag_string": "[0][0][0][0]",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "format_name": "aiff",
+          "duration": "3.000000"
+        }
+      }
+    },
+    {
+      "file": "Audio/Tone.caf",
+      "bytes": 288129,
+      "sha256": "784ba0027266193955c54ba95de7964dd34d415982fbefa12847d134b83cb512",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "pcm_s16le",
+            "codec_type": "audio",
+            "codec_tag_string": "lpcm",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "format_name": "caf",
+          "duration": "3.000000",
+          "tags": {}
+        }
+      }
+    },
+    {
+      "file": "Audio/Tone.flac",
+      "bytes": 59168,
+      "sha256": "a57468c721552ae402f64548538a08072c347605bb09c2ed95ac27489a50334a",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "flac",
+            "codec_type": "audio",
+            "codec_tag_string": "[0][0][0][0]",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "format_name": "flac",
+          "duration": "3.000000",
+          "tags": {}
+        }
+      }
+    },
+    {
+      "file": "Audio/Tone.m4a",
+      "bytes": 27702,
+      "sha256": "f7c10cd48f75d7cf421c1ad0a0435021ef474500962a7645a8c44a7b3f283ed8",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "3.000000",
+          "tags": {
+            "major_brand": "M4A "
+          }
+        }
+      }
+    },
+    {
+      "file": "Audio/Tone.mp3",
+      "bytes": 24428,
+      "sha256": "280b08b54200c2ec460e6f0eb3d027105361fc1a1a48dd956c2ba9f7e2e3e7ef",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "codec_type": "audio",
+            "codec_tag_string": "[0][0][0][0]",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "format_name": "mp3",
+          "duration": "3.000000",
+          "tags": {}
+        }
+      }
+    },
+    {
+      "file": "Audio/Tone.wav",
+      "bytes": 288078,
+      "sha256": "78855eeb8cb42eb057fce26e9b5846767b52ed3d961c6929af11c090a96ef1fd",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "pcm_s16le",
+            "codec_type": "audio",
+            "codec_tag_string": "[1][0][0][0]",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "format_name": "wav",
+          "duration": "3.000000",
+          "tags": {}
+        }
+      }
+    },
+    {
+      "file": "Big Buck Bunny 1080p_av1.mp4",
+      "bytes": 5251990,
+      "sha256": "a52b85edec0edd512e3a7cd14ad1cd265b81fade94119718a28cf138b71e8e8a",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "av1",
+            "codec_type": "video",
+            "codec_tag_string": "av01",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p"
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "10.000000",
+          "tags": {
+            "major_brand": "isom"
+          }
+        }
+      }
+    },
+    {
+      "file": "Big Buck Bunny 1080p_h264.mkv",
+      "bytes": 4816236,
+      "sha256": "89bae40f41ddfaccfaaea2f121481b8f432a205cb0e6e68a8fbe43aff2d371e9",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p"
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "10.000000",
+          "tags": {
+            "major_brand": "isom"
+          }
+        }
+      }
+    },
+    {
+      "file": "Big Buck Bunny 1080p_h264.mp4",
+      "bytes": 5238714,
+      "sha256": "e131ad42621442758a3acb899bfbdfeeab0b40c7e2f7c7e66683f58a09a99aee",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p"
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "10.000000",
+          "tags": {
+            "major_brand": "isom"
+          }
+        }
+      }
+    },
+    {
+      "file": "Big Buck Bunny 1080p_h265.mp4",
+      "bytes": 5251468,
+      "sha256": "8c9460e1791765030aa39dda710d709c69aaddee92eda82f3920b8c2d7b4b613",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "codec_tag_string": "hev1",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p"
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "10.000000",
+          "tags": {
+            "major_brand": "isom"
+          }
+        }
+      }
+    },
+    {
+      "file": "Containers/Bunny-h264.m4v",
+      "bytes": 5238750,
+      "sha256": "2b162f9a00368a758bb274f5202b0443471b0320575e6d064c46e8a1f33a08f4",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p"
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "10.000000",
+          "tags": {
+            "major_brand": "M4V "
+          }
+        }
+      }
+    },
+    {
+      "file": "Containers/Bunny-h264.mkv",
+      "bytes": 5237238,
+      "sha256": "06e1ee92f90a87f192ac430cd3329a266e25e6debd67306b0a680ef4fafa669b",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p"
+          }
+        ],
+        "format": {
+          "format_name": "matroska,webm",
+          "duration": "10.000000",
+          "tags": {
+            "MAJOR_BRAND": "isom"
+          }
+        }
+      }
+    },
+    {
+      "file": "Containers/Bunny-h264.mov",
+      "bytes": 5238697,
+      "sha256": "2a9f821460d51cab4d9e4206b642a72fcedda600ad4ae3518aa9e694c20739ab",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p"
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "10.000000",
+          "tags": {
+            "major_brand": "qt  "
+          }
+        }
+      }
+    },
+    {
+      "file": "Containers/Bunny-h265.m4v",
+      "bytes": 5251487,
+      "sha256": "102488f8d4e9c01605f502729530a9fa0bd177dd91029e1a4d1060db7a123155",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "codec_tag_string": "hev1",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p"
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "10.000000",
+          "tags": {
+            "major_brand": "M4V "
+          }
+        }
+      }
+    },
+    {
+      "file": "Containers/Bunny-h265.mkv",
+      "bytes": 5249590,
+      "sha256": "bdb83aa5d4ee22c1e737607ff9fcf1207867df72b62e0c58d29c13d1eb9a25ec",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p"
+          }
+        ],
+        "format": {
+          "format_name": "matroska,webm",
+          "duration": "10.000000",
+          "tags": {
+            "MAJOR_BRAND": "isom"
+          }
+        }
+      }
+    },
+    {
+      "file": "Containers/Bunny-h265.mov",
+      "bytes": 5251426,
+      "sha256": "a632459ad688107372958527512612d67244971c1c7feb082b8d6faa4bd4af38",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "codec_tag_string": "hev1",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p"
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "10.000000",
+          "tags": {
+            "major_brand": "qt  "
+          }
+        }
+      }
+    },
+    {
+      "file": "Containers/Bunny-hev1-tracks.mp4",
+      "bytes": 5252622,
+      "sha256": "eb0f510a8d92c6e00ec44f712f6f140fe545e381e4c3404c3295966f9844e8b3",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "codec_tag_string": "hev1",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p"
+          },
+          {
+            "codec_name": "mov_text",
+            "codec_type": "subtitle",
+            "codec_tag_string": "tx3g"
+          },
+          {
+            "codec_name": "mov_text",
+            "codec_type": "subtitle",
+            "codec_tag_string": "tx3g"
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "10.000000",
+          "tags": {
+            "major_brand": "isom"
+          }
+        }
+      }
+    },
+    {
+      "file": "HEVC.mkv",
+      "bytes": 301385,
+      "sha256": "2c3506e08091329272dff8c38d67a748c44f42526eeac5db1adc4f1cf31f2241",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "width": 640,
+            "height": 360,
+            "pix_fmt": "yuv420p"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "codec_tag_string": "[0][0][0][0]",
+            "channels": 1
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "codec_tag_string": "[0][0][0][0]",
+            "channels": 1
+          },
+          {
+            "codec_name": "subrip",
+            "codec_type": "subtitle",
+            "codec_tag_string": "[0][0][0][0]"
+          },
+          {
+            "codec_name": "subrip",
+            "codec_type": "subtitle",
+            "codec_tag_string": "[0][0][0][0]"
+          }
+        ],
+        "format": {
+          "format_name": "matroska,webm",
+          "duration": "14.040000",
+          "tags": {
+            "MAJOR_BRAND": "isom"
+          }
+        }
+      }
+    },
+    {
+      "file": "Tracks.mp4",
+      "bytes": 194780,
+      "sha256": "deca63afa886bc3367bdb1cb71b1037efc6747624b5cf6e7fc7a525783c4d753",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "width": 640,
+            "height": 360,
+            "pix_fmt": "yuv420p"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "channels": 1
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "channels": 1
+          },
+          {
+            "codec_name": "mov_text",
+            "codec_type": "subtitle",
+            "codec_tag_string": "tx3g"
+          },
+          {
+            "codec_name": "mov_text",
+            "codec_type": "subtitle",
+            "codec_tag_string": "tx3g"
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "5.000000",
+          "tags": {
+            "major_brand": "isom"
+          }
+        }
+      }
+    },
+    {
+      "file": "Video.mp4",
+      "bytes": 101735,
+      "sha256": "006e0aa6c743ff54db5d8859901dc021b594326f26f10ee3fcd7f7c832360c2b",
+      "media": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "width": 640,
+            "height": 360,
+            "pix_fmt": "yuv420p"
+          }
+        ],
+        "format": {
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "duration": "5.000000",
+          "tags": {
+            "major_brand": "mp42"
+          }
+        }
+      }
+    }
+  ]
+}

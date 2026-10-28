@@ -1,0 +1,82 @@
+version: '3'
+
+vars:
+  BUILD_DIR: '{{.TASKFILE_DIR}}/build/Updated'
+  INSTALL_DIR: /Applications
+  DIST_DIR: '{{.TASKFILE_DIR}}/build/dist'
+  TEAM_ID: ''
+  SIGNING_IDENTITY: '-'
+  VERSION:
+    sh: /usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' AirPlayr/Resources/Info.plist
+  APP: '{{.BUILD_DIR}}/Build/Products/Release/AirPlayr.app'
+  DMG: '{{.DIST_DIR}}/AirPlayr-{{.VERSION}}.dmg'
+
+tasks:
+  default:
+    cmds:
+      - task --list
+  build:
+    desc: Build the universal Release app
+    cmds:
+      - >-
+        xcodebuild -project AirPlayr.xcodeproj -scheme AirPlayr -configuration Release
+        -destination 'platform=macOS' -derivedDataPath {{.BUILD_DIR | shellQuote}}
+        {{if .TEAM_ID}}CODE_SIGN_STYLE=Manual {{printf "DEVELOPMENT_TEAM=%s" .TEAM_ID | shellQuote}}
+        {{printf "CODE_SIGN_IDENTITY=%s" .SIGNING_IDENTITY | shellQuote}} OTHER_CODE_SIGN_FLAGS=--timestamp{{end}} build
+  test:
+    desc: Run XCTest on this Mac (extra xcodebuild arguments follow --)
+    cmds:
+      - xcodebuild -project AirPlayr.xcodeproj -scheme AirPlayr -configuration Debug -destination 'platform=macOS' -derivedDataPath {{.BUILD_DIR | shellQuote}} {{.CLI_ARGS}} test
+  run:
+    desc: Build and open the Release app
+    cmds:
+      - task: build
+      - open {{.APP | shellQuote}}
+  install:
+    desc: Build and install to /Applications (override INSTALL_DIR if needed)
+    cmds:
+      - task: build
+      - task: install-only
+  install-only:
+    desc: Install the already-built app without invoking the compiler
+    cmds:
+      - /bin/bash scripts/install.sh {{.APP | shellQuote}} {{.INSTALL_DIR | shellQuote}}
+  dmg:
+    desc: Build and create a verified drag-to-Applications DMG
+    cmds:
+      - task: build
+      - /bin/bash scripts/create-dmg.sh {{.APP | shellQuote}} {{.DMG | shellQuote}}
+  verify:
+    desc: Verify the Release code signature and macOS 15/26/27 + beta compatibility
+    cmds:
+      - /bin/bash scripts/macos-compat-check.sh {{.APP | shellQuote}}
+      - codesign --verify --deep --strict --verbose=2 {{.APP | shellQuote}}
+  compat-check:
+    desc: Check binary compatibility with the last 3 macOS versions (27, 26, 15) and public beta
+    cmds:
+      - /bin/bash scripts/macos-compat-check.sh {{.APP | shellQuote}}
+  release-check:
+    desc: Check Developer ID, hardened runtime, sandbox, and notarization for public release
+    cmds:
+      - /bin/bash scripts/release-check.sh {{.APP | shellQuote}}
+  media-tools:
+    desc: Rebuild the bundled universal LGPL FFmpeg helpers from pinned source
+    cmds:
+      - /bin/bash scripts/build-media-tools.sh
+  fixtures-check:
+    desc: Verify repository fixture hashes and actual codecs/containers
+    cmds:
+      - uv run --python 3.14 --no-project scripts/fixture-manifest.py
+  project:
+    desc: Regenerate the Xcode project with uv and Python 3.14
+    cmds:
+      - uv run --python 3.14 --no-project scripts/generate_project.py
+  clean:
+    desc: Clean Xcode products in BUILD_DIR
+    cmds:
+      - xcodebuild -project AirPlayr.xcodeproj -scheme AirPlayr -derivedDataPath {{.BUILD_DIR | shellQuote}} clean
+  website:
+    desc: Serve the static marketing site on http://127.0.0.1:8080
+    dir: website
+    cmds:
+      - python3 -m http.server 8080 --bind 127.0.0.1

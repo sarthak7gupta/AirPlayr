@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: "🌐 Launch AirPlayr Client-Side Web Player"
+    url: "https://sarthak7gupta.github.io/AirPlayr/website/web-player.html"
+    about: "Test local browser playback, SRT/ASS subtitle sync, and 64-bit OpenSubtitles hashing with zero file upload."

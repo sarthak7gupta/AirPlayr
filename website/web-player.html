@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>AirPlayr Web Player — 100% Local Browser Playback &amp; Wireless Casting</title>
+  <link rel="icon" type="image/png" href="assets/brand-mark.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .webplayer-shell {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+      margin-top: 24px;
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .webplayer-shell { grid-template-columns: 1fr; }
+    }
+    @media (horizontal-viewport-segments: 2) {
+      .webplayer-shell { grid-template-columns: 1fr 1fr; gap: 28px; }
+    }
+    .video-stage {
+      position: relative;
+      background: #05070c;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .video-stage video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+    }
+    .subtitle-layer {
+      position: absolute;
+      bottom: 42px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 78%;
+      text-align: center;
+      background: rgba(8, 10, 16, 0.82);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.4;
+      pointer-events: none;
+      white-space: pre-line;
+      display: none;
+    }
+    .deck-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .control-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+    }
+    .btn-chip {
+      background: var(--surface-elevated, rgba(255,255,255,0.06));
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-chip:hover { border-color: var(--accent); }
+    .queue-list {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .queue-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 0.86rem;
+      cursor: pointer;
+    }
+    .queue-list li.active {
+      background: rgba(0, 224, 255, 0.14);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .hash-Readout {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 8px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar-wrapper">
+    <header class="navbar navbar-two-row" id="main-navbar">
+      <div class="navbar-primary">
+        <a class="brand" href="index.html" aria-label="AirPlayr home">
+          <img src="assets/brand-mark.png" alt="AirPlayr icon" />
+          <span>AirPlay<span class="brand-accent">r</span></span>
+          <span class="version-pill">v1.6.0</span>
+        </a>
+        <div class="nav-cta">
+          <a class="btn btn-sm btn-subtle" href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a class="btn btn-sm btn-primary platform-download-btn" href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span class="platform-download-text">Download for Mac</span>
+          </a>
+          <button class="nav-toggle-btn" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>More</span>
+          </button>
+        </div>
+
+        <!-- Hamburger Dropdown Menu -->
+        <div class="nav-menu-dropdown" id="nav-menu-dropdown" role="menu">
+          <div class="nav-menu-header">Applications &amp; Documentation</div>
+          <a class="nav-menu-item" href="web-player.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Web Player</strong>
+              <span>Client-side browser player</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="compatibility.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Docs &amp; Compatibility</strong>
+              <span>Supported codecs &amp; network matrix</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="changelog.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Changelog</strong>
+              <span>Release notes v1.3.0 → v1.6.0</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="security.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Privacy &amp; Security</strong>
+              <span>100% offline &amp; sandbox protection</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="build.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Build Guide</strong>
+              <span>Compiling &amp; FFmpeg tooling</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="license.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>MIT License</strong>
+              <span>Open-source attribution</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="navbar-secondary" id="navbar-secondary">
+        <nav class="nav-links" aria-label="Page Sections">
+          <a href="index.html#performance">Instant Play</a>
+          <a href="index.html#features">Features</a>
+          <a href="index.html#compatibility">Compatibility</a>
+          <a href="index.html#platforms">Platforms</a>
+          <a href="index.html#preview">Interface</a>
+          <a href="index.html#download">Downloads</a>
+        </nav>
+      </div>
+    </header>
+  </div>
+
+  <main class="container" style="padding-top: 32px; padding-bottom: 64px;">
+    <div class="section-header" style="text-align:left; margin-bottom:12px;">
+      <span class="eyebrow">100% Client-Side • Zero File Uploads • Zero Accounts</span>
+      <h1 style="margin:6px 0 8px;">AirPlayr Web Player</h1>
+      <p style="color:var(--muted); max-width:780px;">
+        Play local video &amp; audio files directly in your browser using <code>URL.createObjectURL</code>, load external <code>.srt</code> / <code>.ass</code> subtitles with live <code>±0.25s</code> sync offset, compute 64-bit OpenSubtitles movie hashes locally, and cast via Safari AirPlay or W3C Remote Playback.
+      </p>
+    </div>
+
+    <div class="control-bar" style="margin-bottom: 12px;">
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <label class="btn-chip" style="border-color:var(--accent);">
+          + Open Video / Audio Files
+          <input id="mediaInput" type="file" multiple accept="video/*,audio/*,.mkv,.mp4,.m4v,.mov,.webm" style="display:none">
+        </label>
+        <label class="btn-chip">
+          Load External .SRT / .ASS
+          <input id="subInput" type="file" accept=".srt,.ass,.ssa" style="display:none">
+        </label>
+        <button id="castBtn" class="btn-chip" type="button">AirPlay / Remote Cast</button>
+      </div>
+    </div>
+
+    <div id="playerShell" class="webplayer-shell">
+      <div>
+        <div class="video-stage" id="dropZone">
+          <video id="videoEl" controls playsinline x-webkit-airplay="allow"></video>
+          <div id="subtitleOverlay" class="subtitle-layer"></div>
+        </div>
+        <div class="deck-card" style="margin-top:14px;">
+          <div class="control-bar" style="margin-top:0;">
+            <div>
+              <strong id="nowPlayingTitle">Drop or select media files to begin</strong>
+              <div id="hashDisplay" class="hash-Readout">OpenSubtitles 64-bit Hash: —</div>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <button id="prevBtn" class="btn-chip" type="button">⏮ Prev ([)</button>
+              <button id="nextBtn" class="btn-chip" type="button">Next (]) ⏭</button>
+            </div>
+          </div>
+          <div class="control-bar">
+            <div style="display:flex; gap:8px; align-items:center;">
+              <span style="font-size:0.86rem;">Subtitle Sync Offset: <strong id="offsetLabel">+0.00s</strong></span>
+              <button id="subMinusBtn" class="btn-chip" type="button">-0.25s</button>
+              <button id="subResetBtn" class="btn-chip" type="button">Reset</button>
+              <button id="subPlusBtn" class="btn-chip" type="button">+0.25s</button>
+            </div>
+            <span id="wakeLockStatus" style="font-size:0.8rem; color:var(--muted);">Screen Wake Lock: Standby</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="deck-card">
+        <h3 style="margin-top:0;">Up Next Queue (<span id="queueCount">0</span>)</h3>
+        <ul id="queueList" class="queue-list"></ul>
+        <hr style="border:none; border-top:1px solid var(--border); margin:16px 0;">
+        <h4>Browser vs Native Capabilities</h4>
+        <ul style="font-size:0.84rem; color:var(--muted); padding-left:18px; line-height:1.55;">
+          <li><strong>100% Local in Browser:</strong> Zero file upload, multi-file queue, SRT/ASS overlay, live <code>±0.25s</code> sync offset, 64-bit OpenSubtitles hash, Screen Wake Lock, and Safari AirPlay / Chrome Remote Playback.</li>
+          <li><strong>Native App Extras:</strong> Raw UDP multicast SSDP discovery (<code>239.255.255.250:1900</code>), CastV2 TLS port 8009 socket framing, and on-demand <code>fMP4</code> HLS server for MKV/AV1/HEVC remuxing to DLNA TVs.</li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    // Pure JS implementation of AirPlayr SubtitleDocument (SRT/ASS) & 64-bit OpenSubtitles Movie Hash
+    function parseSubtitles(raw) {
+      const normalized = raw.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+      const blocks = normalized.split('\n\n').filter(b => b.trim().length > 0);
+      const cues = [];
+      for (const block of blocks) {
+        const lines = block.split('\n').filter(Boolean);
+        const timingIdx = lines.slice(0, 2).findIndex(l => l.includes('-->'));
+        if (timingIdx === -1) continue;
+        const parts = lines[timingIdx].split('-->');
+        if (parts.length !== 2) continue;
+        const start = parseTimestamp(parts[0]);
+        const end = parseTimestamp((parts[1].trim().split(/\s+/)[0]) || '');
+        if (start === null || end === null || end <= start) continue;
+        const text = lines.slice(timingIdx + 1).join('\n')
+          .replace(/\\N/g, '\n').replace(/\\n/g, '\n')
+          .replace(/\{[^}]*\}/g, '').replace(/<[^>]+>/g, '').trim();
+        if (text) cues.push({ start, end, text });
+      }
+      return cues.sort((a, b) => a.start - b.start);
+    }
+
+    function parseTimestamp(token) {
+      const p = token.trim().replace(',', '.').split(':');
+      if (p.length !== 3) return null;
+      const h = Number(p[0]), m = Number(p[1]), s = Number(p[2]);
+      if (!Number.isFinite(h) || !Number.isFinite(m) || !Number.isFinite(s)) return null;
+      return h * 3600 + m * 60 + s;
+    }
+
+    async function computeOpenSubtitlesHash(file) {
+      const CHUNK = 65536;
+      if (file.size < CHUNK) return null;
+      const mask = 0xFFFFFFFFFFFFFFFFn;
+      let hash = BigInt(file.size) & mask;
+      const headBuf = await file.slice(0, CHUNK).arrayBuffer();
+      const tailBuf = await file.slice(file.size - CHUNK, file.size).arrayBuffer();
+      for (const buf of [headBuf, tailBuf]) {
+        const view = new DataView(buf);
+        for (let i = 0; i < CHUNK; i += 8) {
+          hash = (hash + view.getBigUint64(i, true)) & mask;
+        }
+      }
+      return hash.toString(16).padStart(16, '0');
+    }
+
+    const videoEl = document.getElementById('videoEl');
+    const subtitleOverlay = document.getElementById('subtitleOverlay');
+    const queueList = document.getElementById('queueList');
+    const queueCount = document.getElementById('queueCount');
+    const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+    const hashDisplay = document.getElementById('hashDisplay');
+    const offsetLabel = document.getElementById('offsetLabel');
+    const wakeLockStatus = document.getElementById('wakeLockStatus');
+    const playerShell = document.getElementById('playerShell');
+
+    let queue = [];
+    let queueIndex = 0;
+    let subtitleCues = [];
+    let subtitleOffset = 0.0;
+    let wakeLockSentinel = null;
+
+    function renderQueue() {
+      queueCount.textContent = String(queue.length);
+      queueList.innerHTML = '';
+      queue.forEach((file, idx) => {
+        const li = document.createElement('li');
+        li.className = idx === queueIndex ? 'active' : '';
+        li.textContent = `${idx + 1}. ${file.name}`;
+        li.onclick = () => loadQueueItem(idx);
+        queueList.appendChild(li);
+      });
+    }
+
+    async function loadQueueItem(index) {
+      if (index < 0 || index >= queue.length) return;
+      queueIndex = index;
+      const file = queue[index];
+      videoEl.src = URL.createObjectURL(file);
+      nowPlayingTitle.textContent = file.name;
+      renderQueue();
+      videoEl.play().catch(() => {});
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({ title: file.name, artist: 'AirPlayr Web' });
+      }
+      const hash = await computeOpenSubtitlesHash(file);
+      hashDisplay.textContent = `OpenSubtitles 64-bit Hash: ${hash || 'File < 64 KB'}`;
+    }
+
+    document.getElementById('mediaInput').addEventListener('change', (e) => {
+      const files = Array.from(e.target.files || []);
+      if (!files.length) return;
+      queue = files;
+      loadQueueItem(0);
+    });
+
+    document.getElementById('subInput').addEventListener('change', async (e) => {
+      const file = (e.target.files || [])[0];
+      if (!file) return;
+      const text = await file.text();
+      subtitleCues = parseSubtitles(text);
+      updateSubtitles();
+    });
+
+    function updateSubtitles() {
+      if (!subtitleCues.length) {
+        subtitleOverlay.style.display = 'none';
+        return;
+      }
+      const t = videoEl.currentTime - subtitleOffset;
+      const active = subtitleCues.filter(c => c.start <= t && t < c.end).map(c => c.text).join('\n');
+      if (active) {
+        subtitleOverlay.textContent = active;
+        subtitleOverlay.style.display = 'block';
+      } else {
+        subtitleOverlay.style.display = 'none';
+      }
+    }
+
+    videoEl.addEventListener('timeupdate', updateSubtitles);
+    videoEl.addEventListener('ended', () => {
+      if (queueIndex + 1 < queue.length) loadQueueItem(queueIndex + 1);
+    });
+
+    videoEl.addEventListener('play', async () => {
+      if ('wakeLock' in navigator && !wakeLockSentinel) {
+        try {
+          wakeLockSentinel = await navigator.wakeLock.request('screen');
+          wakeLockStatus.textContent = 'Screen Wake Lock: Active';
+        } catch (_) {}
+      }
+    });
+    videoEl.addEventListener('pause', async () => {
+      if (wakeLockSentinel) {
+        await wakeLockSentinel.release().catch(() => {});
+        wakeLockSentinel = null;
+        wakeLockStatus.textContent = 'Screen Wake Lock: Standby';
+      }
+    });
+
+    function setOffset(val) {
+      subtitleOffset = Math.round(Math.max(-30, Math.min(30, val)) * 100) / 100;
+      offsetLabel.textContent = (subtitleOffset >= 0 ? '+' : '') + subtitleOffset.toFixed(2) + 's';
+      updateSubtitles();
+    }
+
+    document.getElementById('subMinusBtn').onclick = () => setOffset(subtitleOffset - 0.25);
+    document.getElementById('subPlusBtn').onclick = () => setOffset(subtitleOffset + 0.25);
+    document.getElementById('subResetBtn').onclick = () => setOffset(0);
+    document.getElementById('prevBtn').onclick = () => { if (queueIndex > 0) loadQueueItem(queueIndex - 1); };
+    document.getElementById('nextBtn').onclick = () => { if (queueIndex + 1 < queue.length) loadQueueItem(queueIndex + 1); };
+
+    document.getElementById('castBtn').onclick = () => {
+      if (typeof videoEl.webkitShowPlaybackTargetPicker === 'function') {
+        videoEl.webkitShowPlaybackTargetPicker();
+      } else if (videoEl.remote && typeof videoEl.remote.prompt === 'function') {
+        videoEl.remote.prompt().catch(() => alert('Select Cast from your browser menu to stream this tab or video.'));
+      } else {
+        alert('Use Safari for native AirPlay picker or Chrome/Edge Cast menu.');
+      }
+    };
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>

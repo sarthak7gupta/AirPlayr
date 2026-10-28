@@ -1,0 +1,661 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		027EDB1063F5611F1F9419F5 /* AirPlayr/Services/LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FD56538D3D50DA86E7823 /* AirPlayr/Services/LibraryStore.swift */; };
+		150D0DE77DDB7AD721509B7E /* AirPlayrTests/StreamingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF4A2BDC07054E1FAA636DB /* AirPlayrTests/StreamingTests.swift */; };
+		160A859CDACD42FB5C7613C4 /* AirPlayr/Services/Streaming/HLSBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436A14A9F628F60BC4058A1 /* AirPlayr/Services/Streaming/HLSBuffer.swift */; };
+		1A914EBDA1AE424F8AB6CD6B /* AirPlayr/Services/Streaming/StreamTracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F09E50C665F949A90E23D26 /* AirPlayr/Services/Streaming/StreamTracks.swift */; };
+		1ECEA647854BE794015C1169 /* AirPlayr/Resources/PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 96ED5C5789B174A01557791C /* AirPlayr/Resources/PrivacyInfo.xcprivacy */; };
+		20DA600088CEDF3E68FBFCF8 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.mkv in Resources */ = {isa = PBXBuildFile; fileRef = 369CA63B38D325F01F6E42F9 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.mkv */; };
+		2129E71ED98D8FDD83B12794 /* AirPlayrTests/Fixtures/Tracks.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7ACA6F47DF319F91FD564CD1 /* AirPlayrTests/Fixtures/Tracks.mp4 */; };
+		29188A5173A1477D437E3981 /* AirPlayrTests/Fixtures/Containers/Bunny-hev1-tracks.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4659143B86E269CD16FB825A /* AirPlayrTests/Fixtures/Containers/Bunny-hev1-tracks.mp4 */; };
+		2FDB6D205BC065B4DECCBAB9 /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h264.mkv in Resources */ = {isa = PBXBuildFile; fileRef = 7D581A1E4472930BCDB5DAB1 /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h264.mkv */; };
+		34EC2BEDF032DCCB3B24CF7F /* AirPlayr/Services/Streaming/MKVBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A54B06E0DF3EC3BF1AE6D7C /* AirPlayr/Services/Streaming/MKVBridge.swift */; };
+		362B616069ACF7E0D17DF2F6 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.mov in Resources */ = {isa = PBXBuildFile; fileRef = AD7F5582A34D28E4DD406831 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.mov */; };
+		3B128A18C05BDBD08C845DD4 /* AirPlayrTests/PlayerOptionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C10CE45414BDC5532BF511 /* AirPlayrTests/PlayerOptionsTests.swift */; };
+		57E0DAF143B967851F287D72 /* AirPlayr/Services/Subtitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCEF603FB983107026B74C7 /* AirPlayr/Services/Subtitles.swift */; };
+		581EDE80777EF9B20741F33B /* AirPlayr/Resources/AirPlayrIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = F8995BA5891B07E328C60D6B /* AirPlayr/Resources/AirPlayrIcon.icns */; };
+		59FEAD7EF6CDE53F5DC4D3ED /* AirPlayr/Services/PlaybackDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FB0F1C969E9F0FE9C1D50F /* AirPlayr/Services/PlaybackDiagnostics.swift */; };
+		5DBCFAF9D56ACDAFE4EFBC7D /* AirPlayrTests/Fixtures/Containers/Bunny-h264.m4v in Resources */ = {isa = PBXBuildFile; fileRef = D1A48B5911B9BAA907728506 /* AirPlayrTests/Fixtures/Containers/Bunny-h264.m4v */; };
+		5E40043B35376F55501959DB /* AirPlayr/Resources/Branding.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74C42D06DD281C3FC2AD4C50 /* AirPlayr/Resources/Branding.xcassets */; };
+		706EFD1C022EDE73BEC7CF57 /* AirPlayrTests/Fixtures/Audio/Tone.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4AC1F58F4A4A595FD0C4044A /* AirPlayrTests/Fixtures/Audio/Tone.caf */; };
+		75CCEBD827CF70F618CBE899 /* AirPlayr/Services/CompatibleExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C386E167EA36C4BC708ED5 /* AirPlayr/Services/CompatibleExportService.swift */; };
+		809C3FEE3270D0C30F5D90D5 /* AirPlayr/App/AirPlayrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4C3C261A5AD5C77E8B3473 /* AirPlayr/App/AirPlayrApp.swift */; };
+		81A3AFD88EA7EB947E33FFD9 /* AirPlayrTests/Fixtures/Audio/Tone.m4a in Resources */ = {isa = PBXBuildFile; fileRef = AE24E59D17EF0BB7D9189031 /* AirPlayrTests/Fixtures/Audio/Tone.m4a */; };
+		8B2D6C1257FD0FE6B99DB489 /* AirPlayrTests/TrackStreamingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2D53C485455821A363888D /* AirPlayrTests/TrackStreamingTests.swift */; };
+		8E255D0565ED0045BA1F8796 /* AirPlayrTests/AirPlayrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB2E97CBCB75A24948E3B1 /* AirPlayrTests/AirPlayrTests.swift */; };
+		8ED04A9ED696DEFA27387BFB /* AirPlayrTests/FormatMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1076EF596B22988D156E64DC /* AirPlayrTests/FormatMatrixTests.swift */; };
+		8F0A4045C20F8F21808F37F9 /* AirPlayrTests/Fixtures/Audio/Tone.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 119047B5C0B49611103FDA60 /* AirPlayrTests/Fixtures/Audio/Tone.aiff */; };
+		90814B1674503538DF41DFAD /* AirPlayr/Features/MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81578CEE27A1457FC8CC5D44 /* AirPlayr/Features/MainView.swift */; };
+		914EE76583E124E284AED0CF /* AirPlayr/Models/SubtitleAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF6093135815789DF79E3E /* AirPlayr/Models/SubtitleAppearance.swift */; };
+		91A0FFD1868EC38C1F8E8DB8 /* AirPlayrTests/Fixtures/Video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 10516766C954760F41E12C13 /* AirPlayrTests/Fixtures/Video.mp4 */; };
+		942F8C72979FB28DBC3E4860 /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h264.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 836A2626401C8B0C4E58516B /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h264.mp4 */; };
+		95FC75C5952B4519C2830A28 /* AirPlayr/Services/Streaming/AutomaticStreamSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE0C7EAAEA90B55ACA230CC /* AirPlayr/Services/Streaming/AutomaticStreamSession.swift */; };
+		9716C1780F37EFB3D8975C37 /* AirPlayr/Services/SubtitleVideoCompositor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F38468CA42E59DE87795AF6 /* AirPlayr/Services/SubtitleVideoCompositor.swift */; };
+		98A04645ADC261F3139F4457 /* AirPlayrTests/Fixtures/Containers/Bunny-h264.mkv in Resources */ = {isa = PBXBuildFile; fileRef = D16C7A32AE699F31C184D2F3 /* AirPlayrTests/Fixtures/Containers/Bunny-h264.mkv */; };
+		9A83D741684FEFB998EF3FC6 /* AirPlayrTests/MKVBridgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943068B01CEA6729517C088D /* AirPlayrTests/MKVBridgeTests.swift */; };
+		A4803C5A9A12A0D2666853D2 /* AirPlayr/Services/PlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B87689371FE84ADC226E9 /* AirPlayr/Services/PlaybackService.swift */; };
+		AC42CDA8AE284E1FF4D7EABC /* AirPlayrTests/Fixtures/Containers/Bunny-h264.mov in Resources */ = {isa = PBXBuildFile; fileRef = B653F233963482A397BA54E1 /* AirPlayrTests/Fixtures/Containers/Bunny-h264.mov */; };
+		B375DCA32D07A68529ABDEE1 /* AirPlayr/Services/Streaming/VODStreamStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C47C52BF0B21A7BAB92777 /* AirPlayr/Services/Streaming/VODStreamStore.swift */; };
+		B44B3E8DCC826FAD039247ED /* AirPlayrTests/Fixtures/Audio/Tone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 51C9458033ABA4959DD0AED0 /* AirPlayrTests/Fixtures/Audio/Tone.wav */; };
+		BB66527B3C6F0026201C2414 /* AirPlayr/Features/SubtitleAppearanceEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54ED5C796561D8563ED237E /* AirPlayr/Features/SubtitleAppearanceEditor.swift */; };
+		C23A50AB54434CF9F9B0B9B2 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 5E7C0D301EBB0F8138759B20 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.m4v */; };
+		C2F7CC139BFC861881FF1E44 /* AirPlayr/Features/KeyboardControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1513244A352BD67AE9AEC6 /* AirPlayr/Features/KeyboardControls.swift */; };
+		C53B129CBB2A812C0F744646 /* AirPlayr/Services/Streaming/StreamHTTPServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104FA852EE3A035A88DF2DFD /* AirPlayr/Services/Streaming/StreamHTTPServer.swift */; };
+		C5F0294A2B475F13A64206BF /* AirPlayr/Services/Streaming/CastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E952E1C497E007DC8C0451 /* AirPlayr/Services/Streaming/CastService.swift */; };
+		CA0DFEB663F0C0FA19B190F2 /* AirPlayr/Services/SubtitleFolderStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF6DB5E79E4B21C46E4440 /* AirPlayr/Services/SubtitleFolderStore.swift */; };
+		D13297B1EF0A930773264ABF /* AirPlayrTests/Fixtures/Audio/Tone.flac in Resources */ = {isa = PBXBuildFile; fileRef = 499F1DD84C6E5BE66C94A692 /* AirPlayrTests/Fixtures/Audio/Tone.flac */; };
+		D37F23C827402F5EDFACA082 /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_av1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 10936D952DD81CBF2FC0FE3F /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_av1.mp4 */; };
+		E11000000000000000000003 /* platforms/ios/AirPlayrIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11000000000000000000002 /* platforms/ios/AirPlayrIOSApp.swift */; };
+		E11000000000000000000004 /* AirPlayr/Models/Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724E08B1A6126A5D3F68BD64 /* AirPlayr/Models/Media.swift */; };
+		E11000000000000000000005 /* AirPlayr/Models/SubtitleAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DF6093135815789DF79E3E /* AirPlayr/Models/SubtitleAppearance.swift */; };
+		E11000000000000000000006 /* AirPlayr/Services/PlaybackDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8FB0F1C969E9F0FE9C1D50F /* AirPlayr/Services/PlaybackDiagnostics.swift */; };
+		E11000000000000000000007 /* AirPlayr/Services/LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84FD56538D3D50DA86E7823 /* AirPlayr/Services/LibraryStore.swift */; };
+		E11000000000000000000008 /* AirPlayr/Services/Subtitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCEF603FB983107026B74C7 /* AirPlayr/Services/Subtitles.swift */; };
+		E11000000000000000000009 /* AirPlayr/Services/Streaming/HLSBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436A14A9F628F60BC4058A1 /* AirPlayr/Services/Streaming/HLSBuffer.swift */; };
+		E1100000000000000000000A /* AirPlayr/Services/Streaming/StreamHTTPServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104FA852EE3A035A88DF2DFD /* AirPlayr/Services/Streaming/StreamHTTPServer.swift */; };
+		E1100000000000000000000B /* AirPlayr/Services/Streaming/StreamTracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F09E50C665F949A90E23D26 /* AirPlayr/Services/Streaming/StreamTracks.swift */; };
+		E1100000000000000000000C /* AirPlayr/Services/Streaming/CastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E952E1C497E007DC8C0451 /* AirPlayr/Services/Streaming/CastService.swift */; };
+		E4565078E5BFF9798874BD8C /* AirPlayrTests/Fixtures/HEVC.mkv in Resources */ = {isa = PBXBuildFile; fileRef = A20BE370BADD684435CB91C7 /* AirPlayrTests/Fixtures/HEVC.mkv */; };
+		E7A5C689C521F49DB48F1CA7 /* AirPlayr/Models/Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724E08B1A6126A5D3F68BD64 /* AirPlayr/Models/Media.swift */; };
+		F1C01176E6EC9793C72B5480 /* AirPlayrTests/Fixtures/Audio/Tone.aac in Resources */ = {isa = PBXBuildFile; fileRef = 4E4212470AF1E8B28C8D4BA7 /* AirPlayrTests/Fixtures/Audio/Tone.aac */; };
+		F62BECFD4C8B35B6FE75814A /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h265.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 81CBA74C2231BE53DDB58274 /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h265.mp4 */; };
+		F92048CC0C056BB1AA2191ED /* AirPlayrTests/Fixtures/Audio/Tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C5810232FBAB15E70FCAB588 /* AirPlayrTests/Fixtures/Audio/Tone.mp3 */; };
+		FC60C9B1309322B100BCD15E /* AirPlayr/Resources/PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 96ED5C5789B174A01557791C /* AirPlayr/Resources/PrivacyInfo.xcprivacy */; };
+		FC60C9B2309322B100BCD15E /* AirPlayr/Resources/Branding.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74C42D06DD281C3FC2AD4C50 /* AirPlayr/Resources/Branding.xcassets */; };
+		E11000000000000000000013 /* AirPlayr/Resources/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3685E330EC5277A9DD5661C6 /* AirPlayr/Resources/Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D799BAE6088A90139B415FCC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98F54143AB4E86B28C3AFEE0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7D1043473D55BFA90E8530D3;
+			remoteInfo = AirPlayr;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0436A14A9F628F60BC4058A1 /* AirPlayr/Services/Streaming/HLSBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/Streaming/HLSBuffer.swift; sourceTree = SOURCE_ROOT; };
+		0F09E50C665F949A90E23D26 /* AirPlayr/Services/Streaming/StreamTracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/Streaming/StreamTracks.swift; sourceTree = SOURCE_ROOT; };
+		104FA852EE3A035A88DF2DFD /* AirPlayr/Services/Streaming/StreamHTTPServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/Streaming/StreamHTTPServer.swift; sourceTree = SOURCE_ROOT; };
+		10516766C954760F41E12C13 /* AirPlayrTests/Fixtures/Video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirPlayrTests/Fixtures/Video.mp4; sourceTree = SOURCE_ROOT; };
+		1076EF596B22988D156E64DC /* AirPlayrTests/FormatMatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayrTests/FormatMatrixTests.swift; sourceTree = SOURCE_ROOT; };
+		10936D952DD81CBF2FC0FE3F /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_av1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AirPlayrTests/Fixtures/Big Buck Bunny 1080p_av1.mp4"; sourceTree = SOURCE_ROOT; };
+		119047B5C0B49611103FDA60 /* AirPlayrTests/Fixtures/Audio/Tone.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = AirPlayrTests/Fixtures/Audio/Tone.aiff; sourceTree = SOURCE_ROOT; };
+		145C8DAE5C853CB69501FD47 /* AirPlayr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = AirPlayr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		174B87689371FE84ADC226E9 /* AirPlayr/Services/PlaybackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/PlaybackService.swift; sourceTree = SOURCE_ROOT; };
+		2A54B06E0DF3EC3BF1AE6D7C /* AirPlayr/Services/Streaming/MKVBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/Streaming/MKVBridge.swift; sourceTree = SOURCE_ROOT; };
+		2BCEF603FB983107026B74C7 /* AirPlayr/Services/Subtitles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/Subtitles.swift; sourceTree = SOURCE_ROOT; };
+		3685E330EC5277A9DD5661C6 /* AirPlayr/Resources/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AirPlayr/Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		369CA63B38D325F01F6E42F9 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.mkv */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AirPlayrTests/Fixtures/Containers/Bunny-h265.mkv"; sourceTree = SOURCE_ROOT; };
+		4659143B86E269CD16FB825A /* AirPlayrTests/Fixtures/Containers/Bunny-hev1-tracks.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AirPlayrTests/Fixtures/Containers/Bunny-hev1-tracks.mp4"; sourceTree = SOURCE_ROOT; };
+		499F1DD84C6E5BE66C94A692 /* AirPlayrTests/Fixtures/Audio/Tone.flac */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirPlayrTests/Fixtures/Audio/Tone.flac; sourceTree = SOURCE_ROOT; };
+		4AC1F58F4A4A595FD0C4044A /* AirPlayrTests/Fixtures/Audio/Tone.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirPlayrTests/Fixtures/Audio/Tone.caf; sourceTree = SOURCE_ROOT; };
+		4B2D53C485455821A363888D /* AirPlayrTests/TrackStreamingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayrTests/TrackStreamingTests.swift; sourceTree = SOURCE_ROOT; };
+		4C4C3C261A5AD5C77E8B3473 /* AirPlayr/App/AirPlayrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/App/AirPlayrApp.swift; sourceTree = SOURCE_ROOT; };
+		4E4212470AF1E8B28C8D4BA7 /* AirPlayrTests/Fixtures/Audio/Tone.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirPlayrTests/Fixtures/Audio/Tone.aac; sourceTree = SOURCE_ROOT; };
+		51C9458033ABA4959DD0AED0 /* AirPlayrTests/Fixtures/Audio/Tone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = AirPlayrTests/Fixtures/Audio/Tone.wav; sourceTree = SOURCE_ROOT; };
+		5E7C0D301EBB0F8138759B20 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AirPlayrTests/Fixtures/Containers/Bunny-h265.m4v"; sourceTree = SOURCE_ROOT; };
+		5EBF6DB5E79E4B21C46E4440 /* AirPlayr/Services/SubtitleFolderStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/SubtitleFolderStore.swift; sourceTree = SOURCE_ROOT; };
+		724E08B1A6126A5D3F68BD64 /* AirPlayr/Models/Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Models/Media.swift; sourceTree = SOURCE_ROOT; };
+		74C42D06DD281C3FC2AD4C50 /* AirPlayr/Resources/Branding.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AirPlayr/Resources/Branding.xcassets; sourceTree = SOURCE_ROOT; };
+		7ACA6F47DF319F91FD564CD1 /* AirPlayrTests/Fixtures/Tracks.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirPlayrTests/Fixtures/Tracks.mp4; sourceTree = SOURCE_ROOT; };
+		7D581A1E4472930BCDB5DAB1 /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h264.mkv */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h264.mkv"; sourceTree = SOURCE_ROOT; };
+		7F1513244A352BD67AE9AEC6 /* AirPlayr/Features/KeyboardControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Features/KeyboardControls.swift; sourceTree = SOURCE_ROOT; };
+		81578CEE27A1457FC8CC5D44 /* AirPlayr/Features/MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Features/MainView.swift; sourceTree = SOURCE_ROOT; };
+		81CBA74C2231BE53DDB58274 /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h265.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h265.mp4"; sourceTree = SOURCE_ROOT; };
+		836A2626401C8B0C4E58516B /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h264.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h264.mp4"; sourceTree = SOURCE_ROOT; };
+		86928D4FC14B95F0AA463700 /* AirPlayrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = AirPlayrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		943068B01CEA6729517C088D /* AirPlayrTests/MKVBridgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayrTests/MKVBridgeTests.swift; sourceTree = SOURCE_ROOT; };
+		96C47C52BF0B21A7BAB92777 /* AirPlayr/Services/Streaming/VODStreamStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/Streaming/VODStreamStore.swift; sourceTree = SOURCE_ROOT; };
+		96ED5C5789B174A01557791C /* AirPlayr/Resources/PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AirPlayr/Resources/PrivacyInfo.xcprivacy; sourceTree = SOURCE_ROOT; };
+		9F38468CA42E59DE87795AF6 /* AirPlayr/Services/SubtitleVideoCompositor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/SubtitleVideoCompositor.swift; sourceTree = SOURCE_ROOT; };
+		A20BE370BADD684435CB91C7 /* AirPlayrTests/Fixtures/HEVC.mkv */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirPlayrTests/Fixtures/HEVC.mkv; sourceTree = SOURCE_ROOT; };
+		AD7F5582A34D28E4DD406831 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "AirPlayrTests/Fixtures/Containers/Bunny-h265.mov"; sourceTree = SOURCE_ROOT; };
+		AE24E59D17EF0BB7D9189031 /* AirPlayrTests/Fixtures/Audio/Tone.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirPlayrTests/Fixtures/Audio/Tone.m4a; sourceTree = SOURCE_ROOT; };
+		B2C10CE45414BDC5532BF511 /* AirPlayrTests/PlayerOptionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayrTests/PlayerOptionsTests.swift; sourceTree = SOURCE_ROOT; };
+		B653F233963482A397BA54E1 /* AirPlayrTests/Fixtures/Containers/Bunny-h264.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "AirPlayrTests/Fixtures/Containers/Bunny-h264.mov"; sourceTree = SOURCE_ROOT; };
+		BCF4A2BDC07054E1FAA636DB /* AirPlayrTests/StreamingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayrTests/StreamingTests.swift; sourceTree = SOURCE_ROOT; };
+		C1DF6093135815789DF79E3E /* AirPlayr/Models/SubtitleAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Models/SubtitleAppearance.swift; sourceTree = SOURCE_ROOT; };
+		C54ED5C796561D8563ED237E /* AirPlayr/Features/SubtitleAppearanceEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Features/SubtitleAppearanceEditor.swift; sourceTree = SOURCE_ROOT; };
+		C5810232FBAB15E70FCAB588 /* AirPlayrTests/Fixtures/Audio/Tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AirPlayrTests/Fixtures/Audio/Tone.mp3; sourceTree = SOURCE_ROOT; };
+		D16C7A32AE699F31C184D2F3 /* AirPlayrTests/Fixtures/Containers/Bunny-h264.mkv */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AirPlayrTests/Fixtures/Containers/Bunny-h264.mkv"; sourceTree = SOURCE_ROOT; };
+		D1A48B5911B9BAA907728506 /* AirPlayrTests/Fixtures/Containers/Bunny-h264.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AirPlayrTests/Fixtures/Containers/Bunny-h264.m4v"; sourceTree = SOURCE_ROOT; };
+		D9C386E167EA36C4BC708ED5 /* AirPlayr/Services/CompatibleExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/CompatibleExportService.swift; sourceTree = SOURCE_ROOT; };
+		DBCB2E97CBCB75A24948E3B1 /* AirPlayrTests/AirPlayrTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayrTests/AirPlayrTests.swift; sourceTree = SOURCE_ROOT; };
+		E11000000000000000000001 /* AirPlayr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = AirPlayr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E11000000000000000000002 /* platforms/ios/AirPlayrIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = platforms/ios/AirPlayrIOSApp.swift; sourceTree = SOURCE_ROOT; };
+		E8FB0F1C969E9F0FE9C1D50F /* AirPlayr/Services/PlaybackDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/PlaybackDiagnostics.swift; sourceTree = SOURCE_ROOT; };
+		EEE0C7EAAEA90B55ACA230CC /* AirPlayr/Services/Streaming/AutomaticStreamSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/Streaming/AutomaticStreamSession.swift; sourceTree = SOURCE_ROOT; };
+		F1E952E1C497E007DC8C0451 /* AirPlayr/Services/Streaming/CastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/Streaming/CastService.swift; sourceTree = SOURCE_ROOT; };
+		F84FD56538D3D50DA86E7823 /* AirPlayr/Services/LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayr/Services/LibraryStore.swift; sourceTree = SOURCE_ROOT; };
+		F8995BA5891B07E328C60D6B /* AirPlayr/Resources/AirPlayrIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AirPlayr/Resources/AirPlayrIcon.icns; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1E05B446D748B6D8FA50FAFF /* AirPlayr */ = {
+			isa = PBXGroup;
+			children = (
+				4C4C3C261A5AD5C77E8B3473 /* AirPlayr/App/AirPlayrApp.swift */,
+				7F1513244A352BD67AE9AEC6 /* AirPlayr/Features/KeyboardControls.swift */,
+				81578CEE27A1457FC8CC5D44 /* AirPlayr/Features/MainView.swift */,
+				C54ED5C796561D8563ED237E /* AirPlayr/Features/SubtitleAppearanceEditor.swift */,
+				724E08B1A6126A5D3F68BD64 /* AirPlayr/Models/Media.swift */,
+				C1DF6093135815789DF79E3E /* AirPlayr/Models/SubtitleAppearance.swift */,
+				D9C386E167EA36C4BC708ED5 /* AirPlayr/Services/CompatibleExportService.swift */,
+				F84FD56538D3D50DA86E7823 /* AirPlayr/Services/LibraryStore.swift */,
+				E8FB0F1C969E9F0FE9C1D50F /* AirPlayr/Services/PlaybackDiagnostics.swift */,
+				174B87689371FE84ADC226E9 /* AirPlayr/Services/PlaybackService.swift */,
+				EEE0C7EAAEA90B55ACA230CC /* AirPlayr/Services/Streaming/AutomaticStreamSession.swift */,
+				F1E952E1C497E007DC8C0451 /* AirPlayr/Services/Streaming/CastService.swift */,
+				0436A14A9F628F60BC4058A1 /* AirPlayr/Services/Streaming/HLSBuffer.swift */,
+				2A54B06E0DF3EC3BF1AE6D7C /* AirPlayr/Services/Streaming/MKVBridge.swift */,
+				104FA852EE3A035A88DF2DFD /* AirPlayr/Services/Streaming/StreamHTTPServer.swift */,
+				0F09E50C665F949A90E23D26 /* AirPlayr/Services/Streaming/StreamTracks.swift */,
+				96C47C52BF0B21A7BAB92777 /* AirPlayr/Services/Streaming/VODStreamStore.swift */,
+				5EBF6DB5E79E4B21C46E4440 /* AirPlayr/Services/SubtitleFolderStore.swift */,
+				9F38468CA42E59DE87795AF6 /* AirPlayr/Services/SubtitleVideoCompositor.swift */,
+				2BCEF603FB983107026B74C7 /* AirPlayr/Services/Subtitles.swift */,
+			);
+			name = AirPlayr;
+			sourceTree = "<group>";
+		};
+		907899EC3BDEB65C32E91F16 /* AirPlayrTests */ = {
+			isa = PBXGroup;
+			children = (
+				DBCB2E97CBCB75A24948E3B1 /* AirPlayrTests/AirPlayrTests.swift */,
+				1076EF596B22988D156E64DC /* AirPlayrTests/FormatMatrixTests.swift */,
+				943068B01CEA6729517C088D /* AirPlayrTests/MKVBridgeTests.swift */,
+				B2C10CE45414BDC5532BF511 /* AirPlayrTests/PlayerOptionsTests.swift */,
+				BCF4A2BDC07054E1FAA636DB /* AirPlayrTests/StreamingTests.swift */,
+				4B2D53C485455821A363888D /* AirPlayrTests/TrackStreamingTests.swift */,
+			);
+			name = AirPlayrTests;
+			sourceTree = "<group>";
+		};
+		B28B7AF69320201D1CF206EB = {
+			isa = PBXGroup;
+			children = (
+				1E05B446D748B6D8FA50FAFF /* AirPlayr */,
+				907899EC3BDEB65C32E91F16 /* AirPlayrTests */,
+				3685E330EC5277A9DD5661C6 /* AirPlayr/Resources/Assets.xcassets */,
+				74C42D06DD281C3FC2AD4C50 /* AirPlayr/Resources/Branding.xcassets */,
+				E11000000000000000000002 /* platforms/ios/AirPlayrIOSApp.swift */,
+				FBDC4F23F93125BBEEAE800C /* Products */,
+				FC60C9B3309322B100BCD15E /* Recovered References */,
+			);
+			sourceTree = "<group>";
+		};
+		FBDC4F23F93125BBEEAE800C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				145C8DAE5C853CB69501FD47 /* AirPlayr.app */,
+				86928D4FC14B95F0AA463700 /* AirPlayrTests.xctest */,
+				E11000000000000000000001 /* AirPlayr.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FC60C9B3309322B100BCD15E /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				96ED5C5789B174A01557791C /* AirPlayr/Resources/PrivacyInfo.xcprivacy */,
+				F8995BA5891B07E328C60D6B /* AirPlayr/Resources/AirPlayrIcon.icns */,
+				4E4212470AF1E8B28C8D4BA7 /* AirPlayrTests/Fixtures/Audio/Tone.aac */,
+				119047B5C0B49611103FDA60 /* AirPlayrTests/Fixtures/Audio/Tone.aiff */,
+				4AC1F58F4A4A595FD0C4044A /* AirPlayrTests/Fixtures/Audio/Tone.caf */,
+				499F1DD84C6E5BE66C94A692 /* AirPlayrTests/Fixtures/Audio/Tone.flac */,
+				AE24E59D17EF0BB7D9189031 /* AirPlayrTests/Fixtures/Audio/Tone.m4a */,
+				C5810232FBAB15E70FCAB588 /* AirPlayrTests/Fixtures/Audio/Tone.mp3 */,
+				51C9458033ABA4959DD0AED0 /* AirPlayrTests/Fixtures/Audio/Tone.wav */,
+				10936D952DD81CBF2FC0FE3F /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_av1.mp4 */,
+				7D581A1E4472930BCDB5DAB1 /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h264.mkv */,
+				836A2626401C8B0C4E58516B /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h264.mp4 */,
+				81CBA74C2231BE53DDB58274 /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h265.mp4 */,
+				D1A48B5911B9BAA907728506 /* AirPlayrTests/Fixtures/Containers/Bunny-h264.m4v */,
+				D16C7A32AE699F31C184D2F3 /* AirPlayrTests/Fixtures/Containers/Bunny-h264.mkv */,
+				B653F233963482A397BA54E1 /* AirPlayrTests/Fixtures/Containers/Bunny-h264.mov */,
+				5E7C0D301EBB0F8138759B20 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.m4v */,
+				369CA63B38D325F01F6E42F9 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.mkv */,
+				AD7F5582A34D28E4DD406831 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.mov */,
+				4659143B86E269CD16FB825A /* AirPlayrTests/Fixtures/Containers/Bunny-hev1-tracks.mp4 */,
+				A20BE370BADD684435CB91C7 /* AirPlayrTests/Fixtures/HEVC.mkv */,
+				7ACA6F47DF319F91FD564CD1 /* AirPlayrTests/Fixtures/Tracks.mp4 */,
+				10516766C954760F41E12C13 /* AirPlayrTests/Fixtures/Video.mp4 */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04D13FD0AA6F0197CF2C9990 /* AirPlayrTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 543C3B0A949D06459825C125 /* Build configuration list for PBXNativeTarget "AirPlayrTests" */;
+			buildPhases = (
+				3FF9A7D969D53C43BC7513BB /* Sources */,
+				7DED7670B79BEA8B7480B1FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E9FAD0C6CD43534327C0AF90 /* PBXTargetDependency */,
+			);
+			name = AirPlayrTests;
+			productName = AirPlayrTests;
+			productReference = 86928D4FC14B95F0AA463700 /* AirPlayrTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7D1043473D55BFA90E8530D3 /* AirPlayr */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8A8642C6B28662881237D956 /* Build configuration list for PBXNativeTarget "AirPlayr" */;
+			buildPhases = (
+				5E059E93945FE111E7BB2714 /* Sources */,
+				364863F9F2E558B0F50473FC /* Resources */,
+				C474B34B4B784E4B4DD69907 /* Embed and sign MKV helpers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AirPlayr;
+			productName = AirPlayr;
+			productReference = 145C8DAE5C853CB69501FD47 /* AirPlayr.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E11000000000000000000012 /* AirPlayr-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E11000000000000000000011 /* Build configuration list for PBXNativeTarget "AirPlayr-iOS" */;
+			buildPhases = (
+				E1100000000000000000000D /* Sources */,
+				E1100000000000000000000E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AirPlayr-iOS";
+			productName = AirPlayr;
+			productReference = E11000000000000000000001 /* AirPlayr.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		98F54143AB4E86B28C3AFEE0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = 49EA05A46B1A86EA7E413B43 /* Build configuration list for PBXProject "AirPlayr" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B28B7AF69320201D1CF206EB;
+			productRefGroup = FBDC4F23F93125BBEEAE800C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7D1043473D55BFA90E8530D3 /* AirPlayr */,
+				04D13FD0AA6F0197CF2C9990 /* AirPlayrTests */,
+				E11000000000000000000012 /* AirPlayr-iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		364863F9F2E558B0F50473FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ECEA647854BE794015C1169 /* AirPlayr/Resources/PrivacyInfo.xcprivacy in Resources */,
+				581EDE80777EF9B20741F33B /* AirPlayr/Resources/AirPlayrIcon.icns in Resources */,
+				5E40043B35376F55501959DB /* AirPlayr/Resources/Branding.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DED7670B79BEA8B7480B1FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1C01176E6EC9793C72B5480 /* AirPlayrTests/Fixtures/Audio/Tone.aac in Resources */,
+				8F0A4045C20F8F21808F37F9 /* AirPlayrTests/Fixtures/Audio/Tone.aiff in Resources */,
+				706EFD1C022EDE73BEC7CF57 /* AirPlayrTests/Fixtures/Audio/Tone.caf in Resources */,
+				D13297B1EF0A930773264ABF /* AirPlayrTests/Fixtures/Audio/Tone.flac in Resources */,
+				81A3AFD88EA7EB947E33FFD9 /* AirPlayrTests/Fixtures/Audio/Tone.m4a in Resources */,
+				F92048CC0C056BB1AA2191ED /* AirPlayrTests/Fixtures/Audio/Tone.mp3 in Resources */,
+				B44B3E8DCC826FAD039247ED /* AirPlayrTests/Fixtures/Audio/Tone.wav in Resources */,
+				D37F23C827402F5EDFACA082 /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_av1.mp4 in Resources */,
+				2FDB6D205BC065B4DECCBAB9 /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h264.mkv in Resources */,
+				942F8C72979FB28DBC3E4860 /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h264.mp4 in Resources */,
+				F62BECFD4C8B35B6FE75814A /* AirPlayrTests/Fixtures/Big Buck Bunny 1080p_h265.mp4 in Resources */,
+				5DBCFAF9D56ACDAFE4EFBC7D /* AirPlayrTests/Fixtures/Containers/Bunny-h264.m4v in Resources */,
+				98A04645ADC261F3139F4457 /* AirPlayrTests/Fixtures/Containers/Bunny-h264.mkv in Resources */,
+				AC42CDA8AE284E1FF4D7EABC /* AirPlayrTests/Fixtures/Containers/Bunny-h264.mov in Resources */,
+				C23A50AB54434CF9F9B0B9B2 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.m4v in Resources */,
+				20DA600088CEDF3E68FBFCF8 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.mkv in Resources */,
+				362B616069ACF7E0D17DF2F6 /* AirPlayrTests/Fixtures/Containers/Bunny-h265.mov in Resources */,
+				29188A5173A1477D437E3981 /* AirPlayrTests/Fixtures/Containers/Bunny-hev1-tracks.mp4 in Resources */,
+				E4565078E5BFF9798874BD8C /* AirPlayrTests/Fixtures/HEVC.mkv in Resources */,
+				2129E71ED98D8FDD83B12794 /* AirPlayrTests/Fixtures/Tracks.mp4 in Resources */,
+				91A0FFD1868EC38C1F8E8DB8 /* AirPlayrTests/Fixtures/Video.mp4 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1100000000000000000000E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC60C9B1309322B100BCD15E /* AirPlayr/Resources/PrivacyInfo.xcprivacy in Resources */,
+				FC60C9B2309322B100BCD15E /* AirPlayr/Resources/Branding.xcassets in Resources */,
+				E11000000000000000000013 /* AirPlayr/Resources/Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C474B34B4B784E4B4DD69907 /* Embed and sign MKV helpers */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Vendor/FFmpeg/bin/ffmpeg",
+				"$(SRCROOT)/Vendor/FFmpeg/bin/ffprobe",
+				"$(SRCROOT)/scripts/embed-media-tools.sh",
+				"$(SRCROOT)/AirPlayr/Resources/MediaTool.entitlements",
+				"$(SRCROOT)/Vendor/FFmpeg/Licenses/NOTICE.txt",
+				"$(SRCROOT)/Vendor/FFmpeg/Licenses/LICENSE.md",
+				"$(SRCROOT)/Vendor/FFmpeg/Licenses/COPYING.LGPLv2.1",
+			);
+			name = "Embed and sign MKV helpers";
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_FOLDER_PATH)/ffmpeg",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_FOLDER_PATH)/ffprobe",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/FFmpegLicenses/COPYING.LGPLv2.1",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "/bin/bash \"$SRCROOT/scripts/embed-media-tools.sh\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3FF9A7D969D53C43BC7513BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E255D0565ED0045BA1F8796 /* AirPlayrTests/AirPlayrTests.swift in Sources */,
+				8ED04A9ED696DEFA27387BFB /* AirPlayrTests/FormatMatrixTests.swift in Sources */,
+				9A83D741684FEFB998EF3FC6 /* AirPlayrTests/MKVBridgeTests.swift in Sources */,
+				3B128A18C05BDBD08C845DD4 /* AirPlayrTests/PlayerOptionsTests.swift in Sources */,
+				150D0DE77DDB7AD721509B7E /* AirPlayrTests/StreamingTests.swift in Sources */,
+				8B2D6C1257FD0FE6B99DB489 /* AirPlayrTests/TrackStreamingTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E059E93945FE111E7BB2714 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				809C3FEE3270D0C30F5D90D5 /* AirPlayr/App/AirPlayrApp.swift in Sources */,
+				C2F7CC139BFC861881FF1E44 /* AirPlayr/Features/KeyboardControls.swift in Sources */,
+				90814B1674503538DF41DFAD /* AirPlayr/Features/MainView.swift in Sources */,
+				BB66527B3C6F0026201C2414 /* AirPlayr/Features/SubtitleAppearanceEditor.swift in Sources */,
+				E7A5C689C521F49DB48F1CA7 /* AirPlayr/Models/Media.swift in Sources */,
+				914EE76583E124E284AED0CF /* AirPlayr/Models/SubtitleAppearance.swift in Sources */,
+				75CCEBD827CF70F618CBE899 /* AirPlayr/Services/CompatibleExportService.swift in Sources */,
+				027EDB1063F5611F1F9419F5 /* AirPlayr/Services/LibraryStore.swift in Sources */,
+				59FEAD7EF6CDE53F5DC4D3ED /* AirPlayr/Services/PlaybackDiagnostics.swift in Sources */,
+				A4803C5A9A12A0D2666853D2 /* AirPlayr/Services/PlaybackService.swift in Sources */,
+				95FC75C5952B4519C2830A28 /* AirPlayr/Services/Streaming/AutomaticStreamSession.swift in Sources */,
+				C5F0294A2B475F13A64206BF /* AirPlayr/Services/Streaming/CastService.swift in Sources */,
+				160A859CDACD42FB5C7613C4 /* AirPlayr/Services/Streaming/HLSBuffer.swift in Sources */,
+				34EC2BEDF032DCCB3B24CF7F /* AirPlayr/Services/Streaming/MKVBridge.swift in Sources */,
+				C53B129CBB2A812C0F744646 /* AirPlayr/Services/Streaming/StreamHTTPServer.swift in Sources */,
+				1A914EBDA1AE424F8AB6CD6B /* AirPlayr/Services/Streaming/StreamTracks.swift in Sources */,
+				B375DCA32D07A68529ABDEE1 /* AirPlayr/Services/Streaming/VODStreamStore.swift in Sources */,
+				CA0DFEB663F0C0FA19B190F2 /* AirPlayr/Services/SubtitleFolderStore.swift in Sources */,
+				9716C1780F37EFB3D8975C37 /* AirPlayr/Services/SubtitleVideoCompositor.swift in Sources */,
+				57E0DAF143B967851F287D72 /* AirPlayr/Services/Subtitles.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1100000000000000000000D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E11000000000000000000003 /* platforms/ios/AirPlayrIOSApp.swift in Sources */,
+				E11000000000000000000004 /* AirPlayr/Models/Media.swift in Sources */,
+				E11000000000000000000005 /* AirPlayr/Models/SubtitleAppearance.swift in Sources */,
+				E11000000000000000000006 /* AirPlayr/Services/PlaybackDiagnostics.swift in Sources */,
+				E11000000000000000000007 /* AirPlayr/Services/LibraryStore.swift in Sources */,
+				E11000000000000000000008 /* AirPlayr/Services/Subtitles.swift in Sources */,
+				E11000000000000000000009 /* AirPlayr/Services/Streaming/HLSBuffer.swift in Sources */,
+				E1100000000000000000000A /* AirPlayr/Services/Streaming/StreamHTTPServer.swift in Sources */,
+				E1100000000000000000000B /* AirPlayr/Services/Streaming/StreamTracks.swift in Sources */,
+				E1100000000000000000000C /* AirPlayr/Services/Streaming/CastService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E9FAD0C6CD43534327C0AF90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7D1043473D55BFA90E8530D3 /* AirPlayr */;
+			targetProxy = D799BAE6088A90139B415FCC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		49B4940C5F901788C278DD41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AirPlayr/Resources/AirPlayr.entitlements;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_TESTABILITY = NO;
+				INFOPLIST_FILE = AirPlayr/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.airplayr.app;
+				PRODUCT_NAME = AirPlayr;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		5283471FF90C511CFE244FFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		532167A2F4DF305CC7A47840 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.airplayr.tests;
+				PRODUCT_NAME = AirPlayrTests;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AirPlayr.app/Contents/MacOS/AirPlayr";
+			};
+			name = Debug;
+		};
+		613A5B8C1DD03DF932B456E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.airplayr.tests;
+				PRODUCT_NAME = AirPlayrTests;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AirPlayr.app/Contents/MacOS/AirPlayr";
+			};
+			name = Release;
+		};
+		AB52CB08E0FDF02BF6C67C33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E1100000000000000000000F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = RAG6GP8WSP;
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = platforms/ios/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.airplayr.ios;
+				PRODUCT_NAME = AirPlayr;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E11000000000000000000010 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = RAG6GP8WSP;
+				ENABLE_TESTABILITY = NO;
+				INFOPLIST_FILE = platforms/ios/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.airplayr.ios;
+				PRODUCT_NAME = AirPlayr;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = targeted;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EF00B4C26D3BA245CBAB3F00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AirPlayr/Resources/AirPlayr.entitlements;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_TESTABILITY = YES;
+				INFOPLIST_FILE = AirPlayr/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.airplayr.app;
+				PRODUCT_NAME = AirPlayr;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		49EA05A46B1A86EA7E413B43 /* Build configuration list for PBXProject "AirPlayr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB52CB08E0FDF02BF6C67C33 /* Debug */,
+				5283471FF90C511CFE244FFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		543C3B0A949D06459825C125 /* Build configuration list for PBXNativeTarget "AirPlayrTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				532167A2F4DF305CC7A47840 /* Debug */,
+				613A5B8C1DD03DF932B456E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8A8642C6B28662881237D956 /* Build configuration list for PBXNativeTarget "AirPlayr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF00B4C26D3BA245CBAB3F00 /* Debug */,
+				49B4940C5F901788C278DD41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E11000000000000000000011 /* Build configuration list for PBXNativeTarget "AirPlayr-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E1100000000000000000000F /* Debug */,
+				E11000000000000000000010 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 98F54143AB4E86B28C3AFEE0 /* Project object */;
+}

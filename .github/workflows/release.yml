@@ -1,0 +1,54 @@
+name: Automated Release Build (macOS DMG)
+
+on:
+  push:
+    tags:
+      - 'v*'
+  release:
+    types: [ published ]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release Tag (e.g. v1.6.0)'
+        required: true
+        default: 'v1.6.0'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-upload-dmg:
+    name: Build & Upload Universal DMG
+    runs-on: macos-14
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Universal Release App
+        run: |
+          xcodebuild build \
+            -scheme AirPlayr \
+            -configuration Release \
+            -destination 'generic/platform=macOS' \
+            -derivedDataPath build/DerivedData \
+            BUILD_DIR=build/dist \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO
+
+      - name: Package Universal DMG
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          VERSION="${TAG#v}"
+          mkdir -p build/dist
+          codesign --force --deep -s - build/dist/Release/AirPlayr.app
+          ./scripts/create-dmg.sh build/dist/Release/AirPlayr.app "build/dist/AirPlayr-${VERSION}.dmg"
+          cd build/dist
+          shasum -a 256 "AirPlayr-${VERSION}.dmg" > "AirPlayr-${VERSION}.dmg.sha256"
+
+      - name: Upload DMG Assets to Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          VERSION="${TAG#v}"
+          gh release upload "$TAG" "build/dist/AirPlayr-${VERSION}.dmg" "build/dist/AirPlayr-${VERSION}.dmg.sha256" --clobber

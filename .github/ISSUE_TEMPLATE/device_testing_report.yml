@@ -1,0 +1,97 @@
+name: "🧪 Device & TV Compatibility Test Report (Client + Receiver)"
+description: "Report testing results for an Input Client (macOS, Windows, Linux, iOS, Android, Foldable, Web) and/or Output Receiver (AirPlay, Chromecast, Miracast / DLNA TV)."
+title: "[Test Report] <Client Platform/Device> → <TV / Receiver Model>"
+labels: ["testing", "compatibility"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping test **AirPlayr** across real-world client devices and living-room TVs!
+        Fill out the details below for both your **Input Device (AirPlayr Client)** and **Output Device (TV / Receiver)**.
+
+  - type: dropdown
+    id: client_platform
+    attributes:
+      label: "1. Input Device — AirPlayr Client Platform"
+      description: "Which platform were you running AirPlayr on?"
+      options:
+        - "macOS (Apple Silicon — M1 / M2 / M3 / M4 / M5)"
+        - "macOS (Intel x86_64)"
+        - "Windows 10 / 11 (Desktop Engine)"
+        - "Linux (Ubuntu / Fedora / Arch / SteamOS Desktop Engine)"
+        - "iOS / iPadOS (iPhone / iPad)"
+        - "iPhone Fold / Duo or Dual-Screen iOS Mode (Tabletop / Book)"
+        - "Android Phone / Tablet"
+        - "Android Foldable / Dual-Screen (Pixel Fold / Galaxy Z Fold / Surface Duo)"
+        - "Web Player (Safari / Chrome / Edge / Firefox)"
+    validations:
+      required: true
+
+  - type: input
+    id: client_details
+    attributes:
+      label: "Input Client Device Model & OS Version"
+      description: "Exact device model, OS version, and AirPlayr version."
+      placeholder: "e.g., MacBook Pro 14-inch (M4, macOS 26.1) · AirPlayr v1.7.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: receiver_protocol
+    attributes:
+      label: "2. Output Device — Wireless Streaming Protocol"
+      description: "How did you connect to the TV or speaker?"
+      options:
+        - "Apple AirPlay / AirPlay 2"
+        - "Google Chromecast (CastV2 TLS Port 8009)"
+        - "Miracast / DLNA UPnP AVTransport (Auto-SSDP Discovered)"
+        - "Miracast / DLNA UPnP AVTransport (Manual IP)"
+        - "Hardware Wireless Display / Screen Mirroring"
+        - "Local Playback Only (No External TV)"
+    validations:
+      required: true
+
+  - type: input
+    id: receiver_model
+    attributes:
+      label: "Output TV / Receiver Brand & Model"
+      description: "Exact TV, set-top box, or audio receiver tested."
+      placeholder: "e.g., LG C4 OLED (webOS 24), Apple TV 4K (3rd Gen), Sony BRAVIA XR (Google TV), Samsung QN90D (Tizen)"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: media_tested
+    attributes:
+      label: "3. Media Containers, Codecs & Subtitles Tested"
+      options:
+        - label: "MP4 / M4V / MOV (H.264)"
+        - label: "MP4 / M4V / MOV (HEVC / H.265)"
+        - label: "MKV (H.264 / HEVC — 6s On-Demand Remux)"
+        - label: "MKV / MP4 (AV1 Hardware Decode)"
+        - label: "1080p / 4K Zero-Re-Encode Video Passthrough"
+        - label: "External .SRT Subtitles"
+        - label: "Embedded Subtitles (SRT / ASS / SSA / mov_text)"
+        - label: "Live Subtitle Sync Offset (±0.25s)"
+        - label: "Multi-File Playlist / Up Next Queue (⌘[ / ⌘])"
+        - label: "Audio Files (FLAC / WAV / M4A / MP3 / AAC / AIFF)"
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "4. Verification Results (Check all that worked as expected)"
+      options:
+        - label: "Automatic receiver discovery on local Wi-Fi (AirPlay / Bonjour Chromecast / SSDP DLNA)"
+        - label: "Playback started in under 2 seconds"
+        - label: "Timeline scrubbing / distant seeking worked smoothly"
+        - label: "Audio & video stayed in sync"
+        - label: "Subtitles rendered properly on the client / TV"
+        - label: "Display sleep was prevented during playback and released on pause/stop"
+        - label: "Foldable / Dual-Screen Tabletop or Book layout adapted properly (if applicable)"
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "5. Observations, Logs, or Issues"
+      description: "Share any diagnostic codes shown in the AirPlayr banner or notes about receiver behavior."
+      placeholder: "Worked smoothly at 4K HEVC! / Seeking on DLNA required..."

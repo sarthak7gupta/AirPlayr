@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>License &amp; Open Source Notices — AirPlayr</title>
+  <link rel="icon" type="image/png" href="assets/brand-mark.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="navbar-wrapper">
+    <header class="navbar navbar-two-row" id="main-navbar">
+      <div class="navbar-primary">
+        <a class="brand" href="index.html" aria-label="AirPlayr home">
+          <img src="assets/brand-mark.png" alt="AirPlayr icon" />
+          <span>AirPlay<span class="brand-accent">r</span></span>
+          <span class="version-pill">v1.6.0</span>
+        </a>
+        <div class="nav-cta">
+          <a class="btn btn-sm btn-subtle" href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a class="btn btn-sm btn-primary platform-download-btn" href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span class="platform-download-text">Download for Mac</span>
+          </a>
+          <button class="nav-toggle-btn" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>More</span>
+          </button>
+        </div>
+
+        <!-- Hamburger Dropdown Menu -->
+        <div class="nav-menu-dropdown" id="nav-menu-dropdown" role="menu">
+          <div class="nav-menu-header">Applications &amp; Documentation</div>
+          <a class="nav-menu-item" href="web-player.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Web Player</strong>
+              <span>Client-side browser player</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="compatibility.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Docs &amp; Compatibility</strong>
+              <span>Supported codecs &amp; network matrix</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="changelog.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Changelog</strong>
+              <span>Release notes v1.3.0 → v1.6.0</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="security.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Privacy &amp; Security</strong>
+              <span>100% offline &amp; sandbox protection</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="build.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Build Guide</strong>
+              <span>Compiling &amp; FFmpeg tooling</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="license.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>MIT License</strong>
+              <span>Open-source attribution</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="navbar-secondary" id="navbar-secondary">
+        <nav class="nav-links" aria-label="Page Sections">
+          <a href="index.html#performance">Instant Play</a>
+          <a href="index.html#features">Features</a>
+          <a href="index.html#compatibility">Compatibility</a>
+          <a href="index.html#platforms">Platforms</a>
+          <a href="index.html#preview">Interface</a>
+          <a href="index.html#download">Downloads</a>
+        </nav>
+      </div>
+    </header>
+  </div>
+  </div>
+
+  <main class="container">
+    <section class="page-hero">
+      <div class="breadcrumb"><a href="index.html">← Back to AirPlayr</a> / <span>License &amp; Notices</span></div>
+      <h1>MIT License &amp; Open Source Notices</h1>
+      <p>AirPlayr is open-source software released under the MIT License, with transparent attribution for bundled LGPL v2.1+ FFmpeg helpers and test-only media fixtures.</p>
+    </section>
+
+    <div class="doc-section">
+      <h2>AirPlayr Application License (MIT)</h2>
+      <div class="code-block" style="white-space: pre-wrap; color: var(--text-secondary);">MIT License
+
+Copyright (c) 2026 Sarthak Gupta
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</div>
+    </div>
+
+    <div class="doc-section">
+      <h2>Third-Party Notices</h2>
+      <div class="steps-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="doc-panel" style="margin-bottom: 0;">
+          <h3>1. FFmpeg 9.0.2 Command-Line Helpers</h3>
+          <p style="color: var(--text-secondary); font-size: 0.94rem; margin-bottom: 10px;">
+            Copyright © 2000–2026 the FFmpeg developers. Licensed under the <strong>GNU Lesser General Public License (LGPL) version 2.1 or later</strong>.
+          </p>
+          <p style="color: var(--muted); font-size: 0.88rem;">
+            AirPlayr invokes <code>ffmpeg</code> and <code>ffprobe</code> as separate child executables and does not link FFmpeg libraries. Complete source and build scripts are included in <code>Vendor/FFmpeg/</code> and in release DMGs under <code>Open Source/FFmpeg</code>.
+          </p>
+        </div>
+        <div class="doc-panel" style="margin-bottom: 0;">
+          <h3>2. Big Buck Bunny Test Fixtures (Test Bundle Only)</h3>
+          <p style="color: var(--text-secondary); font-size: 0.94rem; margin-bottom: 10px;">
+            © Copyright 2008, Blender Foundation / <a href="https://peach.blender.org/about/" target="_blank" rel="noopener" style="color: var(--cyan);">www.bigbuckbunny.org</a>. Licensed under <strong>Creative Commons Attribution 3.0 Unported (CC-BY 3.0)</strong>.
+          </p>
+          <p style="color: var(--muted); font-size: 0.88rem;">
+            Included exclusively in the unit test bundle (<code>AirPlayrTests</code>), never in the shipped <code>AirPlayr.app</code> or release DMG.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div><strong>AirPlayr v1.6.0</strong> · Released under the <a href="license.html">MIT License</a>.</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="compatibility.html">Compatibility</a>
+        <a href="security.html">Security</a>
+        <a href="build.html">Build &amp; FFmpeg</a>
+        <a href="license.html">License</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

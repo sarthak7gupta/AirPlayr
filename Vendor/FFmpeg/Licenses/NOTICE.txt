@@ -1,0 +1,14 @@
+AirPlayr includes FFmpeg 9.0.2 command-line helpers (ffmpeg and ffprobe).
+Copyright (c) 2000-2026 the FFmpeg developers.
+FFmpeg is licensed under the GNU Lesser General Public License version 2.1 or later.
+This build disables GPL, nonfree, external third-party libraries, and networking.
+The helpers are separate executables; AirPlayr does not link FFmpeg libraries.
+
+Complete unmodified corresponding source: Open Source/FFmpeg/Vendor/FFmpeg/Source in the distribution DMG.
+Build recipe: Open Source/FFmpeg/scripts/build-media-tools.sh in the distribution DMG.
+Source archive SHA-256:
+8c3850283eb25fa026482078a04051e0be17347b09ef81a0849bec15a96e002e
+Official source: https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz
+License and component details: COPYING.LGPLv2.1 and LICENSE.md in this directory.
+For a replacement helper, rebuild and re-sign your local app; public Developer ID releases
+require the distributor's signing identity and fresh notarization after changes.

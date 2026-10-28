@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Changelog &amp; Release History — AirPlayr</title>
+  <link rel="icon" type="image/png" href="assets/brand-mark.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="navbar-wrapper">
+    <header class="navbar navbar-two-row" id="main-navbar">
+      <div class="navbar-primary">
+        <a class="brand" href="index.html" aria-label="AirPlayr home">
+          <img src="assets/brand-mark.png" alt="AirPlayr icon" />
+          <span>AirPlay<span class="brand-accent">r</span></span>
+          <span class="version-pill">v1.6.0</span>
+        </a>
+        <div class="nav-cta">
+          <a class="btn btn-sm btn-subtle" href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a class="btn btn-sm btn-primary platform-download-btn" href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span class="platform-download-text">Download for Mac</span>
+          </a>
+          <button class="nav-toggle-btn" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span>More</span>
+          </button>
+        </div>
+
+        <!-- Hamburger Dropdown Menu -->
+        <div class="nav-menu-dropdown" id="nav-menu-dropdown" role="menu">
+          <div class="nav-menu-header">Applications &amp; Documentation</div>
+          <a class="nav-menu-item" href="web-player.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Web Player</strong>
+              <span>Client-side browser player</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="compatibility.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Docs &amp; Compatibility</strong>
+              <span>Supported codecs &amp; network matrix</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="changelog.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Changelog</strong>
+              <span>Release notes v1.3.0 → v1.6.0</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="security.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Privacy &amp; Security</strong>
+              <span>100% offline &amp; sandbox protection</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="build.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>Build Guide</strong>
+              <span>Compiling &amp; FFmpeg tooling</span>
+            </div>
+          </a>
+          <a class="nav-menu-item" href="license.html" role="menuitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <div class="nav-menu-item-text">
+              <strong>MIT License</strong>
+              <span>Open-source attribution</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="navbar-secondary" id="navbar-secondary">
+        <nav class="nav-links" aria-label="Page Sections">
+          <a href="index.html#performance">Instant Play</a>
+          <a href="index.html#features">Features</a>
+          <a href="index.html#compatibility">Compatibility</a>
+          <a href="index.html#platforms">Platforms</a>
+          <a href="index.html#preview">Interface</a>
+          <a href="index.html#download">Downloads</a>
+        </nav>
+      </div>
+    </header>
+  </div>
+  </div>
+
+  <main class="container">
+    <section class="page-hero">
+      <div class="breadcrumb"><a href="index.html">← Back to AirPlayr</a> / <span>Changelog</span></div>
+      <h1>Release History &amp; Changelog</h1>
+      <p>Every AirPlayr release runs 100% locally with no login, no internet requirement, and zero telemetry.</p>
+    </section>
+
+    <article class="release-card latest">
+      <div class="release-header">
+        <div class="release-version">
+          <span>AirPlayr v1.7.0</span>
+          <span class="version-pill">Latest Release</span>
+        </div>
+        <span class="release-date">October 27, 2026 · Build 8</span>
+      </div>
+
+      <div class="doc-section" style="margin-bottom: 24px;">
+        <h3>New in v1.7.0</h3>
+        <ul class="doc-list">
+          <li><strong>Zero-Re-Encode 1080p / 4K Video Passthrough:</strong> Compressed H.264 and HEVC packets are muxed directly into <code>fMP4</code> HLS segments when no pixel burn-in is needed, and hardware encoding preserves up to 4K (<code>3840×2160</code>).</li>
+          <li><strong>Playlists &amp; Up Next Queue (<code>⌘[</code> / <code>⌘]</code>):</strong> Open multiple files or folders into a sidebar Up Next Queue with automatic episode advance.</li>
+          <li><strong>Live Subtitle Sync Offset (<code>±0.25s</code>) &amp; Preferred Languages:</strong> Adjust caption timing on the fly and automatically select preferred audio/subtitle languages.</li>
+          <li><strong>macOS Media Keys, Control Center &amp; AirPods:</strong> Full integration with <code>MPNowPlayingInfoCenter</code> and <code>MPRemoteCommandCenter</code>.</li>
+          <li><strong>Automatic SSDP Discovery for Miracast / DLNA TVs:</strong> Discovers UPnP <code>MediaRenderer</code> Smart TVs automatically over UDP multicast (<code>239.255.255.250:1900</code>).</li>
+          <li><strong>Embedded ASS / SSA Subtitles &amp; AV1 Hardware Support:</strong> Extracts embedded ASS/SSA tracks and enables hardware-decoded AV1 MKV streaming on M3/M4+ Macs.</li>
+          <li><strong>Opt-In OpenSubtitles Search:</strong> Computes 64-bit movie hashes locally and stores API keys in the macOS Keychain.</li>
+          <li><strong>Cross-Platform Desktop &amp; Mobile:</strong> Added native Windows &amp; Linux desktop application, native iOS/iPadOS target, native Android app, and a 100% client-side <a href="web-player.html">Web Player</a>.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="release-card">
+      <div class="release-header">
+        <div class="release-version">
+          <span>AirPlayr v1.6.0</span>
+        </div>
+        <span class="release-date">October 27, 2026 · Build 7</span>
+      </div>
+
+      <div class="doc-section" style="margin-bottom: 24px;">
+        <h3>New Features</h3>
+        <ul class="doc-list">
+          <li><strong>Chromecast &amp; Miracast / DLNA Streaming:</strong> Local discovery and playback control for Chromecast devices and UPnP/DLNA smart TVs on your Wi-Fi, plus manual IP connection and a quick shortcut to macOS Wireless Display settings.</li>
+          <li><strong>Prevent Mac from Sleeping While Playing:</strong> Automatically keeps your Mac and display awake during active local playback, AirPlay routing, and Cast sessions, configurable in <strong>Settings</strong> and the <strong>Playback</strong> menu.</li>
+          <li><strong>Automatic Temporary Cache Cleanup:</strong> Sweeps leftover temporary streaming folders on launch so interrupted sessions never waste disk space.</li>
+        </ul>
+      </div>
+
+      <div class="doc-section" style="margin-bottom: 0;">
+        <h3>Reliability &amp; Security Hardening</h3>
+        <ul class="doc-list">
+          <li><strong>Single-Track MKV Audio Mapping:</strong> Maps only the selected audio stream (<code>-map 0:a:&lt;index&gt;?</code>) so unsupported secondary tracks never interrupt playback.</li>
+          <li><strong>Embedded Timed-Text Subtitles:</strong> Enabled <code>movtext</code> decoder in bundled FFmpeg 9.0.2 helpers so MP4/MOV <code>tx3g</code>/<code>mov_text</code> subtitles are preserved during <code>hev1</code> normalization.</li>
+          <li><strong>Cancellation &amp; Subprocess Safety:</strong> Serialized <code>AVAssetReader.cancelReading()</code> after reader pump completion and guaranteed 1-second <code>SIGKILL</code> escalation + <code>waitUntilExit()</code> in <code>MediaToolRunner</code>.</li>
+          <li><strong>LAN HTTP Server Hardening:</strong> Prioritized physical <code>en0</code>/<code>en*</code> interfaces over virtual bridges, evicted unauthenticated idle connections under load, and removed <code>NSAllowsArbitraryLoadsForMedia</code>.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="release-card">
+      <div class="release-header">
+        <div class="release-version"><span>AirPlayr v1.5.0</span></div>
+        <span class="release-date">October 25, 2026</span>
+      </div>
+      <ul class="doc-list">
+        <li>Comprehensive format-matrix verification across <code>.mp4</code>, <code>.mkv</code>, <code>.m4v</code>, and <code>.mov</code> containers for H.264 and HEVC (H.265).</li>
+        <li>Automatic <code>hev1</code> HEVC tag normalization for MP4/M4V/MOV files rejected by direct AirPlay receivers.</li>
+        <li>Native audio format support for <code>WAV</code>, <code>AAC</code>, <code>M4A</code>, <code>MP3</code>, <code>AIFF</code>, <code>CAF</code>, and <code>FLAC</code> with embedded cover artwork.</li>
+      </ul>
+    </article>
+
+    <article class="release-card">
+      <div class="release-header">
+        <div class="release-version"><span>AirPlayr v1.4.0</span></div>
+        <span class="release-date">October 24, 2026</span>
+      </div>
+      <ul class="doc-list">
+        <li>Bundled universal LGPL v2.1+ FFmpeg 9.0.2 <code>ffmpeg</code> and <code>ffprobe</code> helpers for zero-Homebrew H.264/HEVC <code>.mkv</code> playback and TV streaming via read-only file descriptors (<code>fd:0</code>).</li>
+        <li>Extraction of embedded Matroska <code>subrip</code> subtitle tracks into selectable WebVTT TV tracks.</li>
+      </ul>
+    </article>
+
+    <article class="release-card">
+      <div class="release-header">
+        <div class="release-version"><span>AirPlayr v1.3.0</span></div>
+        <span class="release-date">October 23, 2026</span>
+      </div>
+      <ul class="doc-list">
+        <li>Selectable multi-language HLS audio renditions and WebVTT subtitle tracks on AirPlay receivers.</li>
+        <li>Variable playback speed (<code>0.5×</code> to <code>4.0×</code> in <code>0.25×</code> steps) and full-duration VOD HLS playlists for instant forward/backward seeking.</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div><strong>AirPlayr v1.6.0</strong> · Released under the <a href="license.html">MIT License</a>.</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="compatibility.html">Compatibility</a>
+        <a href="security.html">Security</a>
+        <a href="build.html">Build &amp; FFmpeg</a>
+        <a href="license.html">License</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
