@@ -113,6 +113,7 @@ struct AirPlayrIOSTestRunner {
         // 6. Instantiate iOS SwiftUI view & route picker
         let _ = AirPlayrIOSView()
         let _ = IOSAirPlayRoutePicker()
+        let _ = IOSVideoCanvas(player: AVPlayer())
         print("✓ [iOS] testAirPlayrIOSViewInstantiation passed")
 
         // 7. IOSMediaStager sandbox bridging and container inspection

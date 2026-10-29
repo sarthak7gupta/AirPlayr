@@ -181,6 +181,8 @@ struct AirPlayrIOSView: View {
     @State private var castDevices: [CastReceiverDevice] = []
     @State private var selectedReceiverName: String = "Local iPhone Display"
     @State private var activeAirPlayDeviceName: String? = nil
+    @State private var isExternalPlaybackActive: Bool = false
+    @State private var activeFileServer: StreamFileServer? = nil
     @State private var simulatedHingeGutter: CGFloat = 12
 
     private let cyanGradient = LinearGradient(
@@ -359,7 +361,8 @@ struct AirPlayrIOSView: View {
                         handlePlaybackFailure(error)
                     }
                 }
-                .onReceive(player.publisher(for: \.isExternalPlaybackActive)) { _ in
+                .onReceive(player.publisher(for: \.isExternalPlaybackActive)) { active in
+                    isExternalPlaybackActive = active
                     updateConnectedRoute()
                 }
                 .onReceive(NotificationCenter.default.publisher(for: AVAudioSession.routeChangeNotification)) { _ in
@@ -410,8 +413,28 @@ struct AirPlayrIOSView: View {
                     .padding(.top, 4)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else if isExternalPlaybackActive {
+                ZStack {
+                    IOSVideoCanvas(player: player)
+                        .opacity(0.01)
+                    VStack(spacing: 12) {
+                        Image(systemName: "airplayvideo")
+                            .font(.system(size: 46))
+                            .foregroundStyle(cyanGradient)
+                        Text("Streaming to \(activeAirPlayDeviceName ?? "AirPlay TV")")
+                            .font(.system(size: 15, weight: .bold))
+                            .foregroundStyle(.white)
+                        Text("Video is playing on your TV screen. Use controls below to scrub or pause.")
+                            .font(.system(size: 11))
+                            .foregroundStyle(.white.opacity(0.65))
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 24)
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             } else {
-                VideoPlayer(player: player)
+                IOSVideoCanvas(player: player)
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             }
 
@@ -448,15 +471,33 @@ struct AirPlayrIOSView: View {
                     }
                     Spacer()
                     Circle()
-                        .fill(selectedReceiverName.contains("Local") ? Color.blue : Color.green)
+                        .fill(isExternalPlaybackActive ? Color.green : (selectedReceiverName.contains("Local") ? Color.blue : Color.orange))
                         .frame(width: 8, height: 8)
-                        .shadow(color: (selectedReceiverName.contains("Local") ? Color.blue : Color.green).opacity(0.8), radius: 4)
+                        .shadow(color: (isExternalPlaybackActive ? Color.green : (selectedReceiverName.contains("Local") ? Color.blue : Color.orange)).opacity(0.8), radius: 4)
                 }
                 .padding(12)
                 .background(.ultraThinMaterial.opacity(0.85))
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                 .padding(.horizontal, 10)
                 .padding(.top, 10)
+
+                if activeAirPlayDeviceName != nil && !isExternalPlaybackActive && isPlaying {
+                    HStack(spacing: 6) {
+                        Image(systemName: "speaker.wave.2.fill")
+                            .font(.system(size: 11))
+                            .foregroundStyle(.orange)
+                        Text("AirPlay Audio Only. For TV video on Samsung/LG/Roku, use Control Center → Screen Mirroring.")
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundStyle(.white)
+                            .lineLimit(2)
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(Color.black.opacity(0.85))
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .padding(.horizontal, 10)
+                    .padding(.top, 4)
+                }
 
                 Spacer()
 
@@ -719,10 +760,10 @@ struct AirPlayrIOSView: View {
                 if let airplay = activeAirPlayDeviceName {
                     destinationCard(
                         title: airplay,
-                        subtitle: "AirPlay 2 Wireless Stream • Ultra HD",
+                        subtitle: isExternalPlaybackActive ? "AirPlay 2 Video Stream • TV Active" : "AirPlay Audio Connected • Use Screen Mirroring for Video",
                         icon: "tv",
-                        badge: "AIRPLAY",
-                        badgeColor: .cyan,
+                        badge: isExternalPlaybackActive ? "AIRPLAY VIDEO" : "AIRPLAY AUDIO",
+                        badgeColor: isExternalPlaybackActive ? .cyan : .orange,
                         isSelected: selectedReceiverName == airplay
                     ) {
                         selectedReceiverName = airplay
@@ -739,9 +780,19 @@ struct AirPlayrIOSView: View {
                         Text("AirPlay Receivers")
                             .font(.system(size: 13, weight: .semibold))
                             .foregroundStyle(.white)
-                        Text(activeAirPlayDeviceName != nil ? "Connected to \(activeAirPlayDeviceName!)" : "Tap icon to route to Apple TV or AirPlay TV")
-                            .font(.system(size: 11))
-                            .foregroundStyle(.white.opacity(0.55))
+                        if isExternalPlaybackActive {
+                            Text("Video streaming to \(activeAirPlayDeviceName ?? "AirPlay TV")")
+                                .font(.system(size: 11))
+                                .foregroundStyle(.green)
+                        } else if let name = activeAirPlayDeviceName {
+                            Text("Audio connected to \(name) • For TV video, use Screen Mirroring")
+                                .font(.system(size: 11))
+                                .foregroundStyle(.orange)
+                        } else {
+                            Text("Tap icon to route to Apple TV or AirPlay TV")
+                                .font(.system(size: 11))
+                                .foregroundStyle(.white.opacity(0.55))
+                        }
                     }
                     Spacer()
                     IOSAirPlayRoutePicker()
@@ -1127,6 +1178,8 @@ struct AirPlayrIOSView: View {
             let name = airplay.portName.isEmpty ? "AirPlay TV" : airplay.portName
             activeAirPlayDeviceName = name
             selectedReceiverName = name
+            player.allowsExternalPlayback = true
+            player.usesExternalPlaybackWhileExternalScreenIsActive = true
             if !queue.isEmpty && !isPlaying {
                 player.play()
                 isPlaying = true
@@ -1142,18 +1195,15 @@ struct AirPlayrIOSView: View {
 
     private func handlePlaybackFailure(_ error: Error) {
         let nsError = error as NSError
-        if player.allowsExternalPlayback && (nsError.code == AVError.externalPlaybackNotSupportedForAsset.rawValue || activeAirPlayDeviceName != nil) {
-            player.allowsExternalPlayback = false
-            if queue.indices.contains(queueIndex) {
-                let url = queue[queueIndex]
-                let item = AVPlayerItem(url: url)
-                player.replaceCurrentItem(with: item)
-                player.play()
-                return
-            }
-        }
+        // Always preserve external video playback capabilities
+        player.allowsExternalPlayback = true
+        player.usesExternalPlaybackWhileExternalScreenIsActive = true
         withAnimation {
-            errorMessage = PlaybackDiagnostics.guidance(error, external: player.isExternalPlaybackActive || activeAirPlayDeviceName != nil)
+            if nsError.domain == AVFoundationErrorDomain && nsError.code == AVError.externalPlaybackNotSupportedForAsset.rawValue {
+                errorMessage = "This TV cannot stream this video format directly via AirPlay. Swipe down for iOS Control Center and tap Screen Mirroring to mirror video."
+            } else {
+                errorMessage = PlaybackDiagnostics.guidance(error, external: isExternalPlaybackActive || activeAirPlayDeviceName != nil)
+            }
         }
     }
 
@@ -1172,6 +1222,7 @@ struct AirPlayrIOSView: View {
         }
         player.allowsExternalPlayback = true
         player.usesExternalPlaybackWhileExternalScreenIsActive = true
+        player.preventsDisplaySleepDuringVideoPlayback = true
     }
 
     private func stageURLs(_ urls: [URL]) -> [URL] {
@@ -1204,24 +1255,40 @@ struct AirPlayrIOSView: View {
         _ = url.startAccessingSecurityScopedResource()
         player.allowsExternalPlayback = true
         player.usesExternalPlaybackWhileExternalScreenIsActive = true
-        let item = AVPlayerItem(url: url)
-        player.replaceCurrentItem(with: item)
+        player.preventsDisplaySleepDuringVideoPlayback = true
         currentTime = 0
 
-        let isExternal = player.isExternalPlaybackActive || activeAirPlayDeviceName != nil || selectedReceiverName != "Local iPhone Display"
-        if autoPlay || isExternal {
-            player.play()
-            isPlaying = true
-            UIApplication.shared.isIdleTimerDisabled = preventSleep
-        } else {
-            player.pause()
-            isPlaying = false
-            UIApplication.shared.isIdleTimerDisabled = false
+        activeFileServer?.stop()
+        let fileServer = StreamFileServer(fileURL: url)
+        activeFileServer = fileServer
+
+        Task {
+            let playbackURL: URL
+            do {
+                playbackURL = try await fileServer.start()
+            } catch {
+                playbackURL = url
+            }
+            await MainActor.run {
+                let item = AVPlayerItem(url: playbackURL)
+                player.replaceCurrentItem(with: item)
+
+                let isExternal = isExternalPlaybackActive || activeAirPlayDeviceName != nil || selectedReceiverName != "Local iPhone Display"
+                if autoPlay || isExternal {
+                    player.play()
+                    isPlaying = true
+                    UIApplication.shared.isIdleTimerDisabled = preventSleep
+                } else {
+                    player.pause()
+                    isPlaying = false
+                    UIApplication.shared.isIdleTimerDisabled = false
+                }
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+                    MPMediaItemPropertyTitle: currentTitle,
+                    MPNowPlayingInfoPropertyMediaType: MPNowPlayingInfoMediaType.video.rawValue
+                ]
+            }
         }
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = [
-            MPMediaItemPropertyTitle: currentTitle,
-            MPNowPlayingInfoPropertyMediaType: MPNowPlayingInfoMediaType.video.rawValue
-        ]
     }
 
     private func formatTime(_ seconds: Double) -> String {
@@ -1384,6 +1451,29 @@ struct IOSCastConnectSheet: View {
                     Button("Cancel") { dismiss() }
                 }
             }
+        }
+    }
+}
+
+// MARK: - Native iOS Video Canvas Bridge
+
+struct IOSVideoCanvas: UIViewControllerRepresentable {
+    let player: AVPlayer
+
+    func makeUIViewController(context: Context) -> AVPlayerViewController {
+        let controller = AVPlayerViewController()
+        controller.player = player
+        controller.showsPlaybackControls = false
+        controller.allowsPictureInPicturePlayback = true
+        controller.canStartPictureInPictureAutomaticallyFromInline = true
+        controller.videoGravity = .resizeAspect
+        controller.updatesNowPlayingInfoCenter = false
+        return controller
+    }
+
+    func updateUIViewController(_ uiViewController: AVPlayerViewController, context: Context) {
+        if uiViewController.player !== player {
+            uiViewController.player = player
         }
     }
 }
