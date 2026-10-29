@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AirPlayr — Changelog &amp; Release History</title>
-  <meta name="description" content="Release history and technical change records for AirPlayr on macOS and iOS." />
+  <meta name="description" content="Release history and technical change records for AirPlayr on macOS." />
   <link rel="icon" type="image/png" href="assets/brand-mark.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -74,9 +74,9 @@
             </thead>
             <tbody>
               <tr>
-                <td><strong>iOS Companion</strong></td>
+                <td><strong>Branch Strategy</strong></td>
                 <td>
-                  Complete interface parity with macOS dark cinema aesthetic. Added frosted floating controls HUD, draggable timeline scrubber, monospaced timecode readouts, and speed selector (0.5×–2.0×).
+                  Repository <code>main</code> branch streamlined to focus exclusively on macOS. Experimental mobile targets moved to dedicated <code>alpha</code> branch.
                 </td>
               </tr>
               <tr>
@@ -92,15 +92,9 @@
                 </td>
               </tr>
               <tr>
-                <td><strong>iOS Video AirPlay &amp; Staging</strong></td>
-                <td>
-                  Configured native <code>AVAudioSession</code> long-form video movie playback to enable full AirPlay 2 video routing to TV. Files load paused with zero unwanted local auto-play until external route connects or user initiates play.
-                </td>
-              </tr>
-              <tr>
                 <td><strong>UI &amp; Brand Consistency</strong></td>
                 <td>
-                  Unified wordmark typography and electric cyan-to-blue gradient across macOS app, iOS app, and web. Refactored website navigation into an uncluttered 2-tier architectural system.
+                  Unified wordmark typography and electric cyan-to-blue gradient across macOS app and web. Refactored website navigation into an uncluttered 2-tier architectural system.
                 </td>
               </tr>
               <tr>

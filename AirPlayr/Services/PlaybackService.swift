@@ -57,11 +57,7 @@ import OSLog
     }
     var canPlayPrevious: Bool { queueIndex > 0 && queueIndex < queue.count }
     var canPlayNext: Bool { queueIndex + 1 < queue.count }
-    #if os(iOS)
-    static let supportedMediaExtensions: Set<String> = ["mp4", "m4v", "mov", "mkv"]
-    #else
     static let supportedMediaExtensions: Set<String> = ["mp4", "m4v", "mov", "mkv", "m2ts", "ts", "mts", "m3u8", "ac4", "vob", "iso"]
-    #endif
     var sourceURL: URL? { scope?.url }
     private(set) var phase: PlaybackPhase = .empty { didSet { updateSleepAssertion(); updateNowPlayingInfo() } }
     private(set) var position = 0.0

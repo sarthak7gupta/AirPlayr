@@ -6,10 +6,10 @@ AirPlayr combines Apple's hardware media engines (`AVFoundation` and `VideoToolb
 
 | Container | H.264 (AVC) | HEVC (H.265) | MPEG-2 / AV1 | Platform | Notes |
 | --- | --- | --- | --- | --- | --- |
-| **MP4 (`.mp4`)** | ✓ Direct / HLS | ✓ Direct / HLS | ✓ AV1 (M1+) | macOS & iOS | Automatic normalization for `hev1`-tagged HEVC |
-| **M4V (`.m4v`)** | ✓ Direct / HLS | ✓ Direct / HLS | — | macOS & iOS | Native Apple playback and AirPlay |
-| **QuickTime (`.mov`)** | ✓ Direct / HLS | ✓ Direct / HLS | — | macOS & iOS | Native Apple playback and AirPlay |
-| **Matroska (`.mkv`)** | ✓ MKV Bridge + HLS | ✓ MKV Bridge + HLS | ✓ AV1 Bridge | macOS & iOS | On-demand 6-second section remux |
+| **MP4 (`.mp4`)** | ✓ Direct / HLS | ✓ Direct / HLS | ✓ AV1 (M1+) | macOS | Automatic normalization for `hev1`-tagged HEVC |
+| **M4V (`.m4v`)** | ✓ Direct / HLS | ✓ Direct / HLS | — | macOS | Native Apple playback and AirPlay |
+| **QuickTime (`.mov`)** | ✓ Direct / HLS | ✓ Direct / HLS | — | macOS | Native Apple playback and AirPlay |
+| **Matroska (`.mkv`)** | ✓ MKV Bridge + HLS | ✓ MKV Bridge + HLS | ✓ AV1 Bridge | macOS | On-demand 6-second section remux |
 | **BDAV / Transport (`.m2ts`, `.ts`, `.mts`)** | ✓ Stream Copy | ✓ Stream Copy | — | macOS | Blu-ray & AVCHD streams direct fMP4 remux |
 | **HLS Playlist (`.m3u8`)** | ✓ Native AVPlayer | ✓ Native AVPlayer | — | macOS | Master and media playlist streaming |
 | **DVD Video Object (`.vob`)** | — | — | ✓ Transcoded | macOS | MPEG-2 video re-encoded to fast H.264; AC-3 audio preserved |
@@ -42,7 +42,7 @@ AirPlayr combines Apple's hardware media engines (`AVFoundation` and `VideoToolb
 
 ## System Requirements
 
-AirPlayr ships as a universal binary (`arm64` + `x86_64`) for Apple Silicon and Intel Macs (macOS 14+), with a companion native target for **iOS & iPadOS** (`platforms/ios`) and a **100% Client-Side Web Player** (`website/web-player.html`).
+AirPlayr ships as a universal binary (`arm64` + `x86_64`) for Apple Silicon and Intel Macs (macOS 14+), with an experimental **iOS & iPadOS** companion maintained on the [`alpha`](https://github.com/sarthak7gupta/AirPlayr/tree/alpha) branch and a **100% Client-Side Web Player** (`website/web-player.html`).
 
 ## Request for Community Testing (Input Clients & Output Receivers)
 

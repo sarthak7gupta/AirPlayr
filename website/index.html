@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AirPlayr — Native macOS &amp; iOS Media Streamer</title>
-  <meta name="description" content="100% local, zero-re-encode media player and wireless streamer for Apple TV, Chromecast, and DLNA Smart TVs on macOS & iOS." />
-  <link rel="icon" type="image/png" href="assets/brand-mark.png" />
-  <link rel="stylesheet" href="styles.css" />
+  <title>AirPlayr — Native macOS Media Streamer</title>
+  <meta name="description" content="100% local, zero-re-encode media player and wireless streamer for Apple TV, Chromecast, and DLNA Smart TVs on macOS." />
+  <link rel="icon" type="image/png" href="website/assets/brand-mark.png" />
+  <link rel="stylesheet" href="website/styles.css" />
 </head>
 <body>
   <div class="grid-lines"></div>
@@ -16,11 +16,11 @@
     <header class="header">
       <div class="header-primary">
         <div class="brand">
-          <a href="index.html" class="brand-title" aria-label="AirPlayr">
-            <img src="assets/brand-mark.png" alt="AirPlayr icon" class="brand-logo" />
+          <a href="website/index.html" class="brand-title" aria-label="AirPlayr">
+            <img src="website/assets/brand-mark.png" alt="AirPlayr icon" class="brand-logo" />
             <span class="brand-text">AIRPLAY<span class="brand-r">R</span></span>
           </a>
-          <span class="brand-spec">MACOS &amp; IOS · v1.6.0 · ZERO RE-ENCODE</span>
+          <span class="brand-spec">MACOS · v1.6.0 · ZERO RE-ENCODE</span>
         </div>
         <div class="nav-actions">
           <a href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener" class="button-monolith-outline" style="padding: 11px 20px;">
@@ -34,12 +34,12 @@
         </div>
       </div>
       <nav class="nav-links">
-        <a href="index.html" class="active">Overview</a>
-        <a href="compatibility.html">Compatibility</a>
-        <a href="changelog.html">Changelog</a>
-        <a href="security.html">Security</a>
-        <a href="build.html">Build Guide</a>
-        <a href="web-player.html">Web Player</a>
+        <a href="website/index.html" class="active">Overview</a>
+        <a href="website/compatibility.html">Compatibility</a>
+        <a href="website/changelog.html">Changelog</a>
+        <a href="website/security.html">Security</a>
+        <a href="website/build.html">Build Guide</a>
+        <a href="website/web-player.html">Web Player</a>
       </nav>
     </header>
 
@@ -52,7 +52,7 @@
             FRAME RATE.
           </h1>
           <p class="hero-lead">
-            AirPlayr is a 100% local media player and direct wireless transmitter for macOS and iOS. It bypasses brute-force video transcoding by repackaging MKV, MP4, MOV, M2TS, VOB, and ISO containers into fragmented MP4 HLS transport streams directly in memory with 5.1 &amp; 7.1 multichannel passthrough.
+            AirPlayr is a 100% local media player and direct wireless transmitter for macOS. It bypasses brute-force video transcoding by repackaging MKV, MP4, MOV, M2TS, VOB, and ISO containers into fragmented MP4 HLS transport streams directly in memory with 5.1 &amp; 7.1 multichannel passthrough.
           </p>
 
           <div style="margin-top: 48px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap;">
@@ -67,7 +67,7 @@
           </div>
 
           <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-top: 14px;">
-            macOS 14.0+ (Sonoma, Sequoia) · Apple Silicon &amp; Intel · iOS 17.0+ Companion
+            macOS 14.0+ (Sonoma, Sequoia) · Apple Silicon &amp; Intel · Universal Binary
           </div>
         </div>
 
@@ -124,25 +124,25 @@
         </div>
       </section>
 
-      <!-- Hardware Architecture & Dual-Screen Showcase -->
+      <!-- Hardware Architecture Showcase -->
       <section>
         <div class="section-header">
-          <h2 class="section-title">02 // Native macOS &amp; iOS Companion</h2>
-          <span class="section-spec-tag">ARCHITECTURE // SWIFTUI DUAL-SCREEN ECOSYSTEM</span>
+          <h2 class="section-title">02 // Native macOS Architecture</h2>
+          <span class="section-spec-tag">ARCHITECTURE // APPLE SILICON &amp; INTEL UNIVERSAL</span>
         </div>
 
         <div class="showcase-block">
           <div class="showcase-bar">
-            <span>TERMINAL: AIRPLAYR.APP // MACOS SEVENTEEN &amp; IOS DUAL-SCREEN</span>
+            <span>TERMINAL: AIRPLAYR.APP // MACOS UNIVERSAL</span>
             <span style="color: var(--cyan);">NATIVE SWIFT 5.0</span>
           </div>
           <div class="showcase-canvas">
             <div>
               <h3 style="font-size: 22px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; text-transform: uppercase;">
-                Integrated Ecosystem Architecture
+                Chromeless Cinema Engine
               </h3>
               <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px;">
-                AirPlayr is written in idiomatic Swift without web wrappers or heavy cross-platform bloat. The macOS application provides a chromeless dark cinema stage with keyboard shortcuts (Space to toggle, Left/Right skip ±10s, Mute, Full Screen), while the iOS companion delivers a dedicated control deck with dual-screen tabletop and book postures for foldable hardware.
+                AirPlayr is written in idiomatic Swift without web wrappers or heavy cross-platform bloat. The macOS application provides a chromeless dark cinema stage with keyboard shortcuts (Space to toggle, Left/Right skip ±10s, Mute, Full Screen), MPRemoteCommandCenter, and Control Center media keys.
               </p>
               <div style="display: flex; gap: 12px;">
                 <span class="pill-pass">Security-Scoped Bookmarks</span>
@@ -152,11 +152,11 @@
             </div>
 
             <div style="border-left: 1px solid var(--border); padding-left: 32px; font-family: var(--font-mono); font-size: 12px;">
-              <div style="color: var(--cyan); font-weight: 700; margin-bottom: 12px;">// POSTURE STATES</div>
-              <div style="margin-bottom: 8px;"><strong style="color: #ffffff;">Single Screen:</strong> Full portrait cinema viewport</div>
-              <div style="margin-bottom: 8px;"><strong style="color: #ffffff;">Tabletop Crease:</strong> Top video theater + bottom control deck</div>
-              <div style="margin-bottom: 8px;"><strong style="color: #ffffff;">Book Fold:</strong> Left cinema stage + right queue manager</div>
-              <div><strong style="color: #ffffff;">Extended Display:</strong> Direct external video routing</div>
+              <div style="color: var(--cyan); font-weight: 700; margin-bottom: 12px;">// SYSTEM INTEGRATION</div>
+              <div style="margin-bottom: 8px;"><strong style="color: #ffffff;">IOKit Sleep Lock:</strong> Keeps display awake while playing</div>
+              <div style="margin-bottom: 8px;"><strong style="color: #ffffff;">Now Playing:</strong> Control Center &amp; AirPods gestures</div>
+              <div style="margin-bottom: 8px;"><strong style="color: #ffffff;">Subtitles:</strong> Live ±0.25s sync offset in toolbar</div>
+              <div><strong style="color: #ffffff;">Mobile Companion:</strong> Maintained on <a href="https://github.com/sarthak7gupta/AirPlayr/tree/alpha" style="color: var(--cyan);">alpha branch</a></div>
             </div>
           </div>
         </div>
@@ -219,11 +219,11 @@
         </div>
       </div>
       <div class="footer-links">
-        <a href="compatibility.html">Compatibility</a>
-        <a href="changelog.html">Changelog</a>
-        <a href="security.html">Security</a>
-        <a href="build.html">Build Guide</a>
-        <a href="license.html">License</a>
+        <a href="website/compatibility.html">Compatibility</a>
+        <a href="website/changelog.html">Changelog</a>
+        <a href="website/security.html">Security</a>
+        <a href="website/build.html">Build Guide</a>
+        <a href="website/license.html">License</a>
         <a href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener">GitHub</a>
       </div>
     </footer>

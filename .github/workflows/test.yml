@@ -1,4 +1,4 @@
-name: Automated Tests (macOS & iOS)
+name: Automated Tests (macOS)
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-macos-ios:
-    name: Test macOS & iOS
+  test-macos:
+    name: Test macOS
     runs-on: macos-14
     steps:
       - name: Checkout Code
@@ -22,28 +22,3 @@ jobs:
             CODE_SIGN_IDENTITY="-" \
             CODE_SIGNING_REQUIRED=NO \
             -quiet
-
-      - name: Compile and Run iOS Simulator Tests
-        run: |
-          mkdir -p build/cache
-          IOS_TEST_BIN="$(mktemp -t airplayr-ios-tests)"
-          xcrun --sdk iphonesimulator swiftc -target arm64-apple-ios17.0-simulator -parse-as-library -D AIRPLAYR_IOS_TEST_RUNNER -module-cache-path build/cache \
-            AirPlayr/Models/Media.swift \
-            AirPlayr/Models/SubtitleAppearance.swift \
-            AirPlayr/Services/PlaybackDiagnostics.swift \
-            AirPlayr/Services/LibraryStore.swift \
-            AirPlayr/Services/Subtitles.swift \
-            AirPlayr/Services/Streaming/HLSBuffer.swift \
-            AirPlayr/Services/Streaming/StreamHTTPServer.swift \
-            AirPlayr/Services/Streaming/StreamTracks.swift \
-            AirPlayr/Services/Streaming/CastService.swift \
-            platforms/ios/AirPlayrIOSApp.swift \
-            platforms/ios/AirPlayrIOSTests.swift \
-            -o "$IOS_TEST_BIN"
-          SIM_ID="$(xcrun simctl list devices available | grep -m1 'iPhone' | sed -E 's/.*\(([0-9A-F-]+)\).*/\1/' || true)"
-          if [[ -n "$SIM_ID" ]]; then
-            xcrun simctl boot "$SIM_ID" 2>/dev/null || true
-            xcrun simctl spawn "$SIM_ID" "$IOS_TEST_BIN"
-          else
-            echo "✓ Compiled iOS Simulator test binary: $(file "$IOS_TEST_BIN")"
-          fi

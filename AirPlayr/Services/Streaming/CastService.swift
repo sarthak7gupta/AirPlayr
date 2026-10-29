@@ -1,11 +1,7 @@
 import Foundation
 import Network
 import Security
-#if os(macOS)
 import AppKit
-#elseif os(iOS)
-import UIKit
-#endif
 import Observation
 import Darwin
 
@@ -486,15 +482,9 @@ enum CastV2Protocol {
     }
 
     func openSystemMirroringSettings() {
-        #if os(macOS)
         if let url = URL(string: "x-apple.systempreferences:com.apple.Displays-Settings.extension") {
             NSWorkspace.shared.open(url)
         }
-        #elseif os(iOS)
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
-        #endif
     }
 
     private func nextRequestID() -> Int {

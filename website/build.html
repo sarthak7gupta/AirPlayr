@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AirPlayr — Build Guide &amp; Developer Compilation</title>
-  <meta name="description" content="Step-by-step developer compilation instructions for AirPlayr on macOS and iOS using Xcode and Swift 5.0." />
+  <meta name="description" content="Step-by-step developer compilation instructions for AirPlayr on macOS using Xcode and Swift 5.0." />
   <link rel="icon" type="image/png" href="assets/brand-mark.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -50,7 +50,7 @@
           SOURCE TARGETS.
         </h1>
         <p class="hero-lead">
-          AirPlayr is structured as an Xcode project supporting two native targets: the primary macOS application (<code>AirPlayr</code>) and the iOS / foldable companion application (<code>AirPlayr-iOS</code>).
+          AirPlayr is structured as an idiomatic Swift Xcode project for macOS. The universal binary runs natively on both Apple Silicon (M1–M5) and Intel architectures.
         </p>
       </section>
 
@@ -77,28 +77,21 @@ xcodebuild build -scheme AirPlayr -configuration Release -destination 'generic/p
         </div>
       </section>
 
-      <!-- Building iOS Companion App -->
+      <!-- Mobile Companion Note -->
       <section>
         <div class="section-header">
-          <h2 class="section-title">02 // Compiling iOS Companion Target</h2>
-          <span class="section-spec-tag">COMMAND // IPHONEOS &amp; SIMULATOR</span>
+          <h2 class="section-title">02 // Mobile Companion Target</h2>
+          <span class="section-spec-tag">ALPHA BRANCH // EXPERIMENTAL TARGET</span>
         </div>
 
         <div class="showcase-block">
           <div class="showcase-bar">
-            <span>SHELL // AIRPLAYR-IOS COMPANION TARGET</span>
-            <span style="color: var(--cyan);">IOS 17.0+ &amp; DUAL-SCREEN</span>
+            <span>SHELL // MOBILE PLATFORMS</span>
+            <span style="color: var(--cyan);">ALPHA BRANCH</span>
           </div>
           <div style="padding: 28px; font-family: var(--font-mono); font-size: 13px;">
-            <p style="color: var(--text-secondary); margin-bottom: 12px;">Compile for iPhone device:</p>
-            <pre style="background: #020408; border: 1px solid var(--border); padding: 16px; color: var(--cyan); margin-bottom: 16px; overflow-x: auto;">xcodebuild -scheme AirPlayr-iOS -sdk iphoneos -configuration Release build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO</pre>
-            <p style="color: var(--text-secondary); margin-bottom: 12px;">Compile and execute iOS Simulator test suite:</p>
-            <pre style="background: #020408; border: 1px solid var(--border); padding: 16px; color: var(--cyan); overflow-x: auto;">xcrun --sdk iphonesimulator swiftc -target arm64-apple-ios17.0-simulator -parse-as-library -D AIRPLAYR_IOS_TEST_RUNNER \
-  AirPlayr/Models/Media.swift AirPlayr/Models/SubtitleAppearance.swift AirPlayr/Services/PlaybackDiagnostics.swift \
-  AirPlayr/Services/LibraryStore.swift AirPlayr/Services/Subtitles.swift AirPlayr/Services/Streaming/HLSBuffer.swift \
-  AirPlayr/Services/Streaming/StreamHTTPServer.swift AirPlayr/Services/Streaming/StreamTracks.swift \
-  AirPlayr/Services/Streaming/CastService.swift platforms/ios/AirPlayrIOSApp.swift platforms/ios/AirPlayrIOSTests.swift \
-  -o /tmp/airplayr-ios-tests</pre>
+            <p style="color: var(--text-secondary); margin-bottom: 12px;">The experimental iOS / iPadOS companion app is developed and maintained on the <code>alpha</code> branch:</p>
+            <pre style="background: #020408; border: 1px solid var(--border); padding: 16px; color: var(--cyan); overflow-x: auto;">git checkout alpha</pre>
           </div>
         </div>
       </section>

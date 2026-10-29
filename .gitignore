@@ -13,3 +13,4 @@ AirPlayr.xcodeproj/project.xcworkspace/xcuserdata/
 AirPlayr.xcodeproj/xcuserdata/
 logo/
 .internal-docs/
+.build/

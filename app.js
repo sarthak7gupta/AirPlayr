@@ -45,10 +45,10 @@ function detectPlatform() {
   if (/iphone|ipad|ipod/.test(ua)) {
     return {
       name: 'iOS',
-      label: 'AirPlayr for iOS',
+      label: 'AirPlayr for iOS (Alpha)',
       file: 'AirPlayrIOS',
-      url: 'https://github.com/sarthak7gupta/AirPlayr/tree/main/platforms/ios',
-      meta: 'iOS 18+ App & Test Suite'
+      url: 'https://github.com/sarthak7gupta/AirPlayr/tree/alpha',
+      meta: 'iOS Companion on alpha branch'
     };
   }
   return {

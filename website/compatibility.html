@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AirPlayr — Codec &amp; Receiver Compatibility Matrix</title>
-  <meta name="description" content="Detailed container, video, audio, and receiver protocol compatibility matrix for AirPlayr on macOS and iOS." />
+  <meta name="description" content="Detailed container, video, audio, and receiver protocol compatibility matrix for AirPlayr on macOS." />
   <link rel="icon" type="image/png" href="assets/brand-mark.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -197,8 +197,7 @@
               <tr>
                 <th>Container</th>
                 <th>File Extensions</th>
-                <th>Mac App</th>
-                <th>iOS App</th>
+                <th>macOS Compatibility</th>
                 <th>Streaming Engine</th>
               </tr>
             </thead>
@@ -207,13 +206,11 @@
                 <td><strong>Matroska Video</strong></td>
                 <td><code>.mkv</code></td>
                 <td><span class="pill-pass">Native Bridge</span></td>
-                <td><span class="pill-pass">Native Bridge</span></td>
                 <td>6-second on-demand fMP4 repackager</td>
               </tr>
               <tr>
                 <td><strong>MPEG-4 &amp; QuickTime</strong></td>
                 <td><code>.mp4</code>, <code>.m4v</code>, <code>.mov</code></td>
-                <td><span class="pill-pass">Direct / HLS</span></td>
                 <td><span class="pill-pass">Direct / HLS</span></td>
                 <td>Hardware passthrough &amp; AirPlay 2</td>
               </tr>
@@ -221,35 +218,30 @@
                 <td><strong>Blu-ray Transport Stream</strong></td>
                 <td><code>.m2ts</code>, <code>.ts</code>, <code>.mts</code></td>
                 <td><span class="pill-pass">Direct fMP4</span></td>
-                <td>—</td>
                 <td>Stream copy into HLS transport stream</td>
               </tr>
               <tr>
                 <td><strong>HLS Master Playlist</strong></td>
                 <td><code>.m3u8</code></td>
                 <td><span class="pill-pass">Native AVPlayer</span></td>
-                <td>—</td>
                 <td>Live &amp; VOD fragmented streaming</td>
               </tr>
               <tr>
                 <td><strong>DVD Video Object</strong></td>
                 <td><code>.vob</code></td>
                 <td><span class="pill-pass">Transcoded H.264</span></td>
-                <td>—</td>
                 <td>Zero-latency ultrafast H.264 + AC-3 forward</td>
               </tr>
               <tr>
                 <td><strong>Disc Image Archive</strong></td>
                 <td><code>.iso</code></td>
                 <td><span class="pill-pass">Auto-Mount</span></td>
-                <td>—</td>
                 <td>Auto-mounts via hdiutil, scans BDMV &amp; VIDEO_TS</td>
               </tr>
               <tr>
                 <td><strong>Dolby AC-4 Audio</strong></td>
                 <td><code>.ac4</code></td>
                 <td><span class="pill-pass">Demux / Pass</span></td>
-                <td>—</td>
                 <td>Direct audio demuxing via FFmpeg bridge</td>
               </tr>
             </tbody>
@@ -283,7 +275,7 @@
             <div class="grid-item-num">SUB.03</div>
             <h3 class="grid-item-title">Live Sync Stepper</h3>
             <p class="grid-item-body">
-              Granular ±0.25s audio/subtitle sync offset adjustment in the macOS toolbar and iOS companion sheet, persistent across playback sessions.
+              Granular ±0.25s audio/subtitle sync offset adjustment in the macOS toolbar, persistent across playback sessions.
             </p>
           </div>
         </div>

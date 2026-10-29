@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>Your movies. A bigger screen—100% local on your Wi-Fi, with no internet, login, or telemetry.</strong><br />
-  Native media player and wireless streamer for <strong>AirPlay 2</strong>, <strong>Chromecast</strong>, and <strong>Miracast / DLNA</strong> built natively for <strong>macOS</strong> and <strong>iOS / iPadOS</strong>.<br />
+  Native media player and wireless streamer for <strong>AirPlay 2</strong>, <strong>Chromecast</strong>, and <strong>Miracast / DLNA</strong> built natively for <strong>macOS</strong>.<br />
   <em>Version 1.6.0 · Universal Binary (Apple Silicon &amp; Intel) · Free &amp; Open Source (MIT)</em>
 </p>
 
@@ -37,7 +37,6 @@ Most desktop video players force a trade-off: either they can’t stream MKVs to
 - **Zero-Re-Encode 1080p / 4K Passthrough & Broad Container Support:** Compressed H.264/HEVC/AV1 packets are muxed directly into `fMP4` HLS segments without re-encoding, preserving HDR10 and Dolby Vision. Supports **MKV, MP4, MOV, M4V**, plus **M2TS / TS / MTS**, **M3U8**, **VOB**, **ISO** (auto-mount), and **AC-4** on macOS.
 - **100% local & offline-ready:** Runs inside the **macOS App Sandbox** over your local Wi-Fi. No internet connection required, no login, no analytics, no telemetry, and no cloud uploads.
 - **Playlists, Up Next Queue & Media Keys:** Open multiple files or entire folders into an **Up Next Queue** with auto-advance, `⌘[` / `⌘]` navigation, **macOS Control Center (`MPNowPlayingInfoCenter`)**, hardware media keys, and AirPods remote control.
-- **iOS & iPadOS Companion:** Native companion target with full AirPlay 2 video routing, staged media loading (no unwanted local auto-play), and dark cinema aesthetic matching macOS.
 - **Rich subtitle & audio track support:** Automatically loads matching `<movie>.srt` files, extracts embedded SRT, **ASS / SSA**, and MP4/MOV timed-text tracks, supports live **Subtitle Sync Offset (`±0.25s`)**, remembers preferred audio/subtitle languages, and includes an **opt-in OpenSubtitles search** using local 64-bit movie hashes.
 - **Awake while playing:** Automatically keeps your display awake while your movie is playing or streaming to the TV, and releases the sleep lock as soon as you pause or stop.
 
@@ -47,7 +46,7 @@ Most desktop video players force a trade-off: either they can’t stream MKVs to
 | **Zero-Re-Encode 1080p / 4K `fMP4` HLS** | ✓ Native passthrough + 4K | ✓ Custom engine | Transcodes or fails |
 | **MKV (H.264, HEVC, AV1) & ASS Subtitles** | ✓ 6s on-demand VOD sections | ✓ Supported | Varies |
 | **Playlists, Media Keys & Live Sub Sync (`±0.25s`)** | ✓ Built in | ✓ Supported | Varies |
-| **Native Apple Targets** | ✓ macOS (Universal) & iOS / iPadOS | macOS / Windows only | Desktop / Mobile |
+| **Native Apple Targets** | ✓ macOS Universal (Apple Silicon & Intel) | macOS / Windows only | Desktop / Mobile |
 | **100% Offline (No Login or Telemetry)** | ✓ Full App Sandbox, 0 telemetry | Unsandboxed + online license activation | Unsandboxed |
 | **Price & License** | ✓ Free & Open Source ([MIT](LICENSE)) | Paid proprietary license | Free |
 
@@ -91,18 +90,17 @@ task dmg
 | `task media-tools` | Rebuild bundled universal LGPL FFmpeg 9.0.2 helpers from pinned source |
 | `task project` | Deterministically regenerate `AirPlayr.xcodeproj` |
 | `task website` | Preview the marketing site (`index.html` / `website/`) at `http://127.0.0.1:8080` |
-| `./scripts/run-cross-platform-tests.sh` | Run macOS XCTest and iOS Simulator test suites |
+| `./scripts/run-cross-platform-tests.sh` | Run macOS XCTest test suite |
 
 ---
 
 ## Platforms and Targets
 
-AirPlayr is focused natively on Apple devices with living-room streaming to all TVs:
+AirPlayr is focused natively on macOS with living-room streaming to all TVs:
 
 - **macOS (`AirPlayr/`):** Flagship universal (`arm64` + `x86_64`) app for Apple Silicon (M1–M5) and Intel Macs running macOS 14+. Full App Sandbox, native AirPlay 2 output, CastV2 TLS port `8009`, UPnP/DLNA auto-SSDP discovery, and IOKit sleep prevention.
-- **iOS & iPadOS (`platforms/ios/`):** Native SwiftUI companion target sharing the core Swift streaming engine with `AVRoutePickerView`, Files.app security bookmarks, and mobile background audio.
 - **Web Player (`website/web-player.html`):** 100% client-side browser playback using `URL.createObjectURL`, W3C Remote Playback, WebKit AirPlay, and in-browser subtitle sync.
-- **Experimental Alpha (`alpha` branch):** Windows, Linux, and Android proof-of-concept builds are maintained on the [`alpha`](https://github.com/sarthak7gupta/AirPlayr/tree/alpha) branch.
+- **Experimental Alpha (`alpha` branch):** The iOS / iPadOS companion app, Windows, Linux, and Android builds are maintained on the [`alpha`](https://github.com/sarthak7gupta/AirPlayr/tree/alpha) branch.
 
 ---
 
@@ -162,8 +160,8 @@ Because wireless living-room streaming spans dozens of Smart TV firmwares and cl
 | Client Platform | Architecture / Form Factor | Status | What to Test |
 | --- | --- | --- | --- |
 | **macOS** | Apple Silicon (`M1`–`M5`) & Intel (`x86_64`) | ✓ Verified (67 XCTests) | 1080p/4K zero-re-encode passthrough, AV1 MKVs, Control Center media keys, AirPods |
-| **iOS & iPadOS** | iPhone & iPad (`platforms/ios/`) | ✓ Simulator Verified / 🧪 Hardware Testers | `AVRoutePickerView`, Files.app security bookmarks, AirPlay routing |
 | **Web Browser** | Safari, Chrome, Edge, Firefox ([`website/web-player.html`](website/web-player.html)) | ✓ Verified | Local file queue, `.srt`/`.ass` sync (`±0.25s`), 64-bit OpenSubtitles hash, AirPlay/RemotePlayback |
+| **iOS Companion (Alpha)** | iPhone & iPad ([`alpha` branch](https://github.com/sarthak7gupta/AirPlayr/tree/alpha)) | 🧪 Alpha Branch Testers | `AVRoutePickerView`, HTTP local streaming, AirPlay video routing |
 
 ### 2. Output Devices (TVs & Wireless Receivers Needed for Testing)
 

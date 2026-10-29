@@ -33,11 +33,7 @@ enum PlaybackPhase: String {
 /// File-extension allow list and shared time/seek helpers. Extensions are picker hints only.
 enum MediaPolicy {
     // A picker hint, never a guarantee of codec compatibility.
-    #if os(iOS)
-    static let extensions: Set<String> = ["mp4", "mov", "m4v", "mkv", "m4a", "mp3", "aac", "wav", "flac"]
-    #else
     static let extensions: Set<String> = ["mkv", "mp4", "mov", "m4v", "m2ts", "ts", "mts", "m3u8", "ac4", "vob", "iso", "m4a", "mp3", "aac", "wav", "aif", "aiff", "caf", "flac"]
-    #endif
     static func validate(_ url: URL) throws {
         guard url.isFileURL, FileManager.default.isReadableFile(atPath: url.path),
               (try? url.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile) == true else { throw MediaIssue.unreadable }
