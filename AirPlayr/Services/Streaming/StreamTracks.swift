@@ -7,6 +7,7 @@ struct StreamAudioTrack: Sendable {
     let index: Int
     let name: String
     let language: String
+    var channels: Int = 2
     let described: Bool
 }
 /// One WebVTT-backed subtitle offered to the TV HLS player.
@@ -35,7 +36,15 @@ struct StreamTracks: Sendable {
             let language = tag ?? code ?? "und"
             let characteristics = try await track.load(.mediaCharacteristics)
             let label = Locale.current.localizedString(forIdentifier: language) ?? "Audio"
-            result.audio.append(StreamAudioTrack(index: index, name: "\(label) · \(index + 1)", language: language, described: characteristics.contains(.describesVideoForAccessibility)))
+            let descriptions = (try? await track.load(.formatDescriptions)) ?? []
+            var channelCount = 2
+            for desc in descriptions {
+                if let basic = CMAudioFormatDescriptionGetStreamBasicDescription(desc)?.pointee {
+                    channelCount = max(1, Int(basic.mChannelsPerFrame))
+                }
+            }
+            let channels = channelCount >= 8 ? 8 : (channelCount >= 6 ? 6 : 2)
+            result.audio.append(StreamAudioTrack(index: index, name: "\(label) · \(index + 1)", language: language, channels: channels, described: characteristics.contains(.describesVideoForAccessibility)))
         }
         let subtitleTracks = try await asset.loadTracks(withMediaType: .subtitle)
         let textTracks = try await asset.loadTracks(withMediaType: .text)
@@ -101,7 +110,7 @@ struct StreamTracks: Sendable {
         var lines = ["#EXTM3U", "#EXT-X-VERSION:7"]
         if audio.count > 1 {
             for track in audio {
-                var line = "#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID=\"audio\",NAME=\"\(Self.attribute(track.name))\",LANGUAGE=\"\(Self.attribute(track.language))\",AUTOSELECT=YES,DEFAULT=\(track.index == 0 ? "YES" : "NO"),CHANNELS=\"2\""
+                var line = "#EXT-X-MEDIA:TYPE=AUDIO,GROUP-ID=\"audio\",NAME=\"\(Self.attribute(track.name))\",LANGUAGE=\"\(Self.attribute(track.language))\",AUTOSELECT=YES,DEFAULT=\(track.index == 0 ? "YES" : "NO"),CHANNELS=\"\(track.channels)\""
                 if track.index != 0 { line += ",URI=\"a\(track.index).m3u8\"" }
                 if track.described { line += ",CHARACTERISTICS=\"public.accessibility.describes-video\"" }
                 lines.append(line)

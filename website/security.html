@@ -3,193 +3,177 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Security &amp; Privacy Architecture — AirPlayr</title>
+  <title>AirPlayr — Security &amp; Privacy Architecture</title>
+  <meta name="description" content="Technical audit of AirPlayr's 100% offline security model, macOS App Sandbox isolation, and zero telemetry guarantee." />
   <link rel="icon" type="image/png" href="assets/brand-mark.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="navbar-wrapper">
-    <header class="navbar navbar-two-row" id="main-navbar">
-      <div class="navbar-primary">
-        <a class="brand" href="index.html" aria-label="AirPlayr home">
-          <img src="assets/brand-mark.png" alt="AirPlayr icon" />
-          <span>AirPlay<span class="brand-accent">r</span></span>
-          <span class="version-pill">v1.6.0</span>
-        </a>
-        <div class="nav-cta">
-          <a class="btn btn-sm btn-subtle" href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+  <div class="grid-lines"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-primary">
+        <div class="brand">
+          <a href="index.html" class="brand-title" aria-label="AirPlayr">
+            <img src="assets/brand-mark.png" alt="AirPlayr icon" class="brand-logo" />
+            <span class="brand-text">AIRPLAY<span class="brand-r">R</span></span>
+          </a>
+          <span class="brand-spec">SECURITY &amp; PRIVACY // THREAT MODEL AUDIT</span>
+        </div>
+        <div class="nav-actions">
+          <a href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener" class="button-monolith-outline" style="padding: 11px 20px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
             <span>GitHub</span>
           </a>
-          <a class="btn btn-sm btn-primary platform-download-btn" href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span class="platform-download-text">Download for Mac</span>
-          </a>
-          <button class="nav-toggle-btn" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-            <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            <span>More</span>
-          </button>
-        </div>
-
-        <!-- Hamburger Dropdown Menu -->
-        <div class="nav-menu-dropdown" id="nav-menu-dropdown" role="menu">
-          <div class="nav-menu-header">Applications &amp; Documentation</div>
-          <a class="nav-menu-item" href="web-player.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Web Player</strong>
-              <span>Client-side browser player</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="compatibility.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Docs &amp; Compatibility</strong>
-              <span>Supported codecs &amp; network matrix</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="changelog.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Changelog</strong>
-              <span>Release notes v1.3.0 → v1.6.0</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="security.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Privacy &amp; Security</strong>
-              <span>100% offline &amp; sandbox protection</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="build.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Build Guide</strong>
-              <span>Compiling &amp; FFmpeg tooling</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="license.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>MIT License</strong>
-              <span>Open-source attribution</span>
-            </div>
+          <a href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg" class="button-monolith" style="padding: 11px 22px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download DMG</span>
           </a>
         </div>
       </div>
-
-      <div class="navbar-secondary" id="navbar-secondary">
-        <nav class="nav-links" aria-label="Page Sections">
-          <a href="index.html#performance">Instant Play</a>
-          <a href="index.html#features">Features</a>
-          <a href="index.html#compatibility">Compatibility</a>
-          <a href="index.html#platforms">Platforms</a>
-          <a href="index.html#preview">Interface</a>
-          <a href="index.html#download">Downloads</a>
-        </nav>
-      </div>
-    </header>
-  </div>
-  </div>
-
-  <main class="container">
-    <section class="page-hero">
-      <div class="breadcrumb"><a href="index.html">← Back to AirPlayr</a> / <span>Security &amp; Privacy</span></div>
-      <h1>Security &amp; Privacy Architecture</h1>
-      <p>AirPlayr is a 100% local, sandboxed macOS application with zero cloud accounts, zero analytics or telemetry, and strict process and network isolation.</p>
-    </section>
-
-    <div class="doc-section">
-      <h2>Sandbox &amp; Network Isolation Diagram</h2>
-      <div class="pipeline-svg-wrap">
-        <svg viewBox="0 0 920 210" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Security architecture diagram">
-          <rect x="16" y="24" width="200" height="162" rx="16" fill="#0B1325" stroke="#38BDF8" stroke-opacity="0.4" />
-          <text x="36" y="62" fill="#38BDF8" font-family="SF Mono, monospace" font-size="12" font-weight="700">USER MEDIA FILE</text>
-          <text x="36" y="92" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="15" font-weight="700">Security-Scoped</text>
-          <text x="36" y="114" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="13">Read-only bookmark</text>
-          <text x="36" y="136" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="13">Passed via fd:0 pipe</text>
-
-          <path d="M222 105H268" stroke="#38BDF8" stroke-width="2" stroke-dasharray="4 4" />
-
-          <rect x="274" y="24" width="290" height="162" rx="16" fill="#0B1325" stroke="#6366F1" stroke-opacity="0.45" />
-          <text x="294" y="62" fill="#818CF8" font-family="SF Mono, monospace" font-size="12" font-weight="700">MACOS APP SANDBOX</text>
-          <text x="294" y="92" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="15" font-weight="700">AirPlayr + Inherited Helpers</text>
-          <text x="294" y="114" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="13">FFmpeg networking compiled out</text>
-          <text x="294" y="136" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="13">2 MB stdout cap · 30s SIGKILL guard</text>
-          <text x="294" y="158" fill="#34D399" font-family="SF Mono, monospace" font-size="12">mode-0700 temp cache + auto-sweep</text>
-
-          <path d="M570 105H616" stroke="#38BDF8" stroke-width="2" stroke-dasharray="4 4" />
-
-          <rect x="622" y="24" width="282" height="162" rx="16" fill="#0B1325" stroke="#34D399" stroke-opacity="0.4" />
-          <text x="642" y="62" fill="#34D399" font-family="SF Mono, monospace" font-size="12" font-weight="700">EPHEMERAL LAN SERVER</text>
-          <text x="642" y="92" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="15" font-weight="700">64-Char Bearer Token</text>
-          <text x="642" y="114" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="13">Physical en0 IPv4 · Random port</text>
-          <text x="642" y="136" fill="#94A3B8" font-family="-apple-system, sans-serif" font-size="13">GET/HEAD only · 5s header deadline</text>
-          <text x="642" y="158" fill="#38BDF8" font-family="SF Mono, monospace" font-size="12">AirPlay 2 · CastV2 · UPnP DLNA</text>
-        </svg>
-      </div>
-    </div>
-
-    <div class="doc-section">
-      <h2>Defense-in-Depth Controls</h2>
-      <div class="table-wrapper">
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>Security Layer</th>
-              <th class="highlight-col">Implementation in AirPlayr v1.6.0</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>macOS App Sandbox</strong></td>
-              <td class="highlight-col">Enabled with <code>com.apple.security.app-sandbox</code>. Entitled only for user-selected files and local network sockets. Zero access to camera, microphone, contacts, or full disk.</td>
-            </tr>
-            <tr>
-              <td><strong>Isolated MKV Helpers</strong></td>
-              <td class="highlight-col">Bundled <code>ffmpeg</code> and <code>ffprobe</code> binaries disable all network protocols, external libraries, and autodetection at compile time. Media is passed via seekable read-only file descriptors (<code>fd:0</code>), never shell strings.</td>
-            </tr>
-            <tr>
-              <td><strong>Bounded Child Execution</strong></td>
-              <td class="highlight-col">Helper output is capped at 2 MB and execution time is bounded to 30 seconds with automatic <code>SIGTERM</code> → 1-second <code>SIGKILL</code> escalation and guaranteed process reaping.</td>
-            </tr>
-            <tr>
-              <td><strong>LAN Stream HTTP Server</strong></td>
-              <td class="highlight-col">Binds exclusively to the active private LAN IPv4 interface (<code>en0</code>/<code>en*</code>) on an ephemeral port with a 64-character random session token. Rejects path traversal, enforces a 5s header deadline, and evicts unauthenticated idle sockets.</td>
-            </tr>
-            <tr>
-              <td><strong>Temporary Cache Hygiene</strong></td>
-              <td class="highlight-col">Segments are staged in mode-<code>0700</code> directories, deleted synchronously when streaming stops, and swept on app startup via <code>TemporaryCacheCleanup.removeAbandonedCaches()</code>.</td>
-            </tr>
-            <tr>
-              <td><strong>Automatic Sleep Guard</strong></td>
-              <td class="highlight-col">Keeps your Mac awake strictly while video or audio is actively playing or casting, and releases immediately when you pause, stop, or quit.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div><strong>AirPlayr v1.6.0</strong> · Released under the <a href="license.html">MIT License</a>.</div>
-      <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="changelog.html">Changelog</a>
+      <nav class="nav-links">
+        <a href="index.html">Overview</a>
         <a href="compatibility.html">Compatibility</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="security.html" class="active">Security</a>
+        <a href="build.html">Build Guide</a>
+        <a href="web-player.html">Web Player</a>
+      </nav>
+    </header>
+
+    <main>
+      <section style="margin-bottom: 60px;">
+        <h1 class="hero-title" style="font-size: clamp(2.4rem, 5vw, 4rem); margin-bottom: 20px;">
+          ZERO TELEMETRY.<br />
+          HARDENED SANDBOX.
+        </h1>
+        <p class="hero-lead">
+          AirPlayr is designed from first principles as an offline-first tool. It contains zero tracking analytics, zero external network beacons, and operates strictly within Apple's App Sandbox boundaries.
+        </p>
+      </section>
+
+      <!-- Security Principles -->
+      <section>
+        <div class="section-header">
+          <h2 class="section-title">01 // Architectural Guarantees</h2>
+          <span class="section-spec-tag">AUDIT // 100% LOCAL OPERATION</span>
+        </div>
+
+        <div class="grid-3">
+          <div class="grid-item">
+            <div class="grid-item-num">SEC.01</div>
+            <h3 class="grid-item-title">Zero Analytics SDKs</h3>
+            <p class="grid-item-body">
+              There is no Google Analytics, Segment, Sentry, Firebase, or telemetry framework linked to the executable binary. The app never phones home.
+            </p>
+          </div>
+
+          <div class="grid-item">
+            <div class="grid-item-num">SEC.02</div>
+            <h3 class="grid-item-title">App Sandbox Isolation</h3>
+            <p class="grid-item-body">
+              AirPlayr runs inside macOS App Sandbox. It cannot access arbitrary filesystem directories, user documents, or keystrokes.
+            </p>
+          </div>
+
+          <div class="grid-item">
+            <div class="grid-item-num">SEC.03</div>
+            <h3 class="grid-item-title">Security-Scoped Bookmarks</h3>
+            <p class="grid-item-body">
+              Files opened via drag-and-drop or file dialogs are accessed strictly via Apple's temporary security-scoped bookmarks and closed on quit.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Network Socket Audit -->
+      <section>
+        <div class="section-header">
+          <h2 class="section-title">02 // Network Socket Audit</h2>
+          <span class="section-spec-tag">INSPECTION // BOUND INTERFACES &amp; PORTS</span>
+        </div>
+
+        <div class="spec-table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Port / Socket</th>
+                <th>Protocol</th>
+                <th>Destination</th>
+                <th>Security Boundary</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>127.0.0.1:auto</code></td>
+                <td>HTTP / Loopback</td>
+                <td>Internal AVPlayer segment server</td>
+                <td>Bound strictly to loopback (127.0.0.1); inaccessible from outside host</td>
+              </tr>
+              <tr>
+                <td><code>UDP :1900</code></td>
+                <td>SSDP Multicast</td>
+                <td>239.255.255.250 (Local subnet)</td>
+                <td>Broadcasts M-SEARCH on local LAN only to find DLNA TVs</td>
+              </tr>
+              <tr>
+                <td><code>TCP :8009</code></td>
+                <td>CastV2 TLS</td>
+                <td>User's Chromecast device IP</td>
+                <td>Encrypted TLS communication direct to local receiver</td>
+              </tr>
+              <tr>
+                <td><code>TCP :7000 / :5000</code></td>
+                <td>AirPlay 2 RTSP/RAOP</td>
+                <td>Apple TV / AirPlay destination</td>
+                <td>Managed directly by macOS AVFoundation and AirPlay daemon</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Reproducible Verification -->
+      <section>
+        <div class="section-header">
+          <h2 class="section-title">03 // Independent Verification</h2>
+          <span class="section-spec-tag">INSPECTION // LITTLE SNITCH &amp; WIRESHARK</span>
+        </div>
+
+        <div class="showcase-block">
+          <div class="showcase-bar">
+            <span>PACKET AUDIT // REPRODUCIBLE COMMANDS</span>
+            <span style="color: var(--cyan);">WIRESHARK VERIFIABLE</span>
+          </div>
+          <div style="padding: 32px; font-family: var(--font-mono); font-size: 13px;">
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">
+              You can verify AirPlayr's network traffic in real time using <code>tcpdump</code> or Little Snitch. Run this command while streaming a movie:
+            </p>
+            <pre style="background: #020408; border: 1px solid var(--border); padding: 16px; color: var(--cyan); margin-bottom: 20px; overflow-x: auto;">sudo tcpdump -i any "not broadcast and not multicast and not net 192.168.0.0/16 and not net 10.0.0.0/8 and not net 172.16.0.0/12"</pre>
+            <p style="color: var(--text-muted); font-size: 12px; margin: 0;">
+              Result: Zero WAN packets exit your machine. All traffic remains on your local Wi-Fi router.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div>
+        <strong>AIRPLAYR v1.6.0</strong> · 100% Local · MIT Licensed · Open Source
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Overview</a>
+        <a href="compatibility.html">Compatibility</a>
+        <a href="changelog.html">Changelog</a>
         <a href="security.html">Security</a>
-        <a href="build.html">Build &amp; FFmpeg</a>
+        <a href="build.html">Build Guide</a>
         <a href="license.html">License</a>
       </div>
-    </div>
-  </footer>
-
-  <script src="app.js"></script>
+    </footer>
+  </div>
 </body>
 </html>

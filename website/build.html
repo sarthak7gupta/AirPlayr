@@ -3,150 +3,153 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Build, Install &amp; FFmpeg Compliance — AirPlayr</title>
+  <title>AirPlayr — Build Guide &amp; Developer Compilation</title>
+  <meta name="description" content="Step-by-step developer compilation instructions for AirPlayr on macOS and iOS using Xcode and Swift 5.0." />
   <link rel="icon" type="image/png" href="assets/brand-mark.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="navbar-wrapper">
-    <header class="navbar navbar-two-row" id="main-navbar">
-      <div class="navbar-primary">
-        <a class="brand" href="index.html" aria-label="AirPlayr home">
-          <img src="assets/brand-mark.png" alt="AirPlayr icon" />
-          <span>AirPlay<span class="brand-accent">r</span></span>
-          <span class="version-pill">v1.6.0</span>
-        </a>
-        <div class="nav-cta">
-          <a class="btn btn-sm btn-subtle" href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+  <div class="grid-lines"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-primary">
+        <div class="brand">
+          <a href="index.html" class="brand-title" aria-label="AirPlayr">
+            <img src="assets/brand-mark.png" alt="AirPlayr icon" class="brand-logo" />
+            <span class="brand-text">AIRPLAY<span class="brand-r">R</span></span>
+          </a>
+          <span class="brand-spec">DEVELOPER BUILD GUIDE // XCODE &amp; SWIFT 5.0</span>
+        </div>
+        <div class="nav-actions">
+          <a href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener" class="button-monolith-outline" style="padding: 11px 20px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
             <span>GitHub</span>
           </a>
-          <a class="btn btn-sm btn-primary platform-download-btn" href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span class="platform-download-text">Download for Mac</span>
-          </a>
-          <button class="nav-toggle-btn" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-            <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            <span>More</span>
-          </button>
-        </div>
-
-        <!-- Hamburger Dropdown Menu -->
-        <div class="nav-menu-dropdown" id="nav-menu-dropdown" role="menu">
-          <div class="nav-menu-header">Applications &amp; Documentation</div>
-          <a class="nav-menu-item" href="web-player.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Web Player</strong>
-              <span>Client-side browser player</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="compatibility.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Docs &amp; Compatibility</strong>
-              <span>Supported codecs &amp; network matrix</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="changelog.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Changelog</strong>
-              <span>Release notes v1.3.0 → v1.6.0</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="security.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Privacy &amp; Security</strong>
-              <span>100% offline &amp; sandbox protection</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="build.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Build Guide</strong>
-              <span>Compiling &amp; FFmpeg tooling</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="license.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>MIT License</strong>
-              <span>Open-source attribution</span>
-            </div>
+          <a href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg" class="button-monolith" style="padding: 11px 22px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download DMG</span>
           </a>
         </div>
       </div>
-
-      <div class="navbar-secondary" id="navbar-secondary">
-        <nav class="nav-links" aria-label="Page Sections">
-          <a href="index.html#performance">Instant Play</a>
-          <a href="index.html#features">Features</a>
-          <a href="index.html#compatibility">Compatibility</a>
-          <a href="index.html#platforms">Platforms</a>
-          <a href="index.html#preview">Interface</a>
-          <a href="index.html#download">Downloads</a>
-        </nav>
-      </div>
-    </header>
-  </div>
-  </div>
-
-  <main class="container">
-    <section class="page-hero">
-      <div class="breadcrumb"><a href="index.html">← Back to AirPlayr</a> / <span>Build &amp; FFmpeg Compliance</span></div>
-      <h1>Build, Install &amp; FFmpeg LGPL Guide</h1>
-      <p>AirPlayr ships ready-to-build in Xcode with bundled universal LGPL v2.1+ FFmpeg 9.0.2 command-line helpers—no Homebrew dependencies required.</p>
-    </section>
-
-    <div class="doc-section">
-      <h2>Everyday Build &amp; Verification Commands</h2>
-      <div class="code-block" style="margin-bottom: 20px;">
-        <div><span class="code-comment"># Build universal (arm64 + x86_64) Release AirPlayr.app</span></div>
-        <div>task build</div>
-        <div style="margin-top: 8px;"><span class="code-comment"># Run the full XCTest suite</span></div>
-        <div>task test</div>
-        <div style="margin-top: 8px;"><span class="code-comment"># Verify universal binary compatibility &amp; code signature</span></div>
-        <div>task verify</div>
-        <div style="margin-top: 8px;"><span class="code-comment"># Build &amp; install AirPlayr.app into /Applications</span></div>
-        <div>task install</div>
-        <div style="margin-top: 8px;"><span class="code-comment"># Package drag-to-Applications DMG (includes Open Source/FFmpeg bundle)</span></div>
-        <div>task dmg</div>
-      </div>
-    </div>
-
-    <div class="doc-section">
-      <h2>Bundled FFmpeg 9.0.2 Helpers &amp; LGPL v2.1 Compliance</h2>
-      <div class="doc-panel">
-        <ul class="doc-list">
-          <li><strong>Separate Child Executables:</strong> AirPlayr bundles <code>ffmpeg</code> and <code>ffprobe</code> in <code>Contents/MacOS/</code> and invokes them as separate processes via read-only file descriptors (<code>fd:0</code>). AirPlayr does not link FFmpeg libraries into the Swift application binary.</li>
-          <li><strong>Minimal LGPL v2.1+ Configuration:</strong> Built from official FFmpeg 9.0.2 source (SHA-256: <code>8c3850283eb25fa026482078a04051e0be17347b09ef81a0849bec15a96e002e</code>) with GPL, nonfree, external libraries, and all network protocols disabled.</li>
-          <li><strong>Reproducible Build Recipe:</strong> Run <code>task media-tools</code> (or <code>/bin/bash scripts/build-media-tools.sh</code>) to verify the pinned archive checksum, compile <code>arm64</code> and <code>x86_64</code> slices, and merge them with <code>lipo</code>.</li>
-          <li><strong>Complete Corresponding Source:</strong> Included in the repository under <code>Vendor/FFmpeg/Source/</code> and packaged inside every release DMG under <code>Open Source/FFmpeg/</code>.</li>
-        </ul>
-      </div>
-    </div>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div><strong>AirPlayr v1.6.0</strong> · Released under the <a href="license.html">MIT License</a>.</div>
-      <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="changelog.html">Changelog</a>
+      <nav class="nav-links">
+        <a href="index.html">Overview</a>
         <a href="compatibility.html">Compatibility</a>
+        <a href="changelog.html">Changelog</a>
         <a href="security.html">Security</a>
-        <a href="build.html">Build &amp; FFmpeg</a>
+        <a href="build.html" class="active">Build Guide</a>
+        <a href="web-player.html">Web Player</a>
+      </nav>
+    </header>
+
+    <main>
+      <section style="margin-bottom: 60px;">
+        <h1 class="hero-title" style="font-size: clamp(2.4rem, 5vw, 4rem); margin-bottom: 20px;">
+          COMPILATION GUIDE &amp;<br />
+          SOURCE TARGETS.
+        </h1>
+        <p class="hero-lead">
+          AirPlayr is structured as an Xcode project supporting two native targets: the primary macOS application (<code>AirPlayr</code>) and the iOS / foldable companion application (<code>AirPlayr-iOS</code>).
+        </p>
+      </section>
+
+      <!-- Building macOS App -->
+      <section>
+        <div class="section-header">
+          <h2 class="section-title">01 // Compiling macOS Target</h2>
+          <span class="section-spec-tag">COMMAND // XCODEBUILD RELEASE</span>
+        </div>
+
+        <div class="showcase-block">
+          <div class="showcase-bar">
+            <span>SHELL // BUILD UNIVERSAL MAC DMG</span>
+            <span style="color: var(--cyan);">APPLE SILICON &amp; INTEL</span>
+          </div>
+          <div style="padding: 28px; font-family: var(--font-mono); font-size: 13px;">
+            <p style="color: var(--text-secondary); margin-bottom: 12px;">Clone repository and build with xcodebuild:</p>
+            <pre style="background: #020408; border: 1px solid var(--border); padding: 16px; color: var(--cyan); margin-bottom: 16px; overflow-x: auto;">git clone https://github.com/sarthak7gupta/AirPlayr.git
+cd AirPlayr
+xcodebuild build -scheme AirPlayr -configuration Release -destination 'generic/platform=macOS' CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=NO</pre>
+            <p style="color: var(--text-secondary); margin-bottom: 12px;">Create standalone Universal .dmg installer:</p>
+            <pre style="background: #020408; border: 1px solid var(--border); padding: 16px; color: var(--cyan); overflow-x: auto;">./scripts/create-dmg.sh</pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Building iOS Companion App -->
+      <section>
+        <div class="section-header">
+          <h2 class="section-title">02 // Compiling iOS Companion Target</h2>
+          <span class="section-spec-tag">COMMAND // IPHONEOS &amp; SIMULATOR</span>
+        </div>
+
+        <div class="showcase-block">
+          <div class="showcase-bar">
+            <span>SHELL // AIRPLAYR-IOS COMPANION TARGET</span>
+            <span style="color: var(--cyan);">IOS 17.0+ &amp; DUAL-SCREEN</span>
+          </div>
+          <div style="padding: 28px; font-family: var(--font-mono); font-size: 13px;">
+            <p style="color: var(--text-secondary); margin-bottom: 12px;">Compile for iPhone device:</p>
+            <pre style="background: #020408; border: 1px solid var(--border); padding: 16px; color: var(--cyan); margin-bottom: 16px; overflow-x: auto;">xcodebuild -scheme AirPlayr-iOS -sdk iphoneos -configuration Release build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO</pre>
+            <p style="color: var(--text-secondary); margin-bottom: 12px;">Compile and execute iOS Simulator test suite:</p>
+            <pre style="background: #020408; border: 1px solid var(--border); padding: 16px; color: var(--cyan); overflow-x: auto;">xcrun --sdk iphonesimulator swiftc -target arm64-apple-ios17.0-simulator -parse-as-library -D AIRPLAYR_IOS_TEST_RUNNER \
+  AirPlayr/Models/Media.swift AirPlayr/Models/SubtitleAppearance.swift AirPlayr/Services/PlaybackDiagnostics.swift \
+  AirPlayr/Services/LibraryStore.swift AirPlayr/Services/Subtitles.swift AirPlayr/Services/Streaming/HLSBuffer.swift \
+  AirPlayr/Services/Streaming/StreamHTTPServer.swift AirPlayr/Services/Streaming/StreamTracks.swift \
+  AirPlayr/Services/Streaming/CastService.swift platforms/ios/AirPlayrIOSApp.swift platforms/ios/AirPlayrIOSTests.swift \
+  -o /tmp/airplayr-ios-tests</pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- Running Automated Tests -->
+      <section>
+        <div class="section-header">
+          <h2 class="section-title">03 // Automated XCTest Suite</h2>
+          <span class="section-spec-tag">TEST SUITE // CONTINUOUS INTEGRATION</span>
+        </div>
+
+        <div class="grid-3">
+          <div class="grid-item">
+            <div class="grid-item-num">TEST.01</div>
+            <h3 class="grid-item-title">Streaming Engine</h3>
+            <p class="grid-item-body">
+              Verifies zero-re-encode fMP4 muxing, segment byte-alignment, m3u8 playlist generation, and socket HTTP ranges.
+            </p>
+          </div>
+          <div class="grid-item">
+            <div class="grid-item-num">TEST.02</div>
+            <h3 class="grid-item-title">Format Matrix</h3>
+            <p class="grid-item-body">
+              Tests Matroska, MP4, MOV, HEVC, and AV1 video fixtures against the track demuxer and subtitle parser.
+            </p>
+          </div>
+          <div class="grid-item">
+            <div class="grid-item-num">TEST.03</div>
+            <h3 class="grid-item-title">Cast &amp; DLNA Wire</h3>
+            <p class="grid-item-body">
+              Validates CastV2 Protobuf message round-trip, UPnP SSDP device location discovery, and AVTransport parsing.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div>
+        <strong>AIRPLAYR v1.6.0</strong> · 100% Local · MIT Licensed · Open Source
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Overview</a>
+        <a href="compatibility.html">Compatibility</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="security.html">Security</a>
+        <a href="build.html">Build Guide</a>
         <a href="license.html">License</a>
       </div>
-    </div>
-  </footer>
-
-  <script src="app.js"></script>
+    </footer>
+  </div>
 </body>
 </html>

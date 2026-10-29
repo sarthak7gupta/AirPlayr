@@ -95,6 +95,8 @@ struct MKVMetadata: Decodable, Sendable {
         let index: Int
         let codec_name: String?
         let codec_type: String?
+        let channels: Int?
+        let channel_layout: String?
         let width: Int?
         let height: Int?
         let tags: [String: String]?
@@ -123,10 +125,13 @@ struct MKVSection: Sendable {
 
 /// Matroska and “unplayable but valid” MP4/MOV/M4V preparation via bundled `ffmpeg`/`ffprobe`.
 ///
-/// Video is stream-copied (H.264 or HEVC only); audio is normalized to stereo AAC for Apple's pipeline.
+/// Video is stream-copied (H.264 or HEVC only); audio preserves multichannel surround (up to 5.1/7.1 AAC) for Apple's pipeline.
 /// AV1, VP9, and other codecs are out of scope for this bridge.
 enum MKVBridge {
-    static func requiresBridge(_ source: URL) -> Bool { source.pathExtension.lowercased() == "mkv" }
+    static func requiresBridge(_ source: URL) -> Bool {
+        let ext = source.pathExtension.lowercased()
+        return ["mkv", "m2ts", "ts", "mts", "vob", "ac4"].contains(ext)
+    }
     static func needsPreparation(_ source: URL, asset: AVURLAsset? = nil) async -> Bool {
         if requiresBridge(source) { return true }
         guard ["mp4", "m4v", "mov"].contains(source.pathExtension.lowercased()) else { return false }
@@ -136,7 +141,7 @@ enum MKVBridge {
     static func inspect(_ source: URL) async throws -> MKVMetadata {
         let access = FileAccess(source)
         defer { withExtendedLifetime(access) {} }
-        let data = try await MediaToolRunner.run("ffprobe", arguments: ["-v", "error", "-protocol_whitelist", "file,pipe,fd", "-show_entries", "format=duration:stream=index,codec_name,codec_type,width,height:stream_tags=language,title,DURATION", "-of", "json", "-i", "fd:"], input: source)
+        let data = try await MediaToolRunner.run("ffprobe", arguments: ["-v", "error", "-protocol_whitelist", "file,pipe,fd", "-show_entries", "format=duration:stream=index,codec_name,codec_type,channels,channel_layout,width,height:stream_tags=language,title,DURATION", "-of", "json", "-i", "fd:"], input: source)
         let result = try JSONDecoder().decode(MKVMetadata.self, from: data)
         let vCodec = result.video?.codec_name ?? ""
         let supportedVideo = vCodec == "hevc" || vCodec == "h264" || (vCodec == "av1" && VTIsHardwareDecodeSupported(kCMVideoCodecType_AV1))
@@ -148,7 +153,7 @@ enum MKVBridge {
         }
         return result
     }
-    static let supportedAudioCodecs: Set<String> = ["aac", "aac_latm", "ac3", "eac3", "mp3", "mp3float", "flac", "opus", "vorbis", "pcm_s16le"]
+    static let supportedAudioCodecs: Set<String> = ["aac", "aac_latm", "ac3", "eac3", "mp3", "mp3float", "flac", "opus", "vorbis", "pcm_s16le", "pcm_s24le", "pcm_s24be", "dca", "dts", "truehd"]
     static let supportedSubtitleCodecs: Set<String> = ["subrip", "mov_text", "ass", "ssa"]
     static func tracks(_ metadata: MKVMetadata, source: URL, external: SubtitleDocument?) async throws -> StreamTracks {
         var result = StreamTracks()
@@ -159,7 +164,9 @@ enum MKVBridge {
             }
             let language = track.tags?["language"] ?? "und"
             let label = track.tags?["title"] ?? Locale.current.localizedString(forIdentifier: language) ?? "Audio"
-            result.audio.append(StreamAudioTrack(index: index, name: "\(label) · \(index + 1)", language: language, described: false))
+            let rawChannels = track.channels ?? 2
+            let channels = rawChannels >= 8 ? 8 : (rawChannels >= 6 ? 6 : 2)
+            result.audio.append(StreamAudioTrack(index: index, name: "\(label) · \(index + 1)", language: language, channels: channels, described: false))
         }
         for track in metadata.streams.filter({ $0.codec_type == "subtitle" }).prefix(32) {
             guard supportedSubtitleCodecs.contains(track.codec_name ?? "") else {
@@ -188,16 +195,26 @@ enum MKVBridge {
         let section = MKVSection(directory: directory)
         do {
             func decimal(_ value: Double) -> String { String(format: "%.6f", locale: Locale(identifier: "en_US_POSIX"), value) }
-            // Copy HEVC/H.264 without re-encoding; normalize the target audio track for Apple's player.
+            // Copy HEVC/H.264 without re-encoding; retain multichannel surround (AAC 48kHz) for Apple's player.
             // Edit lists retain keyframe preroll while presenting requested source time as local zero.
-            var arguments = ["-v", "error", "-nostdin", "-protocol_whitelist", "file,pipe,fd", "-ss", decimal(start), "-i", "fd:", "-t", decimal(length + 0.15), "-map", "0:v:0"]
+            var arguments = ["-v", "error", "-nostdin", "-protocol_whitelist", "file,pipe,fd", "-ss", decimal(start), "-i", "fd:", "-t", decimal(length + 0.15)]
+            if let codec {
+                arguments += ["-map", "0:v:0"]
+                if codec == "mpeg2video" {
+                    arguments += ["-sn", "-c:v", "libx264", "-preset", "ultrafast", "-tune", "zerolatency", "-crf", "18", "-tag:v", "avc1"]
+                } else {
+                    let vTag = codec == "hevc" ? "hvc1" : (codec == "av1" ? "av01" : "avc1")
+                    arguments += ["-sn", "-c:v", "copy", "-tag:v", vTag]
+                }
+            } else {
+                arguments += ["-vn"]
+            }
             if let audioIndex {
-                arguments += ["-map", "0:a:\(audioIndex)?", "-c:a", "aac", "-ac", "2", "-ar", "48000"]
+                arguments += ["-map", "0:a:\(audioIndex)?", "-c:a", "aac", "-ar", "48000"]
             } else {
                 arguments += ["-an"]
             }
-            let vTag = codec == "hevc" ? "hvc1" : (codec == "av1" ? "av01" : "avc1")
-            arguments += ["-sn", "-c:v", "copy", "-tag:v", vTag, "-fs", "268435456", "-movflags", "+faststart", "-f", "mp4", section.url.path]
+            arguments += ["-fs", "268435456", "-movflags", "+faststart", "-f", "mp4", section.url.path]
             _ = try await MediaToolRunner.run("ffmpeg", arguments: arguments, input: source)
             try Task.checkCancellation()
             return section

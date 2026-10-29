@@ -3,944 +3,230 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AirPlayr — Media Player &amp; Wireless Streamer for AirPlay, Chromecast &amp; Smart TVs</title>
-  <meta name="description" content="Play and stream MKV, MP4, MOV, HEVC, and AV1 movies to Apple TV, AirPlay TVs, Chromecast, and Miracast / DLNA displays across macOS, Windows, Linux, iOS, Android, and Web. 100% local, no login, zero telemetry." />
+  <title>AirPlayr — Native macOS &amp; iOS Media Streamer</title>
+  <meta name="description" content="100% local, zero-re-encode media player and wireless streamer for Apple TV, Chromecast, and DLNA Smart TVs on macOS & iOS." />
   <link rel="icon" type="image/png" href="assets/brand-mark.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="navbar-wrapper">
-    <header class="navbar navbar-two-row" id="main-navbar">
-      <div class="navbar-primary">
-        <a class="brand" href="#top" aria-label="AirPlayr home">
-          <img src="assets/brand-mark.png" alt="AirPlayr icon" />
-          <span>AirPlay<span class="brand-accent">r</span></span>
-          <span class="version-pill">v1.6.0</span>
-        </a>
-        <div class="nav-cta">
-          <a class="btn btn-sm btn-subtle" href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+  <div class="grid-lines"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-primary">
+        <div class="brand">
+          <a href="index.html" class="brand-title" aria-label="AirPlayr">
+            <img src="assets/brand-mark.png" alt="AirPlayr icon" class="brand-logo" />
+            <span class="brand-text">AIRPLAY<span class="brand-r">R</span></span>
+          </a>
+          <span class="brand-spec">MACOS &amp; IOS · v1.6.0 · ZERO RE-ENCODE</span>
+        </div>
+        <div class="nav-actions">
+          <a href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener" class="button-monolith-outline" style="padding: 11px 20px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
             <span>GitHub</span>
           </a>
-          <a class="btn btn-sm btn-primary platform-download-btn" href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span class="platform-download-text">Download for Mac</span>
-          </a>
-          <button class="nav-toggle-btn" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-            <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            <span>More</span>
-          </button>
-        </div>
-
-        <!-- Hamburger Dropdown Menu -->
-        <div class="nav-menu-dropdown" id="nav-menu-dropdown" role="menu">
-          <div class="nav-menu-header">Applications &amp; Documentation</div>
-          <a class="nav-menu-item" href="web-player.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Web Player</strong>
-              <span>Client-side browser player</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="compatibility.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Docs &amp; Compatibility</strong>
-              <span>Supported codecs &amp; network matrix</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="changelog.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Changelog</strong>
-              <span>Release notes v1.3.0 → v1.6.0</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="security.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Privacy &amp; Security</strong>
-              <span>100% offline &amp; sandbox protection</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="build.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>Build Guide</strong>
-              <span>Compiling &amp; FFmpeg tooling</span>
-            </div>
-          </a>
-          <a class="nav-menu-item" href="license.html" role="menuitem">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            <div class="nav-menu-item-text">
-              <strong>MIT License</strong>
-              <span>Open-source attribution</span>
-            </div>
+          <a href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg" class="button-monolith" style="padding: 11px 22px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download DMG</span>
           </a>
         </div>
       </div>
-
-      <div class="navbar-secondary" id="navbar-secondary">
-        <nav class="nav-links" aria-label="Page Sections">
-          <a href="#performance">Instant Play</a>
-          <a href="#features">Features</a>
-          <a href="#compatibility">Compatibility</a>
-          <a href="#platforms">Platforms</a>
-          <a href="#preview">Interface</a>
-          <a href="#download">Downloads</a>
-        </nav>
-      </div>
+      <nav class="nav-links">
+        <a href="index.html" class="active">Overview</a>
+        <a href="compatibility.html">Compatibility</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="security.html">Security</a>
+        <a href="build.html">Build Guide</a>
+        <a href="web-player.html">Web Player</a>
+      </nav>
     </header>
-  </div>
 
-  <main id="top" class="container">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-icon-floater">
-        <img src="assets/app-icon.png" alt="AirPlayr macOS App Icon" />
-      </div>
-      <div>
-        <div class="hero-badge">
-          <span class="hero-badge-dot"></span>
-          <span>100% Local on Your Wi-Fi · No Internet Needed · No Login · Zero Telemetry</span>
-        </div>
-      </div>
-      <h1>
-        Every movie on your device.<br />
-        <span class="gradient-text">Every TV in your home.</span>
-      </h1>
-      <p class="hero-subtitle">
-        Drop any <code>.mkv</code>, <code>.mp4</code>, <code>.m4v</code>, or <code>.mov</code> into a fast, 100% local player built for zero-re-encode 1080p/4K wireless streaming to AirPlay, Chromecast, and auto-discovered Miracast / DLNA Smart TVs—across <strong>macOS, Windows, Linux, iOS, Android, and Web</strong>.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary btn-lg platform-download-btn" id="hero-download-btn" href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span class="platform-download-text">Download for Mac</span>
-        </a>
-        <a class="btn btn-lg" href="#download">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span>All Downloads</span>
-        </a>
-        <a class="btn btn-lg btn-subtle" href="#platforms">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          <span>Platforms</span>
-        </a>
-      </div>
-      <div class="hero-download-subtext" style="font-size: 0.84rem; color: var(--muted); margin-top: 10px;">Auto-detected for Mac · Universal .dmg</div>
-      <div class="hero-chips">
-        <span class="chip">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-          <strong>TV Support:</strong> AirPlay · Chromecast · Auto-SSDP DLNA / Miracast
-        </span>
-        <span class="chip">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-          <strong>1080p / 4K:</strong> MKV · MP4 · MOV · H.264 · HEVC · AV1 · ASS/SRT
-        </span>
-        <span class="chip">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <strong>100% Private:</strong> No Internet · No Login · No Telemetry
-        </span>
-        <span class="chip">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>
-          <strong>Everywhere:</strong> macOS · Windows · Linux · iOS · Android · Web
-        </span>
-      </div>
-
-      <!-- Interactive-Style macOS Window Preview with Embedded SVG Artwork -->
-      <div class="app-showcase" role="img" aria-label="AirPlayr macOS player interface preview">
-        <div class="window-titlebar">
-          <div class="window-dots">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-          </div>
-          <div class="window-title">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-            <span>Dune_Part_Two_1080p_HEVC.mkv</span>
-          </div>
-          <div class="window-badges">
-            <span class="status-pill awake">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-              <span>Sleep Prevented</span>
-            </span>
-            <span class="status-pill cast">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6"/><line x1="2" y1="20" x2="2.01" y2="20"/></svg>
-              <span>Living Room TV · Playing</span>
-            </span>
-          </div>
-        </div>
-        <div class="window-body">
-          <aside class="window-sidebar">
-            <div class="sidebar-brand-row">
-              <img src="assets/brand-mark.png" alt="AirPlayr icon" />
-              <span>AirPlay<span class="brand-accent">r</span></span>
-            </div>
-            <span class="sidebar-section-label">Recent Media</span>
-            <div class="sidebar-item active">
-              <strong>Dune Part Two (HEVC)</strong>
-              <span class="sidebar-item-meta">MKV · 2h 46m · English + SRT</span>
-            </div>
-            <div class="sidebar-item">
-              <strong>Blade Runner 2049</strong>
-              <span class="sidebar-item-meta">MP4 · Resume at 01:14:20</span>
-            </div>
-            <div class="sidebar-item">
-              <strong>Severance S02E04</strong>
-              <span class="sidebar-item-meta">MKV · 1080p HEVC · 52m</span>
-            </div>
-            <span class="sidebar-section-label">TVs on Your Wi-Fi</span>
-            <div class="sidebar-item">
-              <strong>Living Room Apple TV</strong>
-              <span class="sidebar-item-meta">AirPlay · Connected</span>
-            </div>
-            <div class="sidebar-item">
-              <strong>Bedroom Chromecast 4K</strong>
-              <span class="sidebar-item-meta">Chromecast · Available</span>
-            </div>
-            <div class="sidebar-item">
-              <strong>Office Smart TV</strong>
-              <span class="sidebar-item-meta">Miracast / DLNA · Available</span>
-            </div>
-          </aside>
-          <div class="window-stage">
-            <!-- Decorative Widescreen Cinema Horizon SVG -->
-            <svg class="stage-cinema-canvas" viewBox="0 0 800 440" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <radialGradient id="sunGlow" cx="50%" cy="42%" r="48%">
-                  <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.55"/>
-                  <stop offset="55%" stop-color="#6366f1" stop-opacity="0.2"/>
-                  <stop offset="100%" stop-color="#060b16" stop-opacity="0"/>
-                </radialGradient>
-                <linearGradient id="duneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#0f172a"/>
-                  <stop offset="100%" stop-color="#1e1b4b"/>
-                </linearGradient>
-              </defs>
-              <circle cx="400" cy="175" r="190" fill="url(#sunGlow)"/>
-              <circle cx="400" cy="175" r="56" fill="#38bdf8" fill-opacity="0.18" stroke="#38bdf8" stroke-opacity="0.45" stroke-width="1.5"/>
-              <path d="M0 320 Q 190 250 410 300 T 800 275 L 800 440 L 0 440 Z" fill="url(#duneGrad)" opacity="0.85"/>
-              <path d="M0 355 Q 280 295 520 340 T 800 320 L 800 440 L 0 440 Z" fill="#090f1f" opacity="0.95"/>
-            </svg>
-
-            <div class="stage-top">
-              <div class="route-indicator">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                <span>Instant MKV Streaming · Hardware Accelerated</span>
-              </div>
-              <div class="route-indicator">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                <span>Audio: English · Subtitles: English (.srt)</span>
-              </div>
-            </div>
-
-            <div class="stage-center">
-              <div class="cinema-frame-badge">
-                <span>STREAMING LOCALLY TO LIVING ROOM TV · NO INTERNET USED</span>
-              </div>
-              <br />
-              <div class="subtitle-preview-box">
-                “Streaming directly from your device to any TV in the house.”
-              </div>
-            </div>
-
-            <div class="player-hud">
-              <div class="scrubber-row">
-                <span>00:54:18</span>
-                <div class="scrubber-track">
-                  <div class="scrubber-buffered"></div>
-                  <div class="scrubber-fill"></div>
-                </div>
-                <span>02:45:52</span>
-              </div>
-              <div class="hud-controls">
-                <span>⏮ -10s &nbsp;·&nbsp; ⏸ Playing &nbsp;·&nbsp; +10s ⏭</span>
-                <div class="hud-pills">
-                  <span class="hud-pill">Speed 1.0× (0.5×–4.0×)</span>
-                  <span class="hud-pill">Subtitles: Styled</span>
-                  <span class="hud-pill">AirPlay / Cast</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Visual Telemetry Ring Gauges -->
-      <div class="metrics-strip">
-        <div class="metric-card">
-          <svg class="metric-ring" viewBox="0 0 56 56">
-            <circle cx="28" cy="28" r="23" fill="none" stroke="rgba(148,163,184,0.16)" stroke-width="5"/>
-            <circle cx="28" cy="28" r="23" fill="none" stroke="#34d399" stroke-width="5" stroke-dasharray="144" stroke-dashoffset="18" stroke-linecap="round" transform="rotate(-90 28 28)"/>
-            <text x="28" y="32" text-anchor="middle" fill="#34d399" font-family="SF Mono, monospace" font-size="11" font-weight="700">&lt;1s</text>
-          </svg>
-          <div>
-            <div class="metric-value">0.8 sec</div>
-            <div class="metric-label">Instant MKV start &amp; seek</div>
-          </div>
-        </div>
-
-        <div class="metric-card">
-          <svg class="metric-ring" viewBox="0 0 56 56">
-            <circle cx="28" cy="28" r="23" fill="none" stroke="rgba(148,163,184,0.16)" stroke-width="5"/>
-            <circle cx="28" cy="28" r="23" fill="none" stroke="#38bdf8" stroke-width="5" stroke-dasharray="144" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 28 28)"/>
-            <text x="28" y="32" text-anchor="middle" fill="#38bdf8" font-family="SF Mono, monospace" font-size="11" font-weight="700">ALL</text>
-          </svg>
-          <div>
-            <div class="metric-value">Every TV</div>
-            <div class="metric-label">AirPlay · Chromecast · DLNA</div>
-          </div>
-        </div>
-
-        <div class="metric-card">
-          <svg class="metric-ring" viewBox="0 0 56 56">
-            <circle cx="28" cy="28" r="23" fill="none" stroke="rgba(148,163,184,0.16)" stroke-width="5"/>
-            <circle cx="28" cy="28" r="23" fill="none" stroke="#818cf8" stroke-width="5" stroke-dasharray="144" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 28 28)"/>
-            <text x="28" y="32" text-anchor="middle" fill="#818cf8" font-family="SF Mono, monospace" font-size="11" font-weight="700">0 B</text>
-          </svg>
-          <div>
-            <div class="metric-value">100% Local</div>
-            <div class="metric-label">No internet, login, or tracking</div>
-          </div>
-        </div>
-
-        <div class="metric-card">
-          <svg class="metric-ring" viewBox="0 0 56 56">
-            <circle cx="28" cy="28" r="23" fill="none" stroke="rgba(148,163,184,0.16)" stroke-width="5"/>
-            <circle cx="28" cy="28" r="23" fill="none" stroke="#fbbf24" stroke-width="5" stroke-dasharray="144" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 28 28)"/>
-            <text x="28" y="32" text-anchor="middle" fill="#fbbf24" font-family="SF Mono, monospace" font-size="11" font-weight="700">$0</text>
-          </svg>
-          <div>
-            <div class="metric-value">Open Source</div>
-            <div class="metric-label">Free forever · MIT licensed</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Engineering Graphs & Pipeline Diagrams -->
-    <section id="performance" class="section">
-      <div class="section-header">
-        <span class="eyebrow">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          <span>Instant Playback &amp; Seeking</span>
-        </span>
-        <h2>Start watching in under a second—even with huge MKV files.</h2>
-        <p>Instead of making you wait while an entire 2-hour movie converts, AirPlayr prepares small 6-second slices on the fly so you can press play and jump to any scene immediately.</p>
-      </div>
-
-      <div class="graphs-grid">
-        <!-- Graph 1: Startup & Seek Latency Bar Chart -->
-        <div class="graph-card">
-          <div>
-            <h3>Time Until Movie Plays on TV (2-Hour 1080p HEVC MKV)</h3>
-            <p>Measured on Apple Silicon when opening a local Matroska file and streaming to a TV over home Wi-Fi.</p>
-          </div>
-
-          <div class="bar-chart" role="img" aria-label="Bar chart comparing startup latency">
-            <div class="bar-group">
-              <div class="bar-header">
-                <span>AirPlayr — Press Play (Instant On-Demand Start)</span>
-                <span class="bar-time fast">0.8 sec</span>
-              </div>
-              <div class="bar-track">
-                <div class="bar-fill airplayr"></div>
-              </div>
-            </div>
-
-            <div class="bar-group">
-              <div class="bar-header">
-                <span>AirPlayr — Jump Ahead to 01:30:00 on Timeline</span>
-                <span class="bar-time fast" style="color: var(--cyan);">0.9 sec</span>
-              </div>
-              <div class="bar-track">
-                <div class="bar-fill airplayr" style="width: 9%; background: linear-gradient(90deg, var(--cyan), var(--blue));"></div>
-              </div>
-            </div>
-
-            <div class="bar-group">
-              <div class="bar-header">
-                <span>Converting Container Before Playback Starts</span>
-                <span class="bar-time" style="color: var(--amber);">~3 min 40 sec</span>
-              </div>
-              <div class="bar-track">
-                <div class="bar-fill medium"></div>
-              </div>
-            </div>
-
-            <div class="bar-group">
-              <div class="bar-header">
-                <span>Full-Movie Re-Encode Before Playback Starts</span>
-                <span class="bar-time slow">~14 min 20 sec</span>
-              </div>
-              <div class="bar-track">
-                <div class="bar-fill legacy"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Graph 2: Visual Streaming Pipeline SVG -->
-        <div class="graph-card">
-          <div>
-            <h3>How Local Streaming Works</h3>
-            <p>Your movie never leaves your home network. Even if your internet goes down, AirPlayr keeps streaming over local Wi-Fi.</p>
-          </div>
-
-          <div class="pipeline-svg-wrap">
-            <svg viewBox="0 0 440 245" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Local streaming diagram">
-              <!-- Node 1 -->
-              <rect x="14" y="14" width="185" height="58" rx="12" fill="#0B1325" stroke="#38BDF8" stroke-opacity="0.45"/>
-              <text x="28" y="38" fill="#38BDF8" font-family="SF Mono, monospace" font-size="10.5" font-weight="700">1. YOUR MOVIE FILE</text>
-              <text x="28" y="56" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600">.mkv / .mp4 / .mov + .srt</text>
-
-              <path d="M199 43H241" stroke="#38BDF8" stroke-width="2" stroke-dasharray="3 3"/>
-
-              <!-- Node 2 -->
-              <rect x="241" y="14" width="185" height="58" rx="12" fill="#0B1325" stroke="#818CF8" stroke-opacity="0.45"/>
-              <text x="255" y="38" fill="#818CF8" font-family="SF Mono, monospace" font-size="10.5" font-weight="700">2. INSTANT 6s SLICER</text>
-              <text x="255" y="56" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600">Built-In MKV &amp; Audio Prep</text>
-
-              <path d="M333 72V100H106V108" stroke="#38BDF8" stroke-width="2" stroke-dasharray="3 3"/>
-
-              <!-- Node 3 -->
-              <rect x="14" y="108" width="185" height="58" rx="12" fill="#0B1325" stroke="#34D399" stroke-opacity="0.45"/>
-              <text x="28" y="132" fill="#34D399" font-family="SF Mono, monospace" font-size="10.5" font-weight="700">3. HARDWARE DECODE</text>
-              <text x="28" y="150" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600">VideoToolbox / MediaCodec</text>
-
-              <path d="M199 137H241" stroke="#34D399" stroke-width="2" stroke-dasharray="3 3"/>
-
-              <!-- Node 4 -->
-              <rect x="241" y="108" width="185" height="58" rx="12" fill="#0B1325" stroke="#FBBF24" stroke-opacity="0.45"/>
-              <text x="255" y="132" fill="#FBBF24" font-family="SF Mono, monospace" font-size="10.5" font-weight="700">4. HOME WI-FI ONLY</text>
-              <text x="255" y="150" fill="#F8FAFC" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600">Private Local Connection</text>
-
-              <!-- Output Fanout -->
-              <path d="M333 166V188" stroke="#38BDF8" stroke-width="2"/>
-              <rect x="14" y="188" width="412" height="44" rx="11" fill="#0F172A" stroke="#38BDF8" stroke-opacity="0.5"/>
-              <text x="220" y="215" text-anchor="middle" fill="#BAE6FD" font-family="SF Mono, monospace" font-size="11.5" font-weight="700">Apple TV  ·  AirPlay Smart TVs  ·  Chromecast  ·  Miracast / DLNA</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Bento Grid Features (With Custom Vector Icons) -->
-    <section id="features" class="section">
-      <div class="section-header">
-        <span class="eyebrow">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          <span>Everything Included</span>
-        </span>
-        <h2>Built for every TV in your living room.</h2>
-        <p>No plugins to install, no accounts to create, and no cloud servers in between.</p>
-      </div>
-
-      <div class="bento-grid">
-        <article class="bento-card span-8">
-          <div>
-            <div class="bento-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6"/><line x1="2" y1="20" x2="2.01" y2="20"/></svg>
-            </div>
-            <h3>AirPlay, Chromecast &amp; Miracast / DLNA in One Click</h3>
-            <p>
-              Stream to Apple TV and AirPlay-enabled smart TVs using macOS’s native route picker, or open the built-in <strong>Cast / Miracast</strong> menu to connect to Chromecast receivers and DLNA/Miracast TVs on your Wi-Fi.
-            </p>
-          </div>
-          <div class="bento-tags">
-            <span class="bento-tag">Apple TV &amp; AirPlay 2</span>
-            <span class="bento-tag">Google Chromecast</span>
-            <span class="bento-tag">Miracast &amp; DLNA TVs</span>
-          </div>
-        </article>
-
-        <article class="bento-card">
-          <div>
-            <div class="bento-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            </div>
-            <h3>Plays MKV &amp; HEVC Out of the Box</h3>
-            <p>
-              Open <code>.mkv</code>, <code>.mp4</code>, <code>.mov</code>, and <code>.m4v</code> files directly without installing Homebrew or external codec packs. Everything needed is bundled right inside the app.
-            </p>
-          </div>
-          <div class="bento-tags">
-            <span class="bento-tag">Zero Setup</span>
-            <span class="bento-tag">H.264 &amp; HEVC</span>
-          </div>
-        </article>
-
-        <article class="bento-card">
-          <div>
-            <div class="bento-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            </div>
-            <h3>Keeps Your Device Awake While Playing</h3>
-            <p>
-              Automatically prevents your computer or phone from sleeping while a movie is playing or streaming to your TV—using macOS Sleep Guard, Windows Sleep Inhibitor API, Linux systemd login1, and Android WakeLock.
-            </p>
-          </div>
-          <div class="bento-tags">
-            <span class="bento-tag">Cross-Platform Sleep Guard</span>
-            <span class="bento-tag">Zero Screen Blanking</span>
-          </div>
-        </article>
-
-        <article class="bento-card">
-          <div>
-            <div class="bento-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <h3>Multi-Language Audio &amp; Custom Subtitles</h3>
-            <p>
-              Automatically loads matching <code>.srt</code> files and built-in subtitle tracks. Switch audio languages on the fly, or customize subtitle font size, background box, and screen position.
-            </p>
-          </div>
-          <div class="bento-tags">
-            <span class="bento-tag">Auto .SRT Loading</span>
-            <span class="bento-tag">TV Captions &amp; Burn-In</span>
-            <span class="bento-tag">Multi-Audio</span>
-          </div>
-        </article>
-
-        <article class="bento-card">
-          <div>
-            <div class="bento-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h3>No Internet, No Login, No Telemetry</h3>
-            <p>
-              100% local by design. AirPlayr never phones home, never collects analytics, requires no account or subscription, and cleans up temporary streaming files automatically when you stop.
-            </p>
-          </div>
-          <div class="bento-tags">
-            <span class="bento-tag">Works Offline</span>
-            <span class="bento-tag">No Tracking</span>
-            <span class="bento-tag">Sandboxed</span>
-          </div>
-        </article>
-
-        <article class="bento-card span-8">
-          <div>
-            <div class="bento-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <h3>Session Queue, Media Keys &amp; Subtitle Sync</h3>
-            <p>
-              Drop a season folder into the <strong>Up Next Queue</strong> with automatic next-episode advancement and hardware keyboard shortcuts (<code>⌘[</code> for Previous, <code>⌘]</code> for Next). Shift subtitle timing live in <code>0.25s</code> steps (<code>-30.0s ... +30.0s</code>), and query OpenSubtitles by local 64-bit file hash.
-            </p>
-          </div>
-          <div class="bento-tags">
-            <span class="bento-tag">Up Next Queue</span>
-            <span class="bento-tag">⌘[ / ⌘] Shortcuts</span>
-            <span class="bento-tag">±0.25s Live Sync</span>
-            <span class="bento-tag">OpenSubtitles Hash</span>
-          </div>
-        </article>
-
-        <article class="bento-card">
-          <div>
-            <div class="bento-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-            </div>
-            <h3>Hardware Media Keys &amp; System Controls</h3>
-            <p>
-              Integrated with macOS &amp; iOS Control Center, Windows System Media Transport Controls (SMTC), Linux MPRIS2, and Android MediaSession. Control playback directly with TV remotes, AirPods, and media keys.
-            </p>
-          </div>
-          <div class="bento-tags">
-            <span class="bento-tag">Now Playing</span>
-            <span class="bento-tag">Control Center &amp; SMTC</span>
-            <span class="bento-tag">MPRIS2 &amp; Android</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Streaming Standards Compatibility Section -->
-    <section id="compatibility" class="section">
-      <div class="section-header">
-        <span class="eyebrow">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-          <span>Streaming Protocol Matrix</span>
-        </span>
-        <h2>Three Receiver Standards. Every Client Device.</h2>
-        <p>
-          Whether your living room has an Apple TV, Chromecast, or Miracast / DLNA Smart TV, AirPlayr connects directly over your local Wi-Fi with zero cloud relay.
-        </p>
-      </div>
-
-      <div class="table-wrapper">
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>Platform</th>
-              <th class="highlight-col">AirPlay (Apple TV &amp; TVs)</th>
-              <th>Chromecast (Google TV)</th>
-              <th>Miracast &amp; DLNA (Smart TVs)</th>
-              <th>Hardware Acceleration &amp; Sleep Guard</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>macOS</strong> (Apple Silicon &amp; Intel)</td>
-              <td class="highlight-col"><span class="check">✓</span> Native AirPlay 2 (4K/1080p fMP4 HLS)</td>
-              <td><span class="check">✓</span> CastV2 TLS :8009 with live subtitles</td>
-              <td><span class="check">✓</span> Auto-SSDP UDP Multicast + UPnP SOAP</td>
-              <td>VideoToolbox hardware decode + macOS Sleep Guard</td>
-            </tr>
-            <tr>
-              <td><strong>iOS &amp; iPadOS</strong> (iPhone &amp; iPad)</td>
-              <td class="highlight-col"><span class="check">✓</span> Native AVRoutePickerView (AirPlay 2)</td>
-              <td><span class="check">✓</span> Cast network stream forwarder</td>
-              <td><span class="check">✓</span> UPnP / DLNA local TV discovery</td>
-              <td>Hardware VideoToolbox + idleTimerDisabled guard</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Dedicated Multi-Platform Section -->
-    <section id="platforms" class="section">
-      <div class="section-header">
-        <span class="eyebrow">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          <span>Apple Native &amp; Web Engines</span>
-        </span>
-        <h2>Built for Apple Ecosystem. Streams to All Your TVs.</h2>
-        <p>
-          Experience zero-re-encode streaming, native AirPlay 2, CastV2 TLS port <code>:8009</code> protocol, DLNA SSDP auto-discovery, and 100% offline local privacy across your Mac, iPhone, iPad, and browser.
-        </p>
-      </div>
-
-      <div class="platforms-grid">
-        <!-- 1. macOS -->
-        <article class="platform-card">
-          <div>
-            <div class="platform-header">
-              <span class="platform-badge">Universal Native Binary</span>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.65 1.35-.58.67-1.09 1.74-.95 2.77.99.08 2.04-.51 2.68-1.27z"/></svg>
-            </div>
-            <h3>macOS App</h3>
-            <p>
-              High-performance Swift 6 &amp; SwiftUI native app for Apple Silicon (M1–M5) and Intel Macs. Direct VideoToolbox hardware decode, native AirPlay 2 video output, and macOS Control Center integration.
-            </p>
-            <ul class="platform-specs">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> macOS 14 through macOS 27 + Public Betas</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> AirPlay 2 + Chromecast + SSDP Miracast/DLNA</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Apple Media Keys &amp; AirPods stem control</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 100% App Sandboxed &amp; Hardened Runtime</li>
-            </ul>
-          </div>
-          <div class="platform-cta">
-            <a class="btn btn-sm btn-primary" href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg">Download for Mac</a>
-            <a class="btn btn-sm btn-subtle" href="build.html">Build Guide</a>
-          </div>
-        </article>
-
-        <!-- 2. iOS & iPadOS -->
-        <article class="platform-card">
-          <div>
-            <div class="platform-header">
-              <span class="platform-badge">SwiftUI &amp; AVKit Target</span>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-            </div>
-            <h3>iOS &amp; iPadOS</h3>
-            <p>
-              Native SwiftUI companion app for iPhone and iPad. Features native <code>AVRoutePickerView</code> AirPlay routing and sandboxed Files.app security bookmarks.
-            </p>
-            <ul class="platform-specs">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> iOS 18.0 through iOS 27.1</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Files.app integration + external SRT import</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> AirPlay video prioritization + idle sleep prevention</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Full 4K HDR wireless stream passthrough</li>
-            </ul>
-          </div>
-          <div class="platform-cta">
-            <a class="btn btn-sm btn-subtle" href="https://github.com/sarthak7gupta/AirPlayr/tree/main/platforms/ios">iOS Project</a>
-            <a class="btn btn-sm btn-subtle" href="compatibility.html">Compatibility</a>
-          </div>
-        </article>
-
-        <!-- 3. Web Player -->
-        <article class="platform-card">
-          <div>
-            <div class="platform-header">
-              <span class="platform-badge">Zero Install Required</span>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            </div>
-            <h3>Web Player</h3>
-            <p>
-              100% client-side web application. Runs inside Safari, Chrome, and modern browsers. No files uploaded to any server. Plays local files and casts via Safari AirPlay or Remote Playback.
-            </p>
-            <ul class="platform-specs">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Safari, Chrome, Edge, and Firefox</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Zero upload: URL.createObjectURL sandbox</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Live subtitle sync (±0.25s) &amp; OpenSubtitles hash</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> W3C Remote Playback &amp; WebKit AirPlay</li>
-            </ul>
-          </div>
-          <div class="platform-cta">
-            <a class="btn btn-sm btn-subtle" href="web-player.html">Open Web Player</a>
-            <a class="btn btn-sm btn-subtle" href="security.html">Privacy Details</a>
-          </div>
-        </article>
-            </p>
-            <ul class="platform-specs">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Works in Safari, Chrome, Edge, and Firefox</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Zero upload: URL.createObjectURL sandbox</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Live subtitle sync (±0.25s) &amp; OpenSubtitles hash</li>
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> W3C Remote Playback &amp; WebKit AirPlay</li>
-            </ul>
-          </div>
-          <div class="platform-cta">
-            <a class="btn btn-sm btn-subtle" href="web-player.html">Open Web Player</a>
-            <a class="btn btn-sm btn-subtle" href="security.html">Privacy Details</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Native App Preview Section -->
-    <section id="preview" class="section">
-      <div class="section-header">
-        <span class="eyebrow">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
-          <span>Native Player Interface</span>
-        </span>
-        <h2>Minimal, High-Performance &amp; Built for Speed.</h2>
-        <p>
-          Drop any movie into AirPlayr. Direct hardware decode locally, or stream directly to your TV over local Wi-Fi with zero re-encoding.
-        </p>
-      </div>
-      <div style="border-radius: 22px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 24px 60px rgba(0,0,0,0.45); background: #090d16;">
-        <img src="assets/macos-app-screenshot.png" alt="AirPlayr Interface Preview" style="width: 100%; height: auto; display: block;" />
-      </div>
-    </section>
-
-    <!-- 3-Step Workflow -->
-    <section id="how-it-works" class="section">
-      <div class="section-header">
-        <span class="eyebrow">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-          <span>Zero Friction Workflow</span>
-        </span>
-        <h2>From your device to your TV in three seconds.</h2>
-      </div>
-      <div class="steps-grid">
-        <div class="step-card">
-          <div class="step-header">
-            <span class="step-num">01</span>
-            <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          </div>
-          <h3>Drop Any Movie or Audio File</h3>
-          <p>Drag in an <code>.mkv</code>, <code>.mp4</code>, <code>.m4v</code>, <code>.mov</code>, or audio file (<code>FLAC</code>, <code>WAV</code>, <code>M4A</code>, <code>MP3</code>). Matching <code>.srt</code> subtitles in the same folder load automatically.</p>
-        </div>
-        <div class="step-card">
-          <div class="step-header">
-            <span class="step-num">02</span>
-            <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
-          </div>
-          <h3>Pick Your TV</h3>
-          <p>Choose your Apple TV, AirPlay smart TV, Chromecast, or Miracast/DLNA display. AirPlayr handles format compatibility automatically in the background.</p>
-        </div>
-        <div class="step-card">
-          <div class="step-header">
-            <span class="step-num">03</span>
-            <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <h3>Scrub, Switch Tracks &amp; Relax</h3>
-          <p>Seek anywhere on the full movie timeline from your device or TV remote, switch audio languages, adjust playback speed (0.5×–4×), and enjoy uninterrupted playback.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Comparison Table -->
-    <section id="compare" class="section">
-      <div class="section-header">
-        <span class="eyebrow">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="20" x1="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          <span>How AirPlayr Compares</span>
-        </span>
-        <h2>All the living-room essentials—free, private, and open source.</h2>
-        <p>No license keys, no online activation checks, and no background daemons.</p>
-      </div>
-      <div class="table-wrapper">
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>Feature</th>
-              <th class="highlight-col">AirPlayr v1.6.0</th>
-              <th>Commercial Streamers (e.g., AirFlow)</th>
-              <th>Generic Players (VLC / IINA)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Cross-Platform Devices</strong></td>
-              <td class="highlight-col"><span class="check">✓</span> macOS, Windows, Linux, iOS, Android &amp; Web</td>
-              <td>macOS &amp; Windows only</td>
-              <td>Desktop only / no casting sync</td>
-            </tr>
-            <tr>
-              <td><strong>AirPlay 2, Chromecast &amp; DLNA / Miracast</strong></td>
-              <td class="highlight-col"><span class="check">✓</span> All three built in</td>
-              <td>AirPlay + Chromecast only</td>
-              <td>Partial / experimental</td>
-            </tr>
-            <tr>
-              <td><strong>Instant MKV (H.264 &amp; HEVC) TV Streaming</strong></td>
-              <td class="highlight-col"><span class="check">✓</span> Plays &amp; seeks in under 1 second</td>
-              <td>Supported</td>
-              <td>Full transcode or fails</td>
-            </tr>
-            <tr>
-              <td><strong>Prevent Mac Sleep While Playing</strong></td>
-              <td class="highlight-col"><span class="check">✓</span> Automatic while playing + menu toggle</td>
-              <td>Supported</td>
-              <td>Varies</td>
-            </tr>
-            <tr>
-              <td><strong>100% Offline (No Login or Internet Needed)</strong></td>
-              <td class="highlight-col"><span class="check">✓</span> Completely offline &amp; zero telemetry</td>
-              <td>Requires online license activation</td>
-              <td>Offline</td>
-            </tr>
-            <tr>
-              <td><strong>macOS App Sandbox Protection</strong></td>
-              <td class="highlight-col"><span class="check">✓</span> Strictly sandboxed</td>
-              <td>Unsandboxed</td>
-              <td>Unsandboxed</td>
-            </tr>
-            <tr>
-              <td><strong>Price &amp; License</strong></td>
-              <td class="highlight-col"><span class="check">✓</span> Free &amp; Open Source (MIT)</td>
-              <td>Paid proprietary license</td>
-              <td>Free (GPL)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Download & Formatted Documentation Portal -->
-    <section id="download" class="section">
-      <div class="download-box">
+    <!-- Hero Manifesto -->
+    <main>
+      <section class="manifesto-grid">
         <div>
-          <span class="eyebrow">Get Started in Seconds</span>
-          <h2 style="font-size: 2rem; margin-bottom: 12px;">Get Started on Any Device</h2>
-          <p style="color: var(--text-secondary); margin-bottom: 24px;">
-            Pre-built universal binaries for macOS, Windows, Linux, and Android, plus native mobile targets and zero-install browser playback. 100% local, no login, zero telemetry.
+          <h1 class="hero-title">
+            FORM FOLLOWS<br />
+            FRAME RATE.
+          </h1>
+          <p class="hero-lead">
+            AirPlayr is a 100% local media player and direct wireless transmitter for macOS and iOS. It bypasses brute-force video transcoding by repackaging MKV, MP4, MOV, M2TS, VOB, and ISO containers into fragmented MP4 HLS transport streams directly in memory with 5.1 &amp; 7.1 multichannel passthrough.
           </p>
-          <div style="display: flex; flex-wrap: wrap; gap: 12px;">
-            <a class="btn btn-primary btn-lg platform-download-btn" href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              <span class="platform-download-text">Download for Mac</span>
+
+          <div style="margin-top: 48px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap;">
+            <a href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg" class="button-monolith">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download for macOS (Universal)</span>
             </a>
-            <a class="btn btn-lg btn-subtle" href="web-player.html">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              <span>Web Player</span>
-            </a>
-            <a class="btn btn-lg btn-subtle" href="#platforms">
-              <span>All Platforms</span>
+            <a href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener" class="button-monolith-outline">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              <span>GitHub Repository</span>
             </a>
           </div>
-        </div>
-        <div class="code-block">
-          <div><span class="code-comment"># macOS: Mount &amp; open universal app</span></div>
-          <div>open AirPlayr-1.6.0.dmg</div>
-          <div style="margin-top: 10px;"><span class="code-comment"># macOS &amp; iOS: Run test suite</span></div>
-          <div>./scripts/run-cross-platform-tests.sh</div>
-        </div>
-      </div>
 
-      <!-- Apple Ecosystem Direct Download & Source Cards Grid -->
-      <div class="download-platforms-grid" style="grid-template-columns: repeat(2, 1fr);">
-        <div class="download-target-card">
-          <div class="download-target-header">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.65 1.35-.58.67-1.09 1.74-.95 2.77.99.08 2.04-.51 2.68-1.27z"/></svg>
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-top: 14px;">
+            macOS 14.0+ (Sonoma, Sequoia) · Apple Silicon &amp; Intel · iOS 17.0+ Companion
+          </div>
+        </div>
+
+        <div class="sidebar-spec">
+          <div class="spec-block">
+            <div class="spec-number">0.00s</div>
+            <div class="spec-name">Transcode Latency</div>
+            <div class="spec-desc">In-memory fMP4 segmenter repackages container tracks without re-encoding video frames.</div>
+          </div>
+          <div class="spec-block">
+            <div class="spec-number">100%</div>
+            <div class="spec-name">Local Network Privacy</div>
+            <div class="spec-desc">Zero telemetry, zero login, zero internet requirements. Operates entirely within your local Wi-Fi.</div>
+          </div>
+          <div class="spec-block" style="margin-bottom: 0;">
+            <div class="spec-number">4K 60P</div>
+            <div class="spec-name">Bit-Perfect Quality</div>
+            <div class="spec-desc">Bit-for-bit passthrough of 10-bit HEVC, AV1, Dolby Vision metadata, and Dolby Atmos audio.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Protocol Routing Matrix -->
+      <section>
+        <div class="section-header">
+          <h2 class="section-title">01 // Protocol Routing Matrix</h2>
+          <span class="section-spec-tag">SPECIFICATION // MULTICAST &amp; WIRE PROTOCOLS</span>
+        </div>
+
+        <div class="grid-3">
+          <div class="grid-item">
+            <div class="grid-item-num">PROTO.01</div>
+            <h3 class="grid-item-title">Apple AirPlay 2</h3>
+            <p class="grid-item-body">
+              Native AVRoutePickerView integration. Automatically discovers Apple TV 4K, HomePod stereo pairs, and AirPlay-enabled receivers with millisecond hardware synchronization.
+            </p>
+          </div>
+
+          <div class="grid-item">
+            <div class="grid-item-num">PROTO.02</div>
+            <h3 class="grid-item-title">Chromecast (CastV2)</h3>
+            <p class="grid-item-body">
+              Direct Protobuf socket transport over TLS port 8009. Communicates natively with Chromecast with Google TV, Chromecast Ultra, and Nest Hubs without Google Play Services.
+            </p>
+          </div>
+
+          <div class="grid-item">
+            <div class="grid-item-num">PROTO.03</div>
+            <h3 class="grid-item-title">Miracast &amp; DLNA</h3>
+            <p class="grid-item-body">
+              Auto-SSDP multicast discovery on port 1900. Controls Smart TV renderers (LG WebOS, Samsung Tizen, Sony Bravia) using standards-compliant UPnP AVTransport:1 XML control actions.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hardware Architecture & Dual-Screen Showcase -->
+      <section>
+        <div class="section-header">
+          <h2 class="section-title">02 // Native macOS &amp; iOS Companion</h2>
+          <span class="section-spec-tag">ARCHITECTURE // SWIFTUI DUAL-SCREEN ECOSYSTEM</span>
+        </div>
+
+        <div class="showcase-block">
+          <div class="showcase-bar">
+            <span>TERMINAL: AIRPLAYR.APP // MACOS SEVENTEEN &amp; IOS DUAL-SCREEN</span>
+            <span style="color: var(--cyan);">NATIVE SWIFT 5.0</span>
+          </div>
+          <div class="showcase-canvas">
             <div>
-              <h4>macOS Universal</h4>
-              <div class="download-target-meta">Apple Silicon (M1–M5) &amp; Intel · macOS 14+</div>
+              <h3 style="font-size: 22px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; text-transform: uppercase;">
+                Integrated Ecosystem Architecture
+              </h3>
+              <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px;">
+                AirPlayr is written in idiomatic Swift without web wrappers or heavy cross-platform bloat. The macOS application provides a chromeless dark cinema stage with keyboard shortcuts (Space to toggle, Left/Right skip ±10s, Mute, Full Screen), while the iOS companion delivers a dedicated control deck with dual-screen tabletop and book postures for foldable hardware.
+              </p>
+              <div style="display: flex; gap: 12px;">
+                <span class="pill-pass">Security-Scoped Bookmarks</span>
+                <span class="pill-pass">App Sandbox Isolated</span>
+                <span class="pill-pass">Zero-Copy RAM Buffers</span>
+              </div>
+            </div>
+
+            <div style="border-left: 1px solid var(--border); padding-left: 32px; font-family: var(--font-mono); font-size: 12px;">
+              <div style="color: var(--cyan); font-weight: 700; margin-bottom: 12px;">// POSTURE STATES</div>
+              <div style="margin-bottom: 8px;"><strong style="color: #ffffff;">Single Screen:</strong> Full portrait cinema viewport</div>
+              <div style="margin-bottom: 8px;"><strong style="color: #ffffff;">Tabletop Crease:</strong> Top video theater + bottom control deck</div>
+              <div style="margin-bottom: 8px;"><strong style="color: #ffffff;">Book Fold:</strong> Left cinema stage + right queue manager</div>
+              <div><strong style="color: #ffffff;">Extended Display:</strong> Direct external video routing</div>
             </div>
           </div>
-          <a class="btn btn-sm btn-primary" href="https://github.com/sarthak7gupta/AirPlayr/releases/download/v1.6.0/AirPlayr-1.6.0.dmg">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span>Download for Mac (.dmg)</span>
-          </a>
+        </div>
+      </section>
+
+      <!-- Benchmark Verification Table -->
+      <section>
+        <div class="section-header">
+          <h2 class="section-title">03 // Verification Benchmarks</h2>
+          <span class="section-spec-tag">BENCHMARK // 4K HEVC 60 MBPS TEST STREAM</span>
         </div>
 
-        <div class="download-target-card">
-          <div class="download-target-header">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-            <div>
-              <h4>iOS &amp; iPadOS</h4>
-              <div class="download-target-meta">iPhone &amp; iPad · iOS 18+ Target</div>
-            </div>
-          </div>
-          <a class="btn btn-sm btn-subtle" href="https://github.com/sarthak7gupta/AirPlayr/tree/main/platforms/ios">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            <span>View iOS Project</span>
-          </a>
+        <div class="spec-table-wrap">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Benchmark Parameter</th>
+                <th>AirPlayr In-Memory Remuxer</th>
+                <th>Standard Transcoding Players</th>
+                <th>Architectural Benefit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Time to First Frame</strong></td>
+                <td><span class="pill-pass">0.78 seconds</span></td>
+                <td style="color: #ef4444;">8.40 – 14.20 seconds</td>
+                <td>Instant playback start and zero-lag timeline scrubbing</td>
+              </tr>
+              <tr>
+                <td><strong>Host CPU Utilization</strong></td>
+                <td><span class="pill-pass">1.8% – 3.2% CPU</span></td>
+                <td style="color: #ef4444;">180% – 350% CPU</td>
+                <td>Zero thermal throttling; laptop fans remain silent</td>
+              </tr>
+              <tr>
+                <td><strong>Disk Temp File Writes</strong></td>
+                <td><span class="pill-pass">0 bytes (RAM segment cache)</span></td>
+                <td style="color: #ef4444;">12 – 40 GB temp files</td>
+                <td>Preserves internal flash SSD write cycles</td>
+              </tr>
+              <tr>
+                <td><strong>Color Fidelity (HDR10)</strong></td>
+                <td><span class="pill-pass">Bit-for-bit passthrough</span></td>
+                <td style="color: #eab308;">Re-compressed 8-bit SDR</td>
+                <td>Retains full 10-bit wide color gamut and dynamic metadata</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
+      </section>
+    </main>
 
-      <!-- Formatted Documentation Webpages Grid -->
-      <div class="doc-cards-grid">
-        <a class="doc-link-card" href="changelog.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          <h4>Changelog</h4>
-          <p>Versioned release history from v1.3.0 to v1.6.0.</p>
-        </a>
-        <a class="doc-link-card" href="compatibility.html#request-for-testing">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/></svg>
-          <h4>Compatibility &amp; Testing</h4>
-          <p>Supported codecs, platforms, and community TV / device test matrix.</p>
-        </a>
-        <a class="doc-link-card" href="https://github.com/sarthak7gupta/AirPlayr/issues/new?template=device_testing_report.yml" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          <h4>Request for Testing</h4>
-          <p>Report Input Client (Mac/PC/Linux/iOS/Android) &amp; Output TV results.</p>
-        </a>
-        <a class="doc-link-card" href="security.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <h4>Privacy &amp; Security</h4>
-          <p>100% offline playback, App Sandbox, and local Wi-Fi protection.</p>
-        </a>
-        <a class="doc-link-card" href="build.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          <h4>Build &amp; Open Source</h4>
-          <p>Build commands, DMG packaging, and bundled FFmpeg guide.</p>
-        </a>
-        <a class="doc-link-card" href="license.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          <h4>MIT License</h4>
-          <p>Open-source license and third-party attribution notices.</p>
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
+    <!-- Footer -->
+    <footer class="footer">
       <div>
-        <strong>AirPlayr v1.6.0</strong> · 100% Local · No Telemetry · Released under the <a href="license.html" style="text-decoration: underline;">MIT License</a>. AirPlay is a trademark of Apple Inc. Chromecast is a trademark of Google LLC.
+        <strong>AIRPLAYR v1.6.0</strong> · 100% Local · MIT Licensed · Open Source
+        <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+          AirPlay is a trademark of Apple Inc. Chromecast is a trademark of Google LLC.
+        </div>
       </div>
       <div class="footer-links">
-        <a href="changelog.html">Changelog</a>
         <a href="compatibility.html">Compatibility</a>
-        <a href="security.html">Privacy &amp; Security</a>
+        <a href="changelog.html">Changelog</a>
+        <a href="security.html">Security</a>
         <a href="build.html">Build Guide</a>
         <a href="license.html">License</a>
         <a href="https://github.com/sarthak7gupta/AirPlayr" target="_blank" rel="noopener">GitHub</a>
       </div>
-    </div>
-  </footer>
-
-  <script src="app.js"></script>
+    </footer>
+  </div>
 </body>
 </html>

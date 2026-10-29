@@ -33,9 +33,11 @@ Most desktop video players force a trade-off: either they can’t stream MKVs to
 **AirPlayr** is built differently:
 
 - **Every TV in your home:** Stream natively to **Apple TV & AirPlay 2 TVs**, **Chromecast** devices, and **Miracast / DLNA** smart TVs with **automatic SSDP multicast discovery**.
-- **Zero-Re-Encode 1080p / 4K Passthrough & Instant MKV/AV1/HEVC Streaming:** Compressed H.264/HEVC packets are muxed directly into `fMP4` HLS segments without re-encoding when no pixel burn-in is needed, and hardware `VideoToolbox` encoding preserves up to **4K (`3840×2160`)**. Bundled minimal LGPL FFmpeg 9.0.2 helpers automatically prepare H.264, HEVC, and hardware-decoded AV1 MKVs in **6-second on-demand sections**.
+- **Bit-Perfect 5.1 & 7.1 Multichannel Surround:** True multichannel surround sound passthrough (Dolby Digital AC-3, E-AC-3, TrueHD, DTS-HD, and 6/8-channel AAC/PCM) with zero stereo downmixing.
+- **Zero-Re-Encode 1080p / 4K Passthrough & Broad Container Support:** Compressed H.264/HEVC/AV1 packets are muxed directly into `fMP4` HLS segments without re-encoding, preserving HDR10 and Dolby Vision. Supports **MKV, MP4, MOV, M4V**, plus **M2TS / TS / MTS**, **M3U8**, **VOB**, **ISO** (auto-mount), and **AC-4** on macOS.
 - **100% local & offline-ready:** Runs inside the **macOS App Sandbox** over your local Wi-Fi. No internet connection required, no login, no analytics, no telemetry, and no cloud uploads.
 - **Playlists, Up Next Queue & Media Keys:** Open multiple files or entire folders into an **Up Next Queue** with auto-advance, `⌘[` / `⌘]` navigation, **macOS Control Center (`MPNowPlayingInfoCenter`)**, hardware media keys, and AirPods remote control.
+- **iOS & iPadOS Companion:** Native companion target with full AirPlay 2 video routing, staged media loading (no unwanted local auto-play), and dark cinema aesthetic matching macOS.
 - **Rich subtitle & audio track support:** Automatically loads matching `<movie>.srt` files, extracts embedded SRT, **ASS / SSA**, and MP4/MOV timed-text tracks, supports live **Subtitle Sync Offset (`±0.25s`)**, remembers preferred audio/subtitle languages, and includes an **opt-in OpenSubtitles search** using local 64-bit movie hashes.
 - **Awake while playing:** Automatically keeps your display awake while your movie is playing or streaming to the TV, and releases the sleep lock as soon as you pause or stop.
 

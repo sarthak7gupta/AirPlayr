@@ -1,4 +1,5 @@
 import AVFoundation
+import CoreAudio
 import UniformTypeIdentifiers
 
 /// One TV compatibility session: inspect tracks, start `VODStreamStore`, and serve HLS over HTTP.
@@ -134,9 +135,44 @@ enum IncrementalEncoder {
         var pairs: [(AVAssetReaderOutput, AVAssetWriterInput)] = audioOnly == nil ? [(videoOutput, videoInput)] : []
         if audioTracks.indices.contains(audioIndex) {
             let audio = audioTracks[audioIndex]
-            let output = AVAssetReaderTrackOutput(track: audio, outputSettings: [AVFormatIDKey: kAudioFormatLinearPCM, AVSampleRateKey: 48000, AVNumberOfChannelsKey: 2, AVLinearPCMBitDepthKey: 16, AVLinearPCMIsFloatKey: false, AVLinearPCMIsNonInterleaved: false])
+            let descriptions = (try? await audio.load(.formatDescriptions)) ?? []
+            var channels = 2
+            for desc in descriptions {
+                if let basic = CMAudioFormatDescriptionGetStreamBasicDescription(desc)?.pointee {
+                    channels = max(1, Int(basic.mChannelsPerFrame))
+                }
+            }
+            let channelCount = channels >= 8 ? 8 : (channels >= 6 ? 6 : 2)
+            var readerSettings: [String: Any] = [
+                AVFormatIDKey: kAudioFormatLinearPCM,
+                AVSampleRateKey: 48000,
+                AVNumberOfChannelsKey: channelCount,
+                AVLinearPCMBitDepthKey: 16,
+                AVLinearPCMIsFloatKey: false,
+                AVLinearPCMIsNonInterleaved: false
+            ]
+            var writerSettings: [String: Any] = [
+                AVFormatIDKey: kAudioFormatMPEG4AAC,
+                AVSampleRateKey: 48000,
+                AVNumberOfChannelsKey: channelCount,
+                AVEncoderBitRateKey: channelCount >= 8 ? 512_000 : (channelCount >= 6 ? 384_000 : 160_000)
+            ]
+            if channelCount == 6 {
+                var layout = AudioChannelLayout()
+                layout.mChannelLayoutTag = kAudioChannelLayoutTag_MPEG_5_1_D
+                let layoutData = Data(bytes: &layout, count: MemoryLayout<AudioChannelLayout>.size)
+                readerSettings[AVChannelLayoutKey] = layoutData
+                writerSettings[AVChannelLayoutKey] = layoutData
+            } else if channelCount == 8 {
+                var layout = AudioChannelLayout()
+                layout.mChannelLayoutTag = kAudioChannelLayoutTag_MPEG_7_1_B
+                let layoutData = Data(bytes: &layout, count: MemoryLayout<AudioChannelLayout>.size)
+                readerSettings[AVChannelLayoutKey] = layoutData
+                writerSettings[AVChannelLayoutKey] = layoutData
+            }
+            let output = AVAssetReaderTrackOutput(track: audio, outputSettings: readerSettings)
             output.alwaysCopiesSampleData = false
-            let input = AVAssetWriterInput(mediaType: .audio, outputSettings: [AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: 48000, AVNumberOfChannelsKey: 2, AVEncoderBitRateKey: 160000])
+            let input = AVAssetWriterInput(mediaType: .audio, outputSettings: writerSettings)
             pairs.append((output, input))
         }
         let pumps = try legacyPumps(reader: reader, writer: writer, pairs: pairs, buffer: buffer, offset: offset)

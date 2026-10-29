@@ -6,14 +6,14 @@ import UniformTypeIdentifiers
 
 // MARK: - Dual Screen Postures
 
-/// Posture states for iPhone Fold / Duo, iPad Split View, and Dual-Screen hardware.
+/// Posture states for adaptive compact, landscape, and split views.
 enum DualScreenPosture: String, CaseIterable, Equatable, Sendable {
     case singleScreen = "Single Screen"
     case tabletopHorizontalHinge = "Tabletop (Top Video / Bottom Deck)"
-    case bookVerticalHinge = "Book / Dual-Screen (Left Video / Right Deck)"
+    case bookVerticalHinge = "Split View (Left Video / Right Deck)"
     case externalDisplayExtended = "External Display Extended"
 
-    /// Resolves the optimal dual-screen/foldable layout posture from viewport geometry, hinge rect, and external screen state.
+    /// Resolves the optimal layout posture from viewport geometry, hinge rect, and external screen state.
     static func resolve(
         containerSize: CGSize,
         hingeRect: CGRect? = nil,
@@ -27,7 +27,7 @@ enum DualScreenPosture: String, CaseIterable, Equatable, Sendable {
         }
         guard containerSize.width > 0, containerSize.height > 0 else { return .singleScreen }
         let ratio = containerSize.width / containerSize.height
-        // Unfolded square-ish inner foldable displays (e.g., iPhone Fold / Duo book posture ~ 0.85..1.25 at >=600pt width)
+        // Split view / wide landscape posture
         if containerSize.width >= 600 && ratio >= 0.85 && ratio <= 1.35 {
             return .bookVerticalHinge
         }
@@ -43,16 +43,15 @@ struct IOSBrandHeader: View {
             Image("BrandMark")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 32, height: 32)
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-                .shadow(color: Color(red: 0, green: 0.88, blue: 1).opacity(0.35), radius: 6, y: 1)
+                .frame(width: 30, height: 30)
+                .clipShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
                 .accessibilityHidden(true)
 
-            HStack(alignment: .firstTextBaseline, spacing: -0.5) {
-                Text("airplay")
+            HStack(alignment: .firstTextBaseline, spacing: -0.4) {
+                Text("AIRPLAY")
                     .foregroundStyle(.white)
-                    .tracking(-0.6)
-                Text("r")
+                    .tracking(-0.5)
+                Text("R")
                     .bold()
                     .foregroundStyle(
                         LinearGradient(
@@ -62,18 +61,96 @@ struct IOSBrandHeader: View {
                         )
                     )
             }
-            .font(.system(size: 22, weight: .bold))
-
-            Text("iOS")
-                .font(.system(size: 9, weight: .bold))
-                .foregroundStyle(Color(red: 0, green: 0.88, blue: 1))
-                .padding(.horizontal, 6)
-                .padding(.vertical, 2)
-                .background(Color(red: 0, green: 0.88, blue: 1).opacity(0.16))
-                .clipShape(Capsule())
+            .font(.system(size: 21, weight: .bold))
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel("AirPlayr for iOS")
+    }
+}
+
+// MARK: - Local Media Stager (AVFoundation Security-Scope Sandbox Bridge)
+
+/// Bridges security-scoped files selected from UIDocumentPicker / Files to the app container.
+/// In iOS, AVPlayer delegates decoding to the out-of-process system daemon `mediaserverd`.
+/// Because `mediaserverd` does not inherit external security-scoped permissions, media files
+/// must be staged into the app's local sandbox (`tmp/AirPlayr-Staging/`) before playback.
+enum IOSMediaStager {
+    static let supportedUTTypes: [UTType] = {
+        var types: [UTType] = [.movie, .mpeg4Movie, .quickTimeMovie, .audio]
+        let extensions = ["mp4", "m4v", "mov", "mkv", "m3u8", "ts", "mp3", "m4a", "aac", "flac", "wav"]
+        for ext in extensions {
+            if let ut = UTType(filenameExtension: ext), !types.contains(ut) {
+                types.append(ut)
+            }
+        }
+        return types
+    }()
+
+    enum StagingResult {
+        case ready(URL)
+        case unsupported(String)
+        case failed(String)
+    }
+
+    static func stage(url: URL) -> StagingResult {
+        let tempDir = FileManager.default.temporaryDirectory.appendingPathComponent("AirPlayr-Staging", isDirectory: true)
+        try? FileManager.default.createDirectory(at: tempDir, withIntermediateDirectories: true)
+
+        if url.path.hasPrefix(tempDir.path) || url.path.hasPrefix(Bundle.main.bundlePath) {
+            return .ready(url)
+        }
+
+        let accessed = url.startAccessingSecurityScopedResource()
+        defer {
+            if accessed {
+                url.stopAccessingSecurityScopedResource()
+            }
+        }
+
+        let filename = url.lastPathComponent
+        let targetURL = tempDir.appendingPathComponent(filename)
+
+        try? FileManager.default.removeItem(at: targetURL)
+
+        var copyError: Error?
+        var coordinatorError: NSError?
+        let coordinator = NSFileCoordinator()
+        coordinator.coordinate(readingItemAt: url, options: .withoutChanges, error: &coordinatorError) { coordinatedURL in
+            do {
+                try FileManager.default.copyItem(at: coordinatedURL, to: targetURL)
+            } catch {
+                copyError = error
+            }
+        }
+
+        if copyError != nil || coordinatorError != nil {
+            // Direct copy fallback if coordinator was rejected
+            do {
+                try? FileManager.default.removeItem(at: targetURL)
+                try FileManager.default.copyItem(at: url, to: targetURL)
+            } catch {
+                return .failed("Cannot access \(filename): \(copyError?.localizedDescription ?? coordinatorError?.localizedDescription ?? error.localizedDescription)")
+            }
+        }
+
+        let ext = targetURL.pathExtension.lowercased()
+        if ext == "mkv" {
+            if let handle = try? FileHandle(forReadingFrom: targetURL) {
+                let header = handle.readData(ofLength: 12)
+                try? handle.close()
+                if header.count >= 8,
+                   let ftyp = String(data: header.subdata(in: 4..<8), encoding: .ascii),
+                   ftyp == "ftyp" {
+                    let mp4URL = targetURL.deletingPathExtension().appendingPathExtension("mp4")
+                    try? FileManager.default.removeItem(at: mp4URL)
+                    try? FileManager.default.moveItem(at: targetURL, to: mp4URL)
+                    return .ready(mp4URL)
+                } else if header.starts(with: [0x1A, 0x45, 0xDF, 0xA3]) {
+                    return .unsupported("MKV containers require remuxing. Use MP4, MOV, or M4V on iOS, or stream directly via AirPlay from the Mac app.")
+                }
+            }
+        }
+        return .ready(targetURL)
     }
 }
 
@@ -92,7 +169,8 @@ struct AirPlayrIOSView: View {
 
     @State private var subtitleAppearance = SubtitleAppearance.load()
     @State private var subtitleOffset: Double = 0.0
-    @State private var activeSubtitleText: String = "♪ Zero-Re-Encode 4K fMP4 HLS Ready ♪"
+    @State private var activeSubtitleText: String = ""
+    @State private var errorMessage: String? = nil
     @State private var showingSubtitleSheet = false
     @State private var showingCastSheet = false
     @State private var preventSleep: Bool = true
@@ -100,20 +178,10 @@ struct AirPlayrIOSView: View {
     @State private var isMuted: Bool = false
     @State private var volume: Float = 1.0
 
-    @State private var castDevices: [CastReceiverDevice] = [
-        CastReceiverDevice(id: "cc-1", name: "Living Room Chromecast 4K", model: "CastV2 TLS :8009", kind: .chromecast, endpoint: nil, host: "192.168.1.40", port: 8009, controlURL: nil),
-        CastReceiverDevice(id: "dlna-1", name: "Living Room Smart TV (DLNA)", model: "UPnP AVTransport:1", kind: .miracastDLNA, endpoint: nil, host: "192.168.1.55", port: 1400, controlURL: URL(string: "http://192.168.1.55:1400/MediaRenderer/AVTransport/Control"))
-    ]
+    @State private var castDevices: [CastReceiverDevice] = []
     @State private var selectedReceiverName: String = "Local iPhone Display"
+    @State private var activeAirPlayDeviceName: String? = nil
     @State private var simulatedHingeGutter: CGFloat = 12
-
-    @State private var demoTracks: [String] = [
-        "Big_Buck_Bunny_4K_HEVC.mkv",
-        "Tears_of_Steel_1080p_AV1.mkv",
-        "Sintel_Open_Movie_HDR.mp4",
-        "Cosmos_Laundromat_Atmos.mov"
-    ]
-    @State private var demoTrackIndex: Int = 0
 
     private let cyanGradient = LinearGradient(
         colors: [Color(red: 0, green: 0.88, blue: 1), Color(red: 0.15, green: 0.45, blue: 1)],
@@ -137,7 +205,7 @@ struct AirPlayrIOSView: View {
             )
 
             NavigationStack {
-                ZStack {
+                ZStack(alignment: .bottom) {
                     deepCinemaBackground
                         .ignoresSafeArea()
 
@@ -186,6 +254,42 @@ struct AirPlayrIOSView: View {
                             }
                         }
                     }
+
+                    if let error = errorMessage {
+                        HStack(spacing: 12) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundStyle(.orange)
+                            Text(error)
+                                .font(.system(size: 13, weight: .medium))
+                                .foregroundStyle(.white)
+                                .lineLimit(2)
+                            Spacer()
+                            Button {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    errorMessage = nil
+                                }
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.system(size: 18))
+                                    .foregroundStyle(.white.opacity(0.8))
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityLabel("Dismiss error")
+                        }
+                        .padding(14)
+                        .background(
+                            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                .fill(Color(red: 0.16, green: 0.08, blue: 0.06).opacity(0.96))
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                        .stroke(Color.orange.opacity(0.4), lineWidth: 1)
+                                )
+                                .shadow(color: .black.opacity(0.6), radius: 10, y: 4)
+                        )
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 12)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                    }
                 }
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
@@ -215,11 +319,16 @@ struct AirPlayrIOSView: View {
                 }
                 .fileImporter(
                     isPresented: $isImportingFiles,
-                    allowedContentTypes: [.movie, .mpeg4Movie, .quickTimeMovie, .audio],
+                    allowedContentTypes: IOSMediaStager.supportedUTTypes,
                     allowsMultipleSelection: true
                 ) { result in
-                    if case let .success(urls) = result, !urls.isEmpty {
-                        openQueue(urls)
+                    switch result {
+                    case let .success(urls):
+                        if !urls.isEmpty {
+                            openQueue(urls)
+                        }
+                    case let .failure(error):
+                        withAnimation { errorMessage = error.localizedDescription }
                     }
                 }
                 .sheet(isPresented: $showingSubtitleSheet) {
@@ -237,6 +346,31 @@ struct AirPlayrIOSView: View {
                 }
                 .onAppear {
                     setupTimeObserver()
+                    setupAudioSessionAndAirPlay()
+                    updateConnectedRoute()
+                }
+                .onReceive(player.publisher(for: \.currentItem?.status)) { status in
+                    if status == .failed, let err = player.currentItem?.error {
+                        handlePlaybackFailure(err)
+                    }
+                }
+                .onReceive(NotificationCenter.default.publisher(for: .AVPlayerItemFailedToPlayToEndTime)) { notification in
+                    if let error = notification.userInfo?[AVPlayerItemFailedToPlayToEndTimeErrorKey] as? Error {
+                        handlePlaybackFailure(error)
+                    }
+                }
+                .onReceive(player.publisher(for: \.isExternalPlaybackActive)) { _ in
+                    updateConnectedRoute()
+                }
+                .onReceive(NotificationCenter.default.publisher(for: AVAudioSession.routeChangeNotification)) { _ in
+                    updateConnectedRoute()
+                }
+                .onChange(of: selectedReceiverName) { _, newReceiver in
+                    if newReceiver != "Local iPhone Display" && !queue.isEmpty && !isPlaying {
+                        player.play()
+                        isPlaying = true
+                        UIApplication.shared.isIdleTimerDisabled = preventSleep
+                    }
                 }
             }
         }
@@ -248,8 +382,38 @@ struct AirPlayrIOSView: View {
         ZStack(alignment: .bottom) {
             Color.black
 
-            VideoPlayer(player: player)
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            if queue.isEmpty {
+                VStack(spacing: 10) {
+                    Image(systemName: "film.stack")
+                        .font(.system(size: 38))
+                        .foregroundStyle(.white.opacity(0.3))
+                    Text("No Media Loaded")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundStyle(.white)
+                    Text("Tap Open Media to select video files")
+                        .font(.system(size: 12))
+                        .foregroundStyle(.white.opacity(0.55))
+                    Button {
+                        isImportingFiles = true
+                    } label: {
+                        HStack(spacing: 6) {
+                            Image(systemName: "folder.badge.plus")
+                            Text("Open Media")
+                        }
+                        .font(.system(size: 12, weight: .semibold))
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 7)
+                        .background(cyanGradient)
+                        .foregroundStyle(.white)
+                        .clipShape(Capsule())
+                    }
+                    .padding(.top, 4)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                VideoPlayer(player: player)
+                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            }
 
             // Dark vignette overlay top/bottom
             LinearGradient(
@@ -513,14 +677,16 @@ struct AirPlayrIOSView: View {
                         .stroke(Color.white.opacity(0.08), lineWidth: 1)
                 )
         )
+        .disabled(queue.isEmpty)
+        .opacity(queue.isEmpty ? 0.6 : 1.0)
     }
 
-    // MARK: - Wireless Destinations Bento
+    // MARK: - Playback Output Bento
 
     private var wirelessDestinationBento: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Label("Wireless Destinations", systemImage: "antenna.radiowaves.left.and.right")
+                Label("Playback Output", systemImage: "tv.and.mediabox")
                     .font(.system(size: 14, weight: .bold))
                     .foregroundStyle(.white)
                 Spacer()
@@ -539,7 +705,7 @@ struct AirPlayrIOSView: View {
             VStack(spacing: 8) {
                 // Local Display Option
                 destinationCard(
-                    title: "Local iPhone / Fold Display",
+                    title: "Local iPhone Display",
                     subtitle: "Zero-latency local fMP4 pipeline",
                     icon: "iphone.gen3",
                     badge: "DIRECT",
@@ -549,31 +715,81 @@ struct AirPlayrIOSView: View {
                     selectedReceiverName = "Local iPhone Display"
                 }
 
-                // Chromecast Card
-                ForEach(castDevices.filter { $0.kind == .chromecast }) { dev in
+                // Connected AirPlay Receiver
+                if let airplay = activeAirPlayDeviceName {
                     destinationCard(
-                        title: dev.name,
-                        subtitle: "CastV2 TLS :\(dev.port) • Ultra 4K",
+                        title: airplay,
+                        subtitle: "AirPlay 2 Wireless Stream • Ultra HD",
                         icon: "tv",
-                        badge: "CHROMECAST",
-                        badgeColor: .orange,
-                        isSelected: selectedReceiverName == dev.name
+                        badge: "AIRPLAY",
+                        badgeColor: .cyan,
+                        isSelected: selectedReceiverName == airplay
                     ) {
-                        selectedReceiverName = dev.name
+                        selectedReceiverName = airplay
                     }
                 }
 
-                // DLNA / Miracast Card
-                ForEach(castDevices.filter { $0.kind == .miracastDLNA }) { dev in
-                    destinationCard(
-                        title: dev.name,
-                        subtitle: "\(dev.model) • UPnP AVTransport",
-                        icon: "display",
-                        badge: "DLNA",
-                        badgeColor: .purple,
-                        isSelected: selectedReceiverName == dev.name
-                    ) {
-                        selectedReceiverName = dev.name
+                // AirPlay Route Launcher
+                HStack(spacing: 12) {
+                    Image(systemName: "airplayvideo")
+                        .font(.system(size: 18))
+                        .foregroundStyle(Color(red: 0, green: 0.88, blue: 1))
+                        .frame(width: 24)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("AirPlay Receivers")
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundStyle(.white)
+                        Text(activeAirPlayDeviceName != nil ? "Connected to \(activeAirPlayDeviceName!)" : "Tap icon to route to Apple TV or AirPlay TV")
+                            .font(.system(size: 11))
+                            .foregroundStyle(.white.opacity(0.55))
+                    }
+                    Spacer()
+                    IOSAirPlayRoutePicker()
+                        .frame(width: 32, height: 32)
+                }
+                .padding(10)
+                .background(Color.white.opacity(0.04))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+
+                if castDevices.isEmpty {
+                    HStack(spacing: 8) {
+                        Image(systemName: "info.circle")
+                            .foregroundStyle(.white.opacity(0.4))
+                            .font(.system(size: 13))
+                        Text("No network receivers added. Tap 'Add IP' to connect.")
+                            .font(.system(size: 11))
+                            .foregroundStyle(.white.opacity(0.5))
+                        Spacer()
+                    }
+                    .padding(.vertical, 6)
+                    .padding(.horizontal, 4)
+                } else {
+                    // Chromecast Card
+                    ForEach(castDevices.filter { $0.kind == .chromecast }) { dev in
+                        destinationCard(
+                            title: dev.name,
+                            subtitle: "CastV2 TLS :\(dev.port) • Ultra 4K",
+                            icon: "tv",
+                            badge: "CHROMECAST",
+                            badgeColor: .orange,
+                            isSelected: selectedReceiverName == dev.name
+                        ) {
+                            selectedReceiverName = dev.name
+                        }
+                    }
+
+                    // DLNA / Miracast Card
+                    ForEach(castDevices.filter { $0.kind == .miracastDLNA }) { dev in
+                        destinationCard(
+                            title: dev.name,
+                            subtitle: "\(dev.model) • UPnP AVTransport",
+                            icon: "display",
+                            badge: "DLNA",
+                            badgeColor: .purple,
+                            isSelected: selectedReceiverName == dev.name
+                        ) {
+                            selectedReceiverName = dev.name
+                        }
                     }
                 }
             }
@@ -659,7 +875,7 @@ struct AirPlayrIOSView: View {
                     Label("Up Next Queue", systemImage: "list.and.film")
                         .font(.system(size: 14, weight: .bold))
                         .foregroundStyle(.white)
-                    Text("\(queue.isEmpty ? demoTracks.count : queue.count)")
+                    Text("\(queue.count)")
                         .font(.system(size: 10, weight: .bold).monospacedDigit())
                         .padding(.horizontal, 6)
                         .padding(.vertical, 1)
@@ -684,6 +900,8 @@ struct AirPlayrIOSView: View {
                 if !queue.isEmpty {
                     Button("Clear") {
                         queue.removeAll()
+                        player.replaceCurrentItem(with: nil)
+                        isPlaying = false
                     }
                     .font(.system(size: 11))
                     .foregroundStyle(.white.opacity(0.5))
@@ -692,20 +910,23 @@ struct AirPlayrIOSView: View {
 
             VStack(spacing: 6) {
                 if queue.isEmpty {
-                    ForEach(Array(demoTracks.enumerated()), id: \.offset) { idx, title in
-                        let isCurrent = (idx == demoTrackIndex)
+                    VStack(spacing: 8) {
+                        Image(systemName: "tray")
+                            .font(.system(size: 24))
+                            .foregroundStyle(.white.opacity(0.3))
+                        Text("Queue is empty")
+                            .font(.system(size: 13, weight: .medium))
+                            .foregroundStyle(.white.opacity(0.6))
                         Button {
-                            demoTrackIndex = idx
+                            isImportingFiles = true
                         } label: {
-                            queueRow(
-                                title: title,
-                                subtitle: "Zero-Re-Encode HLS Demo",
-                                isPlaying: isCurrent,
-                                indexText: "\(idx + 1)"
-                            )
+                            Text("Add Media Files")
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(Color(red: 0, green: 0.88, blue: 1))
                         }
-                        .buttonStyle(.plain)
                     }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 18)
                 } else {
                     ForEach(Array(queue.enumerated()), id: \.offset) { idx, url in
                         let isCurrent = (idx == queueIndex)
@@ -825,10 +1046,11 @@ struct AirPlayrIOSView: View {
         if queue.indices.contains(queueIndex) {
             return queue[queueIndex].deletingPathExtension().lastPathComponent
         }
-        return demoTracks[demoTrackIndex]
+        return "No Media Loaded"
     }
 
     private var currentFormatBadge: String {
+        guard !queue.isEmpty else { return "READY" }
         let title = currentTitle.lowercased()
         if title.contains("hevc") || title.contains("265") {
             return "4K HEVC"
@@ -839,7 +1061,7 @@ struct AirPlayrIOSView: View {
         } else if title.contains("atmos") {
             return "Dolby Atmos"
         }
-        return "fMP4 HLS"
+        return queue[queueIndex].pathExtension.uppercased()
     }
 
     private func setupTimeObserver() {
@@ -851,10 +1073,18 @@ struct AirPlayrIOSView: View {
                 duration = cur.duration.seconds
             }
             isPlaying = (player.timeControlStatus == .playing)
+            if let err = player.currentItem?.error {
+                handlePlaybackFailure(err)
+            }
         }
     }
 
     private func togglePlayPause() {
+        guard !queue.isEmpty else { return }
+        if player.currentItem?.status == .failed, let err = player.currentItem?.error {
+            handlePlaybackFailure(err)
+            return
+        }
         if player.timeControlStatus == .playing {
             player.pause()
             isPlaying = false
@@ -867,52 +1097,127 @@ struct AirPlayrIOSView: View {
     }
 
     private func seek(to seconds: Double) {
+        guard !queue.isEmpty else { return }
         currentTime = seconds
         let target = CMTime(seconds: seconds, preferredTimescale: 600)
         player.seek(to: target, toleranceBefore: .zero, toleranceAfter: .zero)
     }
 
     private func skip(by seconds: Double) {
+        guard !queue.isEmpty else { return }
         let newTime = max(0, min(duration > 0 ? duration : 180, currentTime + seconds))
         seek(to: newTime)
     }
 
     private func playPrevious() {
-        if !queue.isEmpty {
-            guard queueIndex > 0 else { return }
-            queueIndex -= 1
-            loadCurrentItem()
-        } else if demoTrackIndex > 0 {
-            demoTrackIndex -= 1
-        }
-    }
-
-    private func playNext() {
-        if !queue.isEmpty {
-            guard queueIndex + 1 < queue.count else { return }
-            queueIndex += 1
-            loadCurrentItem()
-        } else if demoTrackIndex + 1 < demoTracks.count {
-            demoTrackIndex += 1
-        }
-    }
-
-    private func openQueue(_ urls: [URL]) {
-        queue = urls
-        queueIndex = 0
+        guard !queue.isEmpty, queueIndex > 0 else { return }
+        queueIndex -= 1
         loadCurrentItem()
     }
 
-    private func loadCurrentItem() {
+    private func playNext() {
+        guard !queue.isEmpty, queueIndex + 1 < queue.count else { return }
+        queueIndex += 1
+        loadCurrentItem()
+    }
+
+    private func updateConnectedRoute() {
+        let outputs = AVAudioSession.sharedInstance().currentRoute.outputs
+        if let airplay = outputs.first(where: { $0.portType == .airPlay || $0.portType.rawValue.localizedCaseInsensitiveContains("hdmi") }) {
+            let name = airplay.portName.isEmpty ? "AirPlay TV" : airplay.portName
+            activeAirPlayDeviceName = name
+            selectedReceiverName = name
+            if !queue.isEmpty && !isPlaying {
+                player.play()
+                isPlaying = true
+                UIApplication.shared.isIdleTimerDisabled = preventSleep
+            }
+        } else {
+            activeAirPlayDeviceName = nil
+            if !castDevices.contains(where: { $0.name == selectedReceiverName }) {
+                selectedReceiverName = "Local iPhone Display"
+            }
+        }
+    }
+
+    private func handlePlaybackFailure(_ error: Error) {
+        let nsError = error as NSError
+        if player.allowsExternalPlayback && (nsError.code == AVError.externalPlaybackNotSupportedForAsset.rawValue || activeAirPlayDeviceName != nil) {
+            player.allowsExternalPlayback = false
+            if queue.indices.contains(queueIndex) {
+                let url = queue[queueIndex]
+                let item = AVPlayerItem(url: url)
+                player.replaceCurrentItem(with: item)
+                player.play()
+                return
+            }
+        }
+        withAnimation {
+            errorMessage = PlaybackDiagnostics.guidance(error, external: player.isExternalPlaybackActive || activeAirPlayDeviceName != nil)
+        }
+    }
+
+    private func setupAudioSessionAndAirPlay() {
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playback, mode: .moviePlayback, policy: .longFormVideo)
+            try session.setActive(true)
+        } catch {
+            do {
+                try session.setCategory(.playback, mode: .moviePlayback)
+                try session.setActive(true)
+            } catch {
+                print("Audio session error: \(error)")
+            }
+        }
+        player.allowsExternalPlayback = true
+        player.usesExternalPlaybackWhileExternalScreenIsActive = true
+    }
+
+    private func stageURLs(_ urls: [URL]) -> [URL] {
+        var stagedURLs: [URL] = []
+        for url in urls {
+            switch IOSMediaStager.stage(url: url) {
+            case let .ready(stagedURL):
+                stagedURLs.append(stagedURL)
+            case let .unsupported(message):
+                withAnimation { errorMessage = message }
+            case let .failed(message):
+                withAnimation { errorMessage = message }
+            }
+        }
+        return stagedURLs
+    }
+
+    private func openQueue(_ urls: [URL]) {
+        let staged = stageURLs(urls)
+        guard !staged.isEmpty else { return }
+        queue = staged
+        queueIndex = 0
+        loadCurrentItem(autoPlay: false)
+    }
+
+    private func loadCurrentItem(autoPlay: Bool = false) {
         guard queue.indices.contains(queueIndex) else { return }
+        withAnimation { errorMessage = nil }
         let url = queue[queueIndex]
         _ = url.startAccessingSecurityScopedResource()
-        let item = AVPlayerItem(url: url)
         player.allowsExternalPlayback = true
+        player.usesExternalPlaybackWhileExternalScreenIsActive = true
+        let item = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: item)
-        player.play()
-        isPlaying = true
-        UIApplication.shared.isIdleTimerDisabled = preventSleep
+        currentTime = 0
+
+        let isExternal = player.isExternalPlaybackActive || activeAirPlayDeviceName != nil || selectedReceiverName != "Local iPhone Display"
+        if autoPlay || isExternal {
+            player.play()
+            isPlaying = true
+            UIApplication.shared.isIdleTimerDisabled = preventSleep
+        } else {
+            player.pause()
+            isPlaying = false
+            UIApplication.shared.isIdleTimerDisabled = false
+        }
         MPNowPlayingInfoCenter.default().nowPlayingInfo = [
             MPMediaItemPropertyTitle: currentTitle,
             MPNowPlayingInfoPropertyMediaType: MPNowPlayingInfoMediaType.video.rawValue

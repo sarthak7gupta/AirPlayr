@@ -57,7 +57,11 @@ import OSLog
     }
     var canPlayPrevious: Bool { queueIndex > 0 && queueIndex < queue.count }
     var canPlayNext: Bool { queueIndex + 1 < queue.count }
+    #if os(iOS)
     static let supportedMediaExtensions: Set<String> = ["mp4", "m4v", "mov", "mkv"]
+    #else
+    static let supportedMediaExtensions: Set<String> = ["mp4", "m4v", "mov", "mkv", "m2ts", "ts", "mts", "m3u8", "ac4", "vob", "iso"]
+    #endif
     var sourceURL: URL? { scope?.url }
     private(set) var phase: PlaybackPhase = .empty { didSet { updateSleepAssertion(); updateNowPlayingInfo() } }
     private(set) var position = 0.0
@@ -124,20 +128,59 @@ import OSLog
         externalSubtitles?.text(at: seconds - subtitleOffsetSeconds) ?? ""
     }
 
+    #if os(macOS)
+    private static func mountISO(_ url: URL) -> URL? {
+        let task = Process()
+        task.executableURL = URL(fileURLWithPath: "/usr/bin/hdiutil")
+        task.arguments = ["attach", "-nobrowse", "-readonly", "-plist", url.path]
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        task.standardError = Pipe()
+        guard (try? task.run()) != nil else { return nil }
+        task.waitUntilExit()
+        guard task.terminationStatus == 0 else { return nil }
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        if let plist = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any],
+           let entities = plist["system-entities"] as? [[String: Any]] {
+            for entity in entities {
+                if let mountPoint = entity["mount-point"] as? String {
+                    return URL(fileURLWithPath: mountPoint, isDirectory: true)
+                }
+            }
+        }
+        return nil
+    }
+    #endif
+
     static func expandMediaURLs(_ urls: [URL]) -> [URL] {
         var expanded: [URL] = []
         var seen: Set<URL> = []
         for url in urls {
             let scope = FileAccess(url)
             defer { withExtendedLifetime(scope) {} }
-            var isDir: ObjCBool = false
-            if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir), isDir.boolValue {
-                if let children = try? FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]) {
-                    let sorted = children.filter { supportedMediaExtensions.contains($0.pathExtension.lowercased()) }
-                        .sorted { $0.lastPathComponent.localizedStandardCompare($1.lastPathComponent) == .orderedAscending }
-                    for child in sorted where seen.insert(child.standardizedFileURL).inserted {
+            #if os(macOS)
+            if url.pathExtension.lowercased() == "iso" {
+                if let mounted = mountISO(url) {
+                    let discMedia = expandMediaURLs([mounted])
+                    for child in discMedia where seen.insert(child.standardizedFileURL).inserted {
                         expanded.append(child)
                     }
+                    continue
+                }
+            }
+            #endif
+            var isDir: ObjCBool = false
+            if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir), isDir.boolValue {
+                let enumerator = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants])
+                var dirItems: [URL] = []
+                while let fileURL = enumerator?.nextObject() as? URL {
+                    if supportedMediaExtensions.contains(fileURL.pathExtension.lowercased()) {
+                        dirItems.append(fileURL)
+                    }
+                }
+                dirItems.sort { $0.lastPathComponent.localizedStandardCompare($1.lastPathComponent) == .orderedAscending }
+                for child in dirItems where seen.insert(child.standardizedFileURL).inserted {
+                    expanded.append(child)
                 }
             } else if supportedMediaExtensions.contains(url.pathExtension.lowercased()),
                       seen.insert(url.standardizedFileURL).inserted {
@@ -733,7 +776,7 @@ import OSLog
                 self.player.replaceCurrentItem(with: item)
                 self.isPreparingForTV = false
                 self.phase = .ready
-                self.routeMessage = MKVBridge.requiresBridge(sourceURL) ? "MKV prepared automatically • up to 4K/1080p · stereo audio" : "TV-compatible movie • seek with the TV remote or timeline"
+                self.routeMessage = MKVBridge.requiresBridge(sourceURL) ? "MKV prepared automatically • up to 4K/1080p · multichannel audio" : "TV-compatible movie • seek with the TV remote or timeline"
                 self.subtitleGroup = legible; self.audioGroup = audible
                 let externalOption = self.externalSubtitles != nil && !self.burnSubtitlesForTV ? legible?.options.first(where: { $0.displayName == "External SRT" }) : nil
                 let chosenSubtitle = externalOption ?? Self.matchingOption(in: legible, preferredLanguage: self.preferredSubtitleLanguage)

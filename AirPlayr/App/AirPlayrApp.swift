@@ -75,6 +75,7 @@ import UniformTypeIdentifiers
         guard let source = playback.sourceURL else { return }
         let panel = NSSavePanel()
         panel.allowedContentTypes = [.mpeg4Movie]
+        panel.directoryURL = URL(fileURLWithPath: "/tmp", isDirectory: true)
         panel.nameFieldStringValue = source.deletingPathExtension().lastPathComponent + " - TV.mp4"
         panel.message = "Create a new H.264/AAC copy, up to 720p at 30 fps. Uses the first audio track. Loaded SRT subtitles are permanently burned in; embedded subtitle tracks are not copied. Conversion takes time and extra disk space."
         panel.prompt = "Export Copy"

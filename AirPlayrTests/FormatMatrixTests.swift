@@ -22,6 +22,17 @@ import VideoToolbox
     func testCAF() async throws { try await verifyAudio("caf") }
     func testFLAC() async throws { try await verifyAudio("flac") }
 
+    func testExtendedFormatsSupportOnMac() async throws {
+        for ext in ["m2ts", "ts", "mts", "m3u8", "ac4", "vob", "iso"] {
+            XCTAssertTrue(MediaPolicy.extensions.contains(ext), "MediaPolicy must support \(ext)")
+            XCTAssertTrue(PlaybackService.supportedMediaExtensions.contains(ext), "PlaybackService must support \(ext)")
+        }
+        for bridgeExt in ["m2ts", "ts", "mts", "vob", "ac4"] {
+            let dummy = URL(fileURLWithPath: "/tmp/sample." + bridgeExt)
+            XCTAssertTrue(MKVBridge.requiresBridge(dummy), "MKVBridge must require bridge for \(bridgeExt)")
+        }
+    }
+
     func testAV1ExistingAppleDecoderCapability() async throws {
         let source = try fixture("Big Buck Bunny 1080p_av1", "mp4")
         guard VTIsHardwareDecodeSupported(kCMVideoCodecType_AV1) else { throw XCTSkip("AV1 is unavailable on this hardware; no software AV1 decoder is bundled") }

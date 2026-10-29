@@ -80,17 +80,30 @@ struct MainView: View {
                     controls
                 }
                 if let message = state.exporter.message {
-                    HStack {
+                    HStack(spacing: 12) {
                         if state.exporter.isExporting { ProgressView().controlSize(.small) }
                         Text(message).font(.callout)
                         Spacer()
                         if state.exporter.isExporting { Button("Cancel", action: state.exporter.cancel) }
                         if let output = state.exporter.output { Button("Open Copy") { state.playback.open(output); state.exporter.message = nil } }
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                state.exporter.message = nil
+                            }
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 16))
+                                .foregroundStyle(.secondary)
+                        }
+                        .buttonStyle(.plain)
+                        .help("Dismiss message")
+                        .accessibilityLabel("Dismiss message")
                     }.padding(14).background(.blue.opacity(0.08))
                 }
                 if let issue = state.playback.issue ?? state.library.issue {
-                    HStack {
-                        Image(systemName: "exclamationmark.triangle")
+                    HStack(spacing: 12) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundStyle(.orange)
                         VStack(alignment: .leading, spacing: 4) {
                             Text(issue).font(.callout).textSelection(.enabled)
                             if let code = state.playback.diagnosticCode { Text(code).font(.caption.monospaced()).textSelection(.enabled) }
@@ -100,7 +113,19 @@ struct MainView: View {
                             Button("Export Copy…", action: state.exportCompatibleCopy).disabled(state.exporter.isExporting || state.playback.sourceURL == nil || state.playback.sourceURL.map(MKVBridge.requiresBridge) == true)
                         }
                         Spacer()
-                        Button { state.playback.issue = nil; state.library.issue = nil } label: { Image(systemName: "xmark") }.buttonStyle(.plain).accessibilityLabel("Dismiss message")
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                state.playback.issue = nil
+                                state.library.issue = nil
+                            }
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 16))
+                                .foregroundStyle(.secondary)
+                        }
+                        .buttonStyle(.plain)
+                        .help("Dismiss error")
+                        .accessibilityLabel("Dismiss error")
                     }.padding(14).background(.orange.opacity(0.12))
                 }
             }
@@ -529,10 +554,10 @@ struct SidebarBrand: View {
             Image("BrandMark")
                 .resizable().scaledToFit().frame(width: 48, height: 48)
                 .accessibilityHidden(true)
-            HStack(alignment: .firstTextBaseline, spacing: -0.6) {
-                Text("airplay").foregroundStyle(.primary).tracking(-0.8)
-                Text("r").bold().foregroundStyle(LinearGradient(colors: [Color(red: 0, green: 0.88, blue: 1), Color(red: 0.04, green: 0.18, blue: 1)], startPoint: .topLeading, endPoint: .bottomTrailing))
-            }.font(.system(size: 28, weight: .medium))
+            HStack(alignment: .firstTextBaseline, spacing: -0.4) {
+                Text("AIRPLAY").foregroundStyle(.primary).tracking(-0.6)
+                Text("R").bold().foregroundStyle(LinearGradient(colors: [Color(red: 0, green: 0.88, blue: 1), Color(red: 0.04, green: 0.18, blue: 1)], startPoint: .topLeading, endPoint: .bottomTrailing))
+            }.font(.system(size: 26, weight: .bold))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .ignore)

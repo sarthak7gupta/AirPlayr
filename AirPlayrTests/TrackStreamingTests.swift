@@ -123,4 +123,16 @@ import AppKit
         XCTAssertEqual(service.player.rate, 0)
         XCTAssertEqual(editor.string, " ")
     }
+    func testMultichannelAudioTracksAndManifestChannels() async throws {
+        var tracks = StreamTracks()
+        tracks.audio = [
+            StreamAudioTrack(index: 0, name: "English 5.1", language: "en", channels: 6, described: false),
+            StreamAudioTrack(index: 1, name: "Spanish 7.1", language: "es", channels: 8, described: false),
+            StreamAudioTrack(index: 2, name: "Commentary Stereo", language: "en", channels: 2, described: false)
+        ]
+        let manifest = String(decoding: tracks.master(), as: UTF8.self)
+        XCTAssertTrue(manifest.contains("NAME=\"English 5.1\",LANGUAGE=\"en\",AUTOSELECT=YES,DEFAULT=YES,CHANNELS=\"6\""))
+        XCTAssertTrue(manifest.contains("NAME=\"Spanish 7.1\",LANGUAGE=\"es\",AUTOSELECT=YES,DEFAULT=NO,CHANNELS=\"8\""))
+        XCTAssertTrue(manifest.contains("NAME=\"Commentary Stereo\",LANGUAGE=\"en\",AUTOSELECT=YES,DEFAULT=NO,CHANNELS=\"2\""))
+    }
 }

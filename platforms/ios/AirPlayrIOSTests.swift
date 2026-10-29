@@ -114,7 +114,54 @@ struct AirPlayrIOSTestRunner {
         let _ = AirPlayrIOSView()
         let _ = IOSAirPlayRoutePicker()
         print("✓ [iOS] testAirPlayrIOSViewInstantiation passed")
-        print("ALL 6 iOS SIMULATOR TESTS PASSED")
+
+        // 7. IOSMediaStager sandbox bridging and container inspection
+        assertTrue(!IOSMediaStager.supportedUTTypes.isEmpty, "supportedUTTypes must not be empty")
+        
+        let testDir = FileManager.default.temporaryDirectory.appendingPathComponent("ios-tests-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: testDir, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: testDir) }
+
+        // Test normal MP4 staging
+        let normalMP4 = testDir.appendingPathComponent("sample.mp4")
+        try "fake-mp4-data".data(using: .utf8)?.write(to: normalMP4)
+        switch IOSMediaStager.stage(url: normalMP4) {
+        case let .ready(staged):
+            assertTrue(staged.pathExtension.lowercased() == "mp4", "Expected staged MP4")
+            assertTrue(FileManager.default.fileExists(atPath: staged.path), "Staged file must exist")
+        case .unsupported, .failed:
+            fputs("FAILED: Normal MP4 staging failed\n", stderr)
+            exit(1)
+        }
+
+        // Test mislabeled MKV with ftyp box
+        let mislabeledMKV = testDir.appendingPathComponent("mislabeled.mkv")
+        var ftypData = Data([0x00, 0x00, 0x00, 0x1C]) // length 28
+        ftypData.append("ftypisom".data(using: .ascii)!)
+        ftypData.append(Data(repeating: 0, count: 16))
+        try ftypData.write(to: mislabeledMKV)
+        switch IOSMediaStager.stage(url: mislabeledMKV) {
+        case let .ready(staged):
+            assertEqual(staged.pathExtension.lowercased(), "mp4", "Mislabeled MKV with ftyp must be renamed to .mp4")
+        case .unsupported, .failed:
+            fputs("FAILED: Mislabeled MKV staging failed\n", stderr)
+            exit(1)
+        }
+
+        // Test genuine EBML Matroska header
+        let genuineMKV = testDir.appendingPathComponent("genuine.mkv")
+        let ebmlData = Data([0x1A, 0x45, 0xDF, 0xA3, 0x01, 0x00, 0x00, 0x00])
+        try ebmlData.write(to: genuineMKV)
+        switch IOSMediaStager.stage(url: genuineMKV) {
+        case .unsupported:
+            break // Expected
+        case .ready, .failed:
+            fputs("FAILED: Genuine MKV should return .unsupported on iOS AVPlayer\n", stderr)
+            exit(1)
+        }
+        print("✓ [iOS] testIOSMediaStager passed")
+
+        print("ALL 7 iOS SIMULATOR TESTS PASSED")
     }
 }
 #endif
